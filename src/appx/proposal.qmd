@@ -5,7 +5,17 @@ title: "Proposal"
 Your proposal will go here.
 
 * a title
+  * "Frequency of Common Phrases and Events across Scooby-Doo Episodes" 
+  
+  
 * the names of the team members
+  * Adele Fraser, Maria Benito Correa, Sarah Radzilowski
+  
+  
 * a short description of the project
+  * 
+
 * the reasons/inspirations behind choosing this project
+  * We found a dataset on Scooby Doo episodes from the TidyTuesday datasets. Since there are so many variables tracked for each episode, including the number of times a phrase was said in an episode. We thought it would be interesting to analyze if there was a relationship between the number of times a phrase was said (ie "Zoinks" or "Jeepers") was related to events of an episode.
+
 * a rough implementation and responsibility plan, ie, what needs to be accomplished and who will do what when. Think about the list of deliverables when building the plan. The plan should be presented in a table format.
