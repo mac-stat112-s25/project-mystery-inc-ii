@@ -18,12 +18,14 @@ Your proposal will go here.
 
 -   the reasons/inspirations behind choosing this project
 
-    -   We found a dataset on Scooby Doo episodes from the TidyTuesday datasets. Since there are so many variables tracked for each episode, including the number of times a phrase was said in an episode. We thought it would be interesting to analyze if there was a relationship between the number of times a phrase was said (ie "Zoinks" or "Jeepers") was related to events of an episode.
+    -   We found a dataset on Scooby Doo episodes from the TidyTuesday datasets. Since there are so many variables tracked for each episode, including the number of times a phrase was said in an episode. We thought it would be interesting to analyze if there was a relationship between the number of times a phrase was said (ie "Zoinks" or "Jeepers") and events of an episode (ie the type of monster or which character said phrases more often).
 
--   a rough implementation and responsibility plan, ie, what needs to be accomplished and who will do what when. Think about the list of deliverables when building the plan. The plan should be presented in a table format.
+-   a rough implementation and responsibility plan, ie, what needs to be accomplished and who will do what when.
+    Think about the list of deliverables when building the plan.
+    The plan should be presented in a table format.
 
     | What? | Who? | When? |
-    |----|----|----|
+    |------------------------|------------------------|------------------------|
     | Create Github Repository | Everyone | 4/9 |
     | Group Project proposal | Everyone | 4/9 |
     | Case study | Everyone | 4/9 |
