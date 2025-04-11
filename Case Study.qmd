@@ -1,0 +1,24 @@
+---
+title: "Case Study"
+format: html
+---
+
+##Case Study: Six Charts To Help Americans Understand The Upcoming German Election
+#https://fivethirtyeight.com/features/six-charts-to-help-americans-understand-the-upcoming-german-election/ 
+
+"Six Charts To Help Americans Understand The Upcoming German Election" by Anna Hazard starts by providing a short context of why the author created this report.
+
+Then, the report presents six research questions. The questions start off broad (What are Germans voting on? What are the parties and what do they stand for?) and increasingly become more specific (Who’s in these parties? What is Afd?). At the end of the report, the author proposes and answers some follow-up questions related to the upcoming election (What else should I look out for in this election?).
+
+Each question is answered by short paragraphs of text followed by a visualization. The report includes a variety of visualizations we have made in class before: maps and scatter plots, and some that we are less familiar with making: tables, charts with organized dots, and more. Most of the visualizations have a title, followed by a one sentence caption. The visualizations are full of color. 
+
+The report and visualizations also compare German political parties to American political parties. This helps put the numbers into context and better explains the German political party system for an American audience, like the title suggests. 
+
+
+
+
+
+
+
+
+
