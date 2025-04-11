@@ -3,3 +3,14 @@ title: "SarahR"
 format: html
 ---
 
+```{r}
+# load data and packages
+
+library(tidyverse)
+library(tidytuesdayR)
+
+tuesdata <- tidytuesdayR::tt_load(2021, week = 29)
+
+scoobydoo <- tuesdata$scoobydoo
+```
+
