@@ -41,8 +41,14 @@ book:
   appendices:
   - src/appx/proposal.qmd
   - src/appx/case-study.qmd
-  - src/appx/AdeleF.qmd
-  - src/appx/SarahR.qmd
+
+  effective-teamwork:
+  - src/eff-team/AdeleF.qmd
+  - src/eff-team/Maria'sEffectiveTeamwork.qmd
+  - src/eff-team/SarahR.qmd
+  
+  EDA:
+  
 
 
 

@@ -25,7 +25,7 @@ Your proposal will go here.
     The plan should be presented in a table format.
 
     | What? | Who? | When? |
-    |------------------------|------------------------|------------------------|
+    |----|----|----|
     | Create Github Repository | Everyone | 4/9 |
     | Group Project proposal | Everyone | 4/9 |
     | Case study | Everyone | 4/9 |
