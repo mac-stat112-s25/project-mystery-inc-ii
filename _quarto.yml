@@ -48,7 +48,9 @@ book:
   - src/eff-team/SarahR.qmd
   
   EDA:
-  
+  - src/EDA/AdeleF.qmd
+  - src/EDA/MariaB.qmd
+  - src/EDA/SarahR.qmd
 
 
 
