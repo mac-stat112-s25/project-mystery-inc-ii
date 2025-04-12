@@ -3,3 +3,111 @@ title: "MariaB"
 format: html
 ---
 
+##EDA 
+#Guiding question 1: Does the presence of Batman in an episode influence (either) if a trap was used, or the amount of monsters present?
+#Guiding question 2: Does a certain type of monster trigger some phrases more than others?
+
+#load packages
+```{r}
+library(tidyverse)
+library(dplyr)
+library(DataExplorer) #new package from Michael Clark blog post as shown in slides
+```
+
+#load data
+```{r}
+tuesdata <- tidytuesdayR::tt_load(2021, week = 29)
+scoobydoo <- tuesdata$scoobydoo
+```
+
+
+```{r}
+head(scoobydoo)
+```
+
+```{r}
+str(scoobydoo)
+```
+
+#Report using data explorer package
+```{r}
+create_report(scoobydoo)
+
+```
+#phrases that are said multiple times (more than 2) in an episode: 'zoinks', 'jinkies'
+#phrases said mostly once or twice: 'sooby doo where are you', 'rooby rooby roo', 'my glasses', 'just about wrapped up' 
+#133 monster categories
+
+
+
+##For guiding question 1: Does the presence of Batman in an episode influence (either) if a trap was used, or the amount of monsters present?
+
+
+
+```{r}
+# Convert to factor if needed
+#data$batman_present <- as.factor(data$batman_present)
+scoobydoo$set_a_trap <- as.factor(scoobydoo$set_a_trap)
+
+# Check proportions
+table(scoobydoo$batman, scoobydoo$set_a_trap)
+prop.table(table(scoobydoo$batman, scoobydoo$set_a_trap), 1)
+
+
+
+```
+#On average, there are more monsters present when batman is in an episode. But, there are many large outliers when batman is not present in an episode. 
+```{r}
+ggplot(scoobydoo, aes(x = batman, y = monster_amount)) +
+  geom_boxplot() 
+
+```
+
+
+
+
+
+##For guiding question 2: Does a certain type of monster trigger some phrases more than others?
+
+#how often are the phrases said?
+```{r}
+scoobydoo %>%
+  count(zoinks)
+#26 times in one episode
+
+scoobydoo %>%
+  count(groovy)
+#14 times in one episode
+
+scoobydoo %>%
+  count(jeepers)
+#10 times in one episode
+
+scoobydoo %>%
+  count(rooby_rooby_roo)
+#7 times in one epsiode
+
+
+scoobydoo %>%
+  count(scooby_doo_where_are_you)
+#4 times in one episdoe
+
+
+```
+
+#What type of monsters are there and how often do they come up in the data?
+```{r}
+scoobydoo |> 
+  count(monster_type)
+```
+
+```{r}
+scoobydoo %>%
+  count(monster_type, sort = TRUE) %>%
+  ggplot(aes(x = reorder(monster_type, -n), y = n, fill = monster_type)) +
+  geom_col(show.legend = FALSE) +
+  labs(title = "Count of Monster Types", x = "Monster Type", y = "Count")
+
+```
+
+
