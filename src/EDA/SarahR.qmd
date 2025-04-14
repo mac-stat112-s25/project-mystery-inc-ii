@@ -14,3 +14,169 @@ tuesdata <- tidytuesdayR::tt_load(2021, week = 29)
 scoobydoo <- tuesdata$scoobydoo
 ```
 
+```{r}
+summary(scoobydoo)
+```
+```{r}
+scoobydoo |>
+  filter(monster_amount > 16) |>
+  select(title, contains("monster"))
+
+ggplot(scoobydoo, aes(x=monster_amount))+
+  geom_bar()
+```
+```{r, fig.width = 12}
+scoobydoo |>
+  filter(imdb != "NULL") |>
+  ggplot(aes(x=imdb, group=series_name, fill = series_name))+
+  geom_histogram(stat="count", binwidth = 1)+
+  theme(legend.position = "bottom")
+
+```
+```{r}
+# individual monsters of TV series
+scoobydoo2 <- scoobydoo |>
+  filter(season %in% c("1", "2","3", "4"),
+         format == "TV Series") |>
+  filter(monster_name != "NULL") |>
+  mutate(monster_name = str_replace(monster_name, "Dr. Phineus Phibes,Agent 1,Agent 2,Agent 3,Agent 4,Agent 5,Agent 6,Agent 7,Agent,8,Agent,9,Agent 10,Agent 11,Agent 12,Agent 13,Dr. Trebal", "Dr. Phineus Phibes,Agent 1,Agent 2,Agent 3,Agent 4,Agent 5,Agent 6,Agent 7,Agent 8,Agent 9,Agent 10,Agent 11,Agent 12,Agent 13,Dr. Trebal")) |>
+  select(title, season, series_name, contains("monster")) |>
+  pivot_longer(cols = c(monster_name, monster_gender, monster_type, monster_subtype, monster_species), names_to = "monster_var", values_to = "monster") |>
+  separate(monster, c("monster1", "monster2", "monster3", "monster4", "monster5", "monster6", "monster7", "monster8", "monster9", "monster10", "monster11", "monster12", "monster13", "monster14", "monster15", "monster16"), sep = ",") |>
+  pivot_wider(names_from = monster_var, values_from = monster1:monster16) 
+```
+
+``` {r}
+# what are the most common monster types, names from TV episodes?
+# figure out how to get this for all monsters (not just monster1)
+scoobydoo2 |>
+  count(monster1_monster_name) |>
+  filter(n > 1) |>
+  mutate(monster1_monster_name = fct_reorder(monster1_monster_name, n)) |>
+  ggplot(aes(y=monster1_monster_name, x = n))+
+  geom_col()+
+  labs(title = "Most Common Monster Names")
+
+scoobydoo2 |>
+  count(monster1_monster_type) |>
+  filter(n > 1) |>
+  mutate(monster1_monster_type = fct_reorder(monster1_monster_type, n)) |>
+  ggplot(aes(y=monster1_monster_type, x = n))+
+  geom_col()+
+  labs(title = "Most Common Monster Types")
+  
+
+# are monsters real or not?
+ggplot(scoobydoo2, aes(x=monster_real, fill = monster1_monster_type))+
+  geom_bar(color = "white")
+```
+
+
+
+``` {r}
+scoobydoo |>
+  group_by(series_name) |>
+  summarize(n = n()) |>
+  arrange((desc(n)))
+
+scoobydoo |>
+  group_by(season) |>
+  summarize(n = n()) 
+
+scoobydoo |>
+  group_by(format) |>
+  summarize(n = n())
+
+
+# so we should probably focus on tv episodes and not movies?
+```
+```{r}
+# filter to be just seasons
+scoobydoo_tv <- scoobydoo |>
+  filter(season %in% c("1", "2", "3", "4"))
+
+scoobydoo_tv |>
+  group_by(season) |>
+  summarize(n = n())
+# i'm not well-versed enough on scoobydoo...why does season 4 only have 5 episodes?
+
+scoobydoo_tv |>
+  filter(season == "4")
+```
+
+```{r}
+ggplot(scoobydoo_tv, aes(x=run_time))+
+  geom_histogram()
+
+scoobydoo_tv |>
+  filter(series_name == "A Pup Named Scooby-Doo") |>
+  summarize(sum = sum(run_time))
+
+
+```
+
+```{r}
+scoobydoo_tv |>
+  group_by(series_name, season) |>  
+  summarize(length = sum(run_time), .groups = "drop") |>  
+  group_by(series_name) |>  
+  mutate(total_length = sum(length)) |>  
+  ungroup() |>  
+  mutate(series_name = fct_reorder(series_name, total_length)) |> 
+  mutate(season = factor(season, levels=sort(unique(season), decreasing = TRUE))) |>
+  ggplot(aes(x = series_name, y = length, fill = season)) +
+  geom_col(color = "white", linewidth = 0.25) +
+  coord_flip() +
+  geom_text(aes(label = length), position = position_stack(vjust = 0.5), 
+            size = 2.75, color = "black") +
+  geom_label(aes(label = total_length, y =1250), size = 3, fill = "white")+
+  labs(title = "Scooby-Doo Series Runtime by Season",
+       subtitle = "Total Series Runtime at the Right",
+       x = "Series Name",
+       y = "Total Runtime",
+       fill = "Season")
+```
+
+
+```{r}
+# snacks!
+
+scooby_snacks <- scoobydoo_tv |>
+  select(index, series_name, title, season, contains("snack"))
+
+scooby_snacks |>
+  select(contains("snack")) |>
+  mutate(velma_snacks = str_count(snack_velma, "TRUE"),
+         fred_snacks = str_count(snack_fred, "TRUE"),
+         daphnie_snacks = str_count(snack_daphnie, "TRUE"),
+         shaggy_snacks = str_count(snack_shaggy, "TRUE"),
+         scooby_snacks = str_count(snack_scooby, "TRUE")) |>
+  summarize(total_velma = sum(velma_snacks),
+            total_fred = sum(fred_snacks),
+            total_daphnie = sum(daphnie_snacks),
+            total_shaggy = sum(shaggy_snacks),
+            total_scooby = sum(scooby_snacks)) |>
+  pivot_longer(cols = 1:5, names_to = "char", values_to = "n_snacks") |>
+  ggplot(aes(x=char, y = n_snacks))+
+  geom_col()
+
+scooby_snacks |>
+  mutate(number_of_snacks = str_sub(number_of_snacks, start = 0, end = 1)) |>
+  filter(number_of_snacks != "a",
+         number_of_snacks != "l",
+         number_of_snacks != "N", 
+         number_of_snacks != "s",
+         number_of_snacks != "t") |>
+  group_by(series_name) |>
+  mutate(total_snacks = sum(as.numeric(number_of_snacks))) |> # fix these numbers
+  mutate(n_episodes = n()) |>
+  ggplot(aes(x=total_snacks, y =series_name))+
+  geom_col()+
+  geom_label(aes(label = n_episodes, x = 10))+
+  labs(title = "Number of Snacks Eateneaten in each series",
+       subtitle = "number of episodes displayed at the right")
+
+
+```
+
+
