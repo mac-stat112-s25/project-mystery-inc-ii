@@ -1,5 +1,99 @@
 ---
-title: "AdeleF"
+title: "Adele F"
 format: html
 ---
+
+```{r import}
+# load data and packages
+
+library(tidyverse)
+library(tidytuesdayR)
+library(dplyr)
+library(forcats)
+library(DataExplorer)
+
+tuesdata <- tidytuesdayR::tt_load(2021, week = 29)
+
+scoobydoo <- tuesdata$scoobydoo
+```
+
+```{r explore monster numbers}
+head(scoobydoo)
+dim(scoobydoo)
+
+scoobydoo |>
+  group_by(monster_amount) |>
+  summarize(number_of_episodes = n())
+
+#Looking deeper into the episodes and observations that have no monsters
+scoobydoo |>
+  filter(monster_amount == 0) |>
+  group_by(series_name, season) |>
+  summarize(count = n()) |>
+  arrange(desc(count))
+
+scoobydoo |>
+  filter(monster_amount == 19)
+```
+
+```{r exploring gender ratios}
+cat_a <- c("Female")
+cat_b <- c("Male")
+
+scoobydoo |>
+  group_by(monster_gender) |>
+  summarize(number = n()) |>
+  filter(monster_gender != "NULL") |>
+  mutate(binary_gender = case_when(
+    monster_gender %in% cat_a ~ "Female",
+    monster_gender %in% cat_b ~ "Male",
+    TRUE ~ ">1")) |>
+  group_by(binary_gender) |>
+  summarize(total = sum(number))
+
+scoobydoo |>
+  group_by(culprit_gender) |>
+  summarize(number = n()) |>
+  filter(culprit_gender != "NULL") |>
+  mutate(binary_gender = case_when(
+    culprit_gender %in% cat_a ~ "Female",
+    culprit_gender %in% cat_b ~ "Male",
+    TRUE ~ ">1")) |>
+  group_by(binary_gender) |>
+  summarize(total = sum(number))
+
+
+```
+From the above table, I learned that 30 episodes have 1 female monster, 319 episodes have 1 male monster, and 167 episodes have more than one monster. Doing the same type of analysis for the number of culprits, I learn tnat there are 116 episodes with more than one culprit, 61 with female culprits, and 263 with male culprits.
+
+
+```{r explore with DataExplorer package}
+scoobydoo |>
+  introduce()
+
+plot_intro(scoobydoo)
+
+plot_bar(scoobydoo)
+
+```
+
+
+```{r explore speech variables}
+scoobydoo |>
+  filter(jeepers >= 1, jeepers != "NULL") |>
+  select(index, jeepers) |>
+  arrange(desc(jeepers))
+
+scoobydoo |>
+  filter(zoinks >= 1, zoinks != "NULL") |>
+  select(index, zoinks) |>
+  arrange(desc(zoinks)) |>
+  group_by(zoinks) |>
+  summarize(n()) |>
+  arrange(desc(zoinks))
+
+```
+
+
+
 
