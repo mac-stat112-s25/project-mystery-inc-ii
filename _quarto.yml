@@ -50,7 +50,7 @@ book:
       - src/eda/AdeleF.qmd
       - src/eda/MariaB.qmd
       - src/eda/SarahR.qmd
-      - src/eda/KupakwasheM.qmd
+      - src/eda/KupakwasheR.qmd
   
   appendices:
   - src/appx/proposal.qmd
