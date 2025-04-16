@@ -1,0 +1,13 @@
+---
+title: "EDA"
+execute: 
+  echo: true      # change to true to show the code
+code-fold: false  # change to true to fold the code chunks
+---
+
+```{r}
+Scoob <- read.csv("/Users/kupakwashemhere/Desktop/Scooby-Doo Completed.csv")
+```
+
+
+
