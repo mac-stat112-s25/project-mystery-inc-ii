@@ -43,7 +43,7 @@ book:
       - src/eff-team/AdeleF.qmd
       - src/eff-team/MariaB.qmd
       - src/eff-team/SarahR.qmd
-      - src/eff-team/KupakwasheR.qmd
+      - src/eff-team/KupakwasheM.qmd
   
     - part: "EDA"
       chapters:
