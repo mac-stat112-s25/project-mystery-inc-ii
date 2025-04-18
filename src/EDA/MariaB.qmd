@@ -7,6 +7,7 @@ format: html
 #Guiding question 1: Does the presence of Batman in an episode influence (either) if a trap was used, or the amount of monsters present?
 #Guiding question 2: Does a certain type of monster trigger some phrases more than others?
 
+
 #load packages
 ```{r}
 library(tidyverse)
@@ -109,5 +110,43 @@ scoobydoo %>%
   labs(title = "Count of Monster Types", x = "Monster Type", y = "Count")
 
 ```
+
+##NEW EDA with wrangled data (monsters separated) AND new question
+#First wrangle data with code from Sarah
+
+```{r}
+# individual monsters of TV series
+scoobydoo_clean <- scoobydoo |>
+  filter(season %in% c("1", "2","3", "4"),
+         format == "TV Series") |>
+  filter(monster_name != "NULL") |>
+  mutate(monster_name = str_replace(monster_name, "Dr. Phineus Phibes,Agent 1,Agent 2,Agent 3,Agent 4,Agent 5,Agent 6,Agent 7,Agent,8,Agent,9,Agent 10,Agent 11,Agent 12,Agent 13,Dr. Trebal", "Dr. Phineus Phibes,Agent 1,Agent 2,Agent 3,Agent 4,Agent 5,Agent 6,Agent 7,Agent 8,Agent 9,Agent 10,Agent 11,Agent 12,Agent 13,Dr. Trebal")) |>
+  select(title, season, series_name, contains("monster")) |>
+  pivot_longer(cols = c(monster_name, monster_gender, monster_type, monster_subtype, monster_species), names_to = "monster_var", values_to = "monster") |>
+  separate(monster, c("1monster", "2monster", "3monster", "4monster", "5monster", "6monster", "7monster", "8monster", "9monster", "10monster", "11monster", "12monster", "13monster", "14monster", "15monster"), sep = ",") |>
+  pivot_longer(cols = ends_with("monster"), names_to = "monster_num", values_to = "monster_value") |>
+  pivot_wider(names_from = monster_var, values_from = monster_value) |>
+  mutate(monster_num = as.numeric(str_sub(monster_num, 1, 1))) |>
+  na.omit()
+```
+
+#New question:
+#Does the gender of a character influence their likelihood of being portrayed as a monster or criminal, and are there specific phrases that consistently appear in episodes featuring female vs. male villains?
+
+
+#Gender of monsters
+```{r}
+ggplot(scoobydoo_clean, aes(y = monster_type, fill = monster_gender,)) + 
+  geom_bar(position = "fill")
+```
+
+
+
+
+
+
+
+
+
 
 
