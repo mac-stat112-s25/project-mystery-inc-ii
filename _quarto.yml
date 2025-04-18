@@ -38,6 +38,21 @@ book:
   chapters:
     - index.qmd
 
+    - part: "Effective Teamwork"
+      chapters:
+      - src/eff-team/AdeleF.qmd
+      - src/eff-team/MariaB.qmd
+      - src/eff-team/SarahR.qmd
+
+
+  
+    - part: "EDA"
+      chapters:
+      - src/eda/AdeleF.qmd
+      - src/eda/MariaB.qmd
+      - src/eda/SarahR.qmd
+      - src/eda/KupakwasheM.qmd
+  
   appendices:
   - src/appx/proposal.qmd
   - src/appx/case-study.qmd
