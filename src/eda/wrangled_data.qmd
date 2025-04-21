@@ -30,7 +30,11 @@ scoobydoo_monsters <- scoobydoo |>
   separate(monster_num, c("monster_num", "x"), sep = "m") |>
   mutate(monster_num = as.numeric(monster_num)) |>
   select(-x) |>
-  na.omit()
+  na.omit() |>
+  mutate(monster_type = ifelse(monster_type == "Disugised", "Disguised", monster_type),
+          monster_type = ifelse(monster_type == "Disguise", "Disguised", monster_type)) |>
+  mutate(monster_type = str_trim(monster_type, side = "left"))
+
 
 
 ```
@@ -53,7 +57,8 @@ scoobydoo_culprits <- scoobydoo |>
   separate(culprit_num, c("culprit_num", "x"), sep = "c") |>
   select(-x) |>
   mutate(culprit_num = as.numeric(culprit_num)) |>
-  na.omit()
+  na.omit() |>
+  mutate(culprit_gender = str_trim(culprit_gender, side = "left"))
 
 ```
 ```{r}
