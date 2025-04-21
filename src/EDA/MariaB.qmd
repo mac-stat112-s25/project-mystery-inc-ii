@@ -32,8 +32,7 @@ str(scoobydoo)
 
 #Report using data explorer package
 ```{r}
-create_report(scoobydoo)
-
+#create_report(scoobydoo)
 ```
 #phrases that are said multiple times (more than 2) in an episode: 'zoinks', 'jinkies'
 #phrases said mostly once or twice: 'sooby doo where are you', 'rooby rooby roo', 'my glasses', 'just about wrapped up' 
@@ -136,11 +135,14 @@ scoobydoo_clean <- scoobydoo |>
 
 #Gender of monsters
 ```{r}
+#| fig-cap: "Data source: Jon Harmon, @jonthegeek on Kaggle. Accessed on 04/09/2025. https://github.com/rfordatascience/tidytuesday/blob/main/data/2021/2021-07-13/readme.md." 
+#| fig-alt: "This is a bar chart of monster type by gender. On the y-axis, there are all the monster types. On the x-axis, are decimals counting up to 1. The bars show the proportion of each monster that is male, female, and none. The monster type with most female versions is magician. More than half magicians are female. After that, not many monsters have female versions – undead, ancient, mythical, mechanical have a few female versions, but less than a quarter of those monsters are female. "
 ggplot(scoobydoo_clean, aes(y = monster_type, fill = monster_gender,)) + 
-  geom_bar(position = "fill")
+  geom_bar(position = "fill")+
+  labs(x = "Proportion of Each Gender", y = "Monster Type", title = "Monster Type by Gender",  fill = "Monster Gender") +
+  scale_fill_viridis_d()    
+  
 ```
-
-
 
 
 
