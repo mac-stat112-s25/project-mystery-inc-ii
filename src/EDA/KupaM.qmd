@@ -16,20 +16,67 @@ scooby <- tuesdata$scoobydoo |> clean_names()
 ```
 
 ```{r exploring culprit gender distribution by series}
+selected_series <- c(
+  "Scooby-Doo, Where Are You!",
+  "What's New, Scooby-Doo?",
+  "Scooby-Doo! Mystery Incorporated",
+  "Be Cool, Scooby-Doo!",
+  "The New Scooby-Doo Movies",
+  "The 13 Ghosts of Scooby-Doo"
+)
 
 scooby %>%
   filter(!is.na(culprit_gender), culprit_gender != "NULL") %>%
   mutate(culprit_gender = str_to_title(culprit_gender)) %>%
+  mutate(culprit_gender = case_when(
+    culprit_gender %in% c("Male", "Female") ~ culprit_gender,
+    TRUE ~ "Other"
+  )) %>%
+  filter(series_name %in% selected_series) %>%
   group_by(series_name, culprit_gender) %>%
   summarize(episodes = n(), .groups = "drop") %>%
   ggplot(aes(x = culprit_gender, y = episodes, fill = culprit_gender)) +
   geom_col(show.legend = FALSE) +
-  facet_wrap(~ series_name, scales = "free_y") +
-  labs(title = "Culprit Gender by Series", x = "Gender", y = "Number of Episodes") +
-  theme_minimal()
+  facet_wrap(~ series_name, scales = "free_y", ncol = 1) +
+  labs(
+    title = "Culprit Gender Across Six Scooby-Doo Series",
+    x = "Gender",
+    y = "Number of Episodes"
+  ) +
+  theme_minimal(base_size = 14) +
+  theme(
+    plot.title = element_text(face = "bold", size = 18, hjust = 0.5),
+    strip.text = element_text(size = 14, face = "bold"),
+    axis.text.x = element_text(angle = 45, hjust = 1),
+    axis.text = element_text(size = 12),
+    axis.title = element_text(size = 13)
+  )
+
 
 ```
+
 Across most series, male culprits dominate the episodes
+
+```{r analysis of how female characters change over time}
+
+female_monsters <- scooby %>%
+  filter(!is.na(monster_gender), monster_gender == "Female") %>%
+  group_by(season) %>%
+  summarize(female_monsters_count = n(), .groups = "drop") %>%
+  arrange(season)
+
+ggplot(female_monsters, aes(x = season, y = female_monsters_count)) +
+  geom_line(color = "blue", size = 1) +
+  geom_point(color = "red") +
+  labs(
+    title = "Female Monsters Across Scooby-Doo Seasons",
+    x = "Season",
+    y = "Number of Female Monsters"
+  ) +
+  theme_minimal(base_size = 14)
+
+```
+
 
 ```{r Exploring Catchphrases used by series}
 
