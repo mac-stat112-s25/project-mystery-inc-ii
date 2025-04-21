@@ -1,0 +1,67 @@
+---
+title: "KupaM"
+format: html
+---
+
+```{r setup}
+# Load required libraries
+library(tidyverse)
+library(tidytuesdayR)
+library(janitor)
+library(ggthemes)
+
+# Load the Scooby-Doo dataset
+tuesdata <- tidytuesdayR::tt_load(2021, week = 29)
+scooby <- tuesdata$scoobydoo |> clean_names()
+```
+
+```{r exploring culprit gender distribution by series}
+
+scooby %>%
+  filter(!is.na(culprit_gender), culprit_gender != "NULL") %>%
+  mutate(culprit_gender = str_to_title(culprit_gender)) %>%
+  group_by(series_name, culprit_gender) %>%
+  summarize(episodes = n(), .groups = "drop") %>%
+  ggplot(aes(x = culprit_gender, y = episodes, fill = culprit_gender)) +
+  geom_col(show.legend = FALSE) +
+  facet_wrap(~ series_name, scales = "free_y") +
+  labs(title = "Culprit Gender by Series", x = "Gender", y = "Number of Episodes") +
+  theme_minimal()
+
+```
+Across most series, male culprits dominate the episodes
+
+```{r Exploring Catchphrases used by series}
+
+catchphrases <- scooby %>%
+  select(series_name, zoinks, jeepers, jinkies) %>%
+  pivot_longer(cols = -series_name, names_to = "phrase", values_to = "count") %>%
+  mutate(count = as.numeric(count)) %>%
+filter(!is.na(count), count > 0)
+
+catchphrases %>%
+  group_by(series_name, phrase) %>%
+  summarize(total = sum(count), .groups = "drop") %>%
+  ggplot(aes(x = phrase, y = total, fill = phrase)) +
+  geom_col(show.legend = FALSE) +
+  facet_wrap(~ series_name, scales = "free_y") +
+  labs(title = "Catchphrase Frequency by Series", x = "Catchphrase", y = "Total Uses") +
+  theme_bw()
+
+```
+Catchphrase usage varies significantly by series, reflecting changes in writing styles or featured characters.
+
+```{r Exploring top episodes with monsters}
+
+scooby %>%
+  filter(!is.na(monster_amount)) %>%
+  arrange(desc(monster_amount)) %>%
+  slice_max(monster_amount, n = 10) %>%
+  select(title, series_name, season, monster_amount)
+
+```
+Certain episodes feature significantly more monsters, possibly due to special episodes or finales.
+
+
+
+
