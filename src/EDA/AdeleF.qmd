@@ -124,8 +124,21 @@ scoobydoo_clean |>
   summarize(number = n()) |>
   ggplot(aes(x = monster_gender, y = number)) +
   geom_bar(stat = "identity")
+
+# scoobydoo_clean |>
+#   mutate(human_ = ifelse(monster_species == "Human"){"Human"}, ifelse{"Not_Human"}) |>
+#   group_by(monster_gender) |>
+#   summarize(number = n()) |>
+#   ggplot(aes(x = monster_gender, y = number)) +
+#   geom_bar(stat = "identity")
 ```
 Between human and non-human monsters, the gender ratio seems relatively similar.
+
+```{r gendered phrases exploration}
+#This section will explore the relationship between certain phrases and the gender ratio of monsters
+
+```
+
 
 
 
