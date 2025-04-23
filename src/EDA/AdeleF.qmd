@@ -180,37 +180,52 @@ scoobydoo_culprits |>
   labs(title = "Motives by Gender of Culprit",
        fill = "Culprit Gender",
        x = "Motive",
-       y = "Proportion")
+       y = "Proportion",
+       )
 
 ```
 
 
 ```{r wrangling}
 scoobydoo_monsters |>
+  filter(monster_gender != "None") |>
   filter(unmask_fred == "TRUE") |>
   group_by(monster_gender) |>
   summarize(n())
 
 scoobydoo_monsters |>
+  filter(monster_gender != "None") |>
   filter(unmask_daphnie == "TRUE") |>
   group_by(monster_gender) |>
   summarize(n())
   
 scoobydoo_monsters |>
+  filter(monster_gender != "None") |>
   filter(unmask_velma == "TRUE") |>
   group_by(monster_gender) |>
   summarize(n())
   
 scoobydoo_monsters |>
+  filter(monster_gender != "None") |>
   filter(unmask_shaggy == "TRUE") |>
   group_by(monster_gender) |>
   summarize(n())
   
 scoobydoo_monsters |>
+  filter(monster_gender != "None") |>
   filter(unmask_scooby == "TRUE") |>
   group_by(monster_gender) |>
   summarize(n())
   
+```
+
+```{r episodes per season table}
+scoobydoo |>
+  filter(!season %in% c("Crossover", "Movie", "Special")) |>
+  group_by(season) |>
+  summarize(number_of_episodes = n())
+
+
 ```
 
 
