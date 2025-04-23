@@ -183,6 +183,18 @@ scoobydoo_culprits |>
        y = "Proportion",
        )
 
+scoobydoo_monsters |>
+  group_by(season, monster_gender) |>
+  filter(monster_gender != "None") |>
+  mutate(monster_gender = str_trim(monster_gender, side = "left")) |>
+  ggplot(aes(x = season, fill = monster_gender)) +
+  geom_bar(color = "white", linewidth = 0.25) +
+  coord_flip() +
+  labs(title = "Monster Gender Counts by Season",
+       fill = "Monster Gender",
+       x = "Season",
+       y = "Number of Monsters"
+       )
 ```
 
 
@@ -224,8 +236,6 @@ scoobydoo |>
   filter(!season %in% c("Crossover", "Movie", "Special")) |>
   group_by(season) |>
   summarize(number_of_episodes = n())
-
-
 ```
 
 
