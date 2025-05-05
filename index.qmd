@@ -201,7 +201,8 @@ scoobydoo_monsters |>
 ```
 
 :::{.callout-note title="Explanation"}
-write expalantion here
+Specifically focusing on female monsters, which are underrepresented across all seasons, the total number of female monsters drops across seasons and reaches 0 female monsters in season four. This graph, rather than showing only the proportion of male and female monsters in each season, also shows the total number of monsters in each season. Taking into account the total number of monsters shows that one of the reasons that the number of female monsters is decreasing is that the total number of monsters is decreasing. The proportion of female to male monsters stays roughly the same across all four seasons in the data set, except for the fourth season in which there are notably no female monsters in season four. This may be due to a small total sample size, a low total number of episodes.
+
 :::
 
 ## Portrayal of Male vs Female Monsters
@@ -241,7 +242,10 @@ p2 <- scoobydoo_monsters |>
 p1 / p2
 ```
 :::{.callout-note title="Explanation"}
-write explanation here
+When magician monsters are broken down into subtypes, we can see that the only subtypes of magicians that include women are “shaman” and “witches”. All witches are women, promoting the stereotype that women are witches. Some shamans are women, but not all. 
+
+There are no female wizards, which promotes the stereotype of wizards usually being male. Most witches are considered to be  “magician witches” and a small proportion of witches are considered to be “ghost witches.”
+
 :::
 
 
