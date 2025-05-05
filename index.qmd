@@ -125,7 +125,8 @@ scoobydoo_monsters |>
         plot.title = element_text(face = "bold"))
 ```
 :::{.callout-note title="Explanation"}
-write expalantion here
+Some series have no female monsters (ie “A Pup Named Scooby-Doo,” “The New Scooby and Scrappy Doo Show”). The largest percentage of female monsters a show has is a little under 25% (“Scooby-Doo Mystery Incorporated”). There is only 1 monster with no gender -- 'plant' monster.
+
 :::
 
 ```{r}
