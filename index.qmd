@@ -130,8 +130,6 @@ Some series have no female monsters (ie “A Pup Named Scooby-Doo,” “The New
 :::
 
 ```{r}
-#| fig-cap: "Data source: Jon Harmon, @jonthegeek on Kaggle. Accessed on 04/09/2025. https://github.com/rfordatascience/tidytuesday/blob/main/data/2021/2021-07-13/readme.md." 
-
 
 #| fig-alt: "This is a bar chart of monster type by gender. On the y-axis, there are all the monster types. On the x-axis, are decimals counting up to 1. The bars show the proportion of each monster that is male, female, and none. The monster type with most female versions is magician. More than half magicians are female. After that, not many monsters have female versions – undead, ancient, mythical, mechanical have a few female versions, but less than a quarter of those monsters are female. "
 
@@ -184,6 +182,8 @@ For the series "Shaggy & Scooby-Doo Get a Clue," a the proprtion of monster type
 
 ## Female Monsters over Time
 ```{r}
+#| fig-alt: "Bar graph showing the number of female and male monsters in each season of Scooby-Doo. The x axis shows seasons 1 through 4, and the bars are color coded by the total number of monsters in each category."
+
 scoobydoo_monsters |>
   mutate(season <- factor(season)) |>
   mutate(season <- fct_relevel(season, c("1", "2", "3", "4"))) |>
@@ -368,6 +368,7 @@ This series was also released in 2006-2008, so it is relatively recent, especial
 
 ## Culprit Motives
 ```{r gendered motives}
+#| fig-alt: "Bar graph with culprit motives on the y axis and proportions of male and female on the x axis. The bars are color coded by female and male culprits in each motive category. Female culprits are more represented in safety, preservation, and inheritance motive categories."
 
 #This section will explore the relationship between the motivations of culprits and their gender
 
