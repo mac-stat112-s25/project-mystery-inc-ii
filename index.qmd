@@ -80,6 +80,8 @@ We chose to work with the Scooby Doo dataset due to the wide range of variables 
 
 
 # Research Question
+* Does the gender of a character in Scooby Doo episodes influence their likelihood of being portrayed as a monster or criminal?
+* Are females or males unfairly represented across Scooby Doo episodes?
 
 
 
@@ -103,6 +105,8 @@ There are many variables tabulated for each episode. In total, there are 75 vari
 
 
 ```{r}
+#| fig-alt: "Bar graph showing the percentage of monster genders (male, female, and none) for each Scooby-Doo TV series."
+
 # monster genders (%) by series
 scoobydoo_monsters |>
   group_by(monster_gender) |>
@@ -157,7 +161,7 @@ write expalantion here
 
 
 ```{r}
-#| fig-align: "Bar graph showing the proportion of monster types for each Scooby-Doo TV series"
+#| fig-alt: "Bar graph showing the proportion of monster types for each Scooby-Doo TV series"
 
 # monster type by series
 scoobydoo_monsters |>
@@ -352,5 +356,17 @@ write expalantion here
 
 
 # Conclusions
+* Scooby Doo episodes favor representation of male villains and culprits
+* Females are restricted to certain roles and titles (often based on gender stereotypes)
+* Little change in representation over time (but lesser appearances over time)
+
 
 # Limitations and Future Work
+* Data was collected by one person – subject to error
+* Subjective variable definitions
+
+
+* Are there specific phrases that consistently appear in episodes featuring female vs. male villains?
+* Are there similar patterns of gender stereotypes with other monster types or in different series?
+* How do these findings translate to Scooby-Doo movies? Are male and female monsters portrayed similarly in movies? 
+* Does the portrayal of female monsters change over time? Do they have less stereotypical roles in more recent episodes?
