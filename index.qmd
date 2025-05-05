@@ -130,6 +130,8 @@ Some series have no female monsters (ie “A Pup Named Scooby-Doo,” “The New
 :::
 
 ```{r}
+#| fig-cap: "Data source: Jon Harmon, @jonthegeek on Kaggle. Accessed on 04/09/2025. https://github.com/rfordatascience/tidytuesday/blob/main/data/2021/2021-07-13/readme.md." 
+
 
 #| fig-alt: "This is a bar chart of monster type by gender. On the y-axis, there are all the monster types. On the x-axis, are decimals counting up to 1. The bars show the proportion of each monster that is male, female, and none. The monster type with most female versions is magician. More than half magicians are female. After that, not many monsters have female versions – undead, ancient, mythical, mechanical have a few female versions, but less than a quarter of those monsters are female. "
 
