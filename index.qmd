@@ -100,7 +100,7 @@ There are many variables tabulated for each episode. In total, there are 75 vari
 
 # Data Insights
 ## Exploration of Monster Genders
-```{r}
+```{r sex across seasons}
 # graph of male vs female monsters
 ```
 
@@ -182,7 +182,22 @@ For the series "Shaggy & Scooby-Doo Get a Clue," a the proprtion of monster type
 
 ## Female Monsters over Time
 ```{r}
-# code/graph tba
+scoobydoo_monsters |>
+  mutate(season <- factor(season)) |>
+  mutate(season <- fct_relevel(season, c("1", "2", "3", "4"))) |>
+  group_by(season, monster_gender) |>
+  filter(monster_gender != "None") |>
+  mutate(monster_gender = str_trim(monster_gender, side = "left")) |>
+  ggplot(aes(x = season, fill = monster_gender)) +
+  geom_bar(color = "white", linewidth = 0.25) +
+  labs(title = "Monster Gender Counts by Season",
+       fill = "Monster Gender",
+       x = "Season",
+       y = "Number of Monsters",
+       caption = "Data collected by @plummye on Kaggle, week 07/13/2021 on TidyTuesday"
+       ) +
+  theme_minimal() +
+  scale_fill_viridis_d()
 ```
 
 :::{.callout-note title="Explanation"}
