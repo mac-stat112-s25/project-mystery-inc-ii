@@ -156,7 +156,7 @@ scoobydoo_monsters |>
 ```
 
 :::{.callout-note title="Explanation"}
-write expalantion here
+The monster type with most female versions is magician. More than half magicians are female. After that, not many monsters have female versions – undead, ancient, mythical, mechanical have a few female versions, but less than a quarter of those monsters are female. 
 :::
 
 
