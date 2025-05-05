@@ -77,13 +77,25 @@ scoobydoo_culprits <- scoobydoo |>
   mutate(culprit_gender = str_trim(culprit_gender, side = "left"))
 ```
 # Motivation
+We chose to work with the Scooby Doo dataset due to the wide range of variables that were addressed across all episodes of Scooby Doo released. There is a lot of potential for the incorporation of fun visuals into our final visualizations, as our dataset comes from a familiar entertainment show that people can relate to. It will be fun to statistically analyze Scooby Doo and shine new light on something that many people were likely familiar with in their childhoods. Particularly, looking at the data set initially, we were intrigued by the prospect of correlating certain factors (certain phrases said, number of monsters, voice actors involved) to each other across the broad range of data collected for each episode. This project is important because it may reveal patterns that many people watching TV were exposed to when they were younger (gender bias in who is a monster and criminal? Which phrases and terms are associated with which scary events?) that they should consider when thinking about bias and actions in their lives now.
+
 
 # Research Question
+* Does the gender of a character in Scooby Doo episodes influence their likelihood of being portrayed as a monster or criminal?
+* Are females or males unfairly represented across Scooby Doo episodes?
+
+
 
 # Background
+We are working with the Scooby Doo dataset from Kaggle, and we collected a set of phrases from all episodes of the Scooby Doo series. We obtained this data from plummye’s dataset, where the Kaggle user watched every episode of Scooby Doo and recorded the variables over the course of a year. They collected data for 75 variables about the title of the episode, voice actors in the episode, who the monsters and villains were, and what key phrases were used in the episode. The data set includes Scooby Doo movies and specials as well, and which phrases were focused on are those which are known to be common in and unique to Scooby Doo, such as “zoinks,” “jeepers,” and “scooby snacks.”
+
+
 
 # Data
-* We are only focusing on Scooby-Doo episodes from TV series (excluding movies or special cross-over episodes)  
+The dataset contains information on different variables for every episode or movie of Scooby-Doo. According to the creator of the dataset, user Plummye on Kaggle, they made the dataset because they struggled to find a dataset that was “interesting, large, unstudied, [and] many different types of variables.” So, Plummye decided to make their own dataset for Scooby-Doo episodes because they were watching a lot of Scooby-Doo during the 2020 lockdown. It took them over a year to watch all the episodes and movies, plus tabulate all the data. We found the dataset on TidyTuesday (week 07/13/2021), but it was originally posted on Kaggle by user Plummye. 
+
+There are many variables tabulated for each episode. In total, there are 75 variables, and data is available for 603 Scooby-Doo episodes and movies. The types of measurements vary from variable to variable, with some being numerical (ie IMDB score, runtime, number of monsters), some are categorical (ie episode name, type of monster, voice actor names), and some are boolean (ie if a certain line/catchphrase was said). Some entries for variables are “NULL,” so we will have to filter them out when working with the data. Additionally, when there is more than one monster, they are listed in one row, separated by commas (ie monster a,monster b,monster c), so this needs to be reformatted as well.
+
 
 
 # Data Insights
@@ -94,10 +106,14 @@ scoobydoo_culprits <- scoobydoo |>
 
 
 ```{r}
+#| fig-alt: "Bar graph showing the percentage of monster genders (male, female, and none) for each Scooby-Doo TV series."
+
 # monster genders (%) by series
 scoobydoo_monsters |>
   group_by(monster_gender) |>
   mutate(n = n()) |>
+  mutate(monster_gender = as.factor(monster_gender)) |>
+  mutate(monster_gender = fct_relevel(monster_gender, c("Female", "None", "Male"))) |>
   ggplot(aes(y = series_name, fill = monster_gender)) +
   geom_bar(position = "fill")+
   labs(x = "Percent", y = "Series Name",
@@ -113,13 +129,22 @@ write expalantion here
 :::
 
 ```{r}
-#uses scoodydoo_clean data which is not in the qmd
 
-
-#| fig-cap: "Data source: Jon Harmon, @jonthegeek on Kaggle. Accessed on 04/09/2025. https://github.com/rfordatascience/tidytuesday/blob/main/data/2021/2021-07-13/readme.md." 
 #| fig-alt: "This is a bar chart of monster type by gender. On the y-axis, there are all the monster types. On the x-axis, are decimals counting up to 1. The bars show the proportion of each monster that is male, female, and none. The monster type with most female versions is magician. More than half magicians are female. After that, not many monsters have female versions – undead, ancient, mythical, mechanical have a few female versions, but less than a quarter of those monsters are female. "
-ggplot(scoobydoo_monsters, aes(y = monster_type, fill = monster_gender,)) + 
+
+scoobydoo_monsters |>
+  mutate(monster_gender = as.factor(monster_gender)) |>
+  mutate(monster_gender = fct_relevel(monster_gender, "Female", "None", "Male")) |>
+  ggplot(aes(y = monster_type, fill = monster_gender)) + 
   geom_bar(position = "fill")+
+    expand_limits(x = 1.25)+
+  coord_cartesian(xlim = c(0,1.3))+
+  geom_rect(aes(xmin = -0, xmax = 1, ymin = 5.49, ymax = 6.51),
+            color = "red", fill = NA, linewidth = .75)+
+  annotate("text", x = 1.17, y = 6, label = "Most magicians \nare female?", 
+           size = 3.2)+
+  annotate("text", x = 1.18, y = 9, label = "*The monster w/ no \ngender is a plant",
+           size = 3, fontface = "italic")+
   labs(x = "Proportion of Each Gender", y = "Monster Type", 
        title = "Breakdown of Monster Types by Gender",  fill = "Monster Gender",
        subtitle = "Gender determined by the pronouns used to refer to the monster",
@@ -127,7 +152,9 @@ ggplot(scoobydoo_monsters, aes(y = monster_type, fill = monster_gender,)) +
   scale_fill_viridis_d() +
   theme(plot.caption = element_text(face = "italic"),
         plot.title = element_text(face = "bold", size = 14))
+  
 ```
+
 :::{.callout-note title="Explanation"}
 write expalantion here
 :::
@@ -135,6 +162,8 @@ write expalantion here
 
 
 ```{r}
+#| fig-alt: "Bar graph showing the proportion of monster types for each Scooby-Doo TV series"
+
 # monster type by series
 scoobydoo_monsters |>
   ggplot(aes(y=series_name, fill = monster_type))+
@@ -161,39 +190,47 @@ write expalantion here
 
 ## Portrayal of Male vs Female Monsters
 ```{r}
+#| fig-alt: "Graphs comparing magician monster subtypes by gender. The first graph shows most female magician monsters are witches, while male magicians are wizards. The second graph shows for all witch subtypes, only 1 is male. For all wizard subtypes, none are female."
+
 # female monsters are most commonly portrayed as magicians, specifically witches
 
-p1<- scoobydoo_monsters |> 
+p1 <- scoobydoo_monsters |> 
   filter(monster_type == "Magician") |>
-  ggplot(aes(y=monster_subtype, fill = monster_gender))+
-  geom_bar()+
+  count(monster_subtype, monster_gender) |>
+  ggplot(aes(y=n,x=monster_subtype, fill = monster_gender))+
+  geom_bar(stat = "identity")+
   labs(title = "Subtypes of Magician Monsters, by Gender",
-       x = "Count", y = "Monster Subtype",
+       y = "Count", x = "Monster Subtype",
        fill = "Monster Gender") +  
        scale_fill_viridis_d()+
-  theme(plot.title = element_text(face = "bold", size = 14))
+  scale_y_continuous(breaks = seq(0, 10,by=2))+
+  theme(plot.title = element_text(face = "bold", size = 14),
+        axis.text.x = element_text(angle = 45, hjust = 1))
 
 p2 <- scoobydoo_monsters |>
   filter(monster_subtype %in% c("Witch", "Wizard")) |>
-  ggplot(aes(x=monster_subtype, fill = monster_gender))+
+  ggplot(aes(x=monster_subtype, fill = monster_type))+
   geom_bar()+
   labs(title = "Witch and Wizard Monsters by Gender",
        x = "Monster Subtype", y = "Number of Monsters",
-       fill = "Monster Gender",
+       fill = "Monster Type",
        caption = "Data collected by @plummye on Kaggle, used for week 07/13/2021 of Tidy Tuesday")+
-  facet_wrap(~monster_type) +  
+  facet_wrap(~monster_gender) +
   scale_fill_viridis_d()+
   theme(plot.caption = element_text(face = "italic"),
-        plot.title = element_text(face = "bold", size = 14))
+        plot.title = element_text(face = "bold", size = 14))+
+    scale_y_continuous(breaks = seq(0, 10,by=2))
+
 
 p1 / p2
 ```
 :::{.callout-note title="Explanation"}
-write expalanation here
+write explanation here
 :::
 
 
 ```{r, fig.width=8}
+#| fig-alt: "2 bar graphs exploring if a monster is real (true or false) and if a monster is unmasked (true or false) varies by gender. A larger percentage of male monsters are real and not unmasked, compared to female monsters."
 # meanwhile, male monsters are more recurring than female monsters and are treated like antagonists
 
 p1 <- scoobydoo_monsters |> 
@@ -239,6 +276,7 @@ From the graph on the left, there is a higher proportion of male monsters that a
 :::
 
 ```{r}
+#| fig-alt: "Bar graph showing the most popular types of male monsters based on if the monster is real (true or false) and unmasked (true or false). Most non-real monsters are animals or ghosts, while real monsters are commonly disguised or super-villains."
 # look at non-unmasked or real male monsters
 
 # labels
@@ -319,5 +357,17 @@ write explantion here
 
 
 # Conclusions
+* Scooby Doo episodes favor representation of male villains and culprits
+* Females are restricted to certain roles and titles (often based on gender stereotypes)
+* Little change in representation over time (but lesser appearances over time)
+
 
 # Limitations and Future Work
+* Data was collected by one person – subject to error
+* Subjective variable definitions
+
+
+* Are there specific phrases that consistently appear in episodes featuring female vs. male villains?
+* Are there similar patterns of gender stereotypes with other monster types or in different series?
+* How do these findings translate to Scooby-Doo movies? Are male and female monsters portrayed similarly in movies? 
+* Does the portrayal of female monsters change over time? Do they have less stereotypical roles in more recent episodes?
