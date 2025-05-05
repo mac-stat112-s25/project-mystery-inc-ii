@@ -14,6 +14,7 @@ code-fold: false  # change to true to fold the code chunks
 library(tidyverse)
 library(tidytuesdayR)
 library(patchwork)
+library(gt)
 
 tuesdata <- tidytuesdayR::tt_load(2021, week = 29)
 
@@ -311,7 +312,7 @@ This series was also released in 2006-2008, so it is relatively recent, especial
 ```
 
 :::{.callout-note title="Explanation"}
-write expalantion here
+write explantion here
 :::
 
 
