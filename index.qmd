@@ -345,12 +345,27 @@ This series was also released in 2006-2008, so it is relatively recent, especial
 :::
 
 ## Culprit Motives
-```{r}
-# code/graph tba
+```{r gendered motives}
+
+#This section will explore the relationship between the motivations of culprits and their gender
+
+scoobydoo_culprits |>
+  group_by(motive, culprit_gender) |>
+  mutate(culprit_gender = str_trim(culprit_gender, side = "left")) |>
+  ggplot(aes(x = motive, fill = culprit_gender)) +
+  geom_bar(position = "fill", color = "white", linewidth = 0.25) +
+  coord_flip() +
+  labs(title = "Motives by Gender of Culprit",
+       fill = "Culprit Gender",
+       x = "Motive",
+       y = "Proportion",
+       caption = "Data collected by @plummye on Kaggle, week 07/13/2021 on TidyTuesday"
+       ) +
+   scale_fill_viridis_d()
 ```
 
 :::{.callout-note title="Explanation"}
-write explantion here
+This graph shows the proportions of motives by which sex had which motive. We can see that episodes of Scooby-Doo with assistance as a motive had only female culprits. Additionally, three other categories had notably high proportions of female culprits: "Safety", "Preservation", and "Inheritance." The theme among these motives is that females were largely inspired to commit crimes due to self-preservation and monetary greed. Male culprits had more active motivations such as looking for treasure, entertainment, and imagination. There is nothing very stereotypically masculine about these motives, but it is important to note that male culprits had a generally wider spread of motivations than the motives that female culprits were confined to. There were also fewer female culprits overall, which may contribute to their lack of representation across the whole range of motives.
 :::
 
 
