@@ -280,13 +280,22 @@ cookieconsent.run({
 </header><div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="co"># load data and packages</span></span>
 <span id="cb1-2"><a href="#cb1-2"></a></span>
-<span id="cb1-3"><a href="#cb1-3"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb1-4"><a href="#cb1-4"></a><span class="fu">library</span>(tidytuesdayR)</span>
-<span id="cb1-5"><a href="#cb1-5"></a><span class="fu">library</span>(patchwork)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Warning: package 'patchwork' was built under R version 4.4.3</code></pre>
+<pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+✔ dplyr     1.1.4     ✔ readr     2.1.5
+✔ forcats   1.0.0     ✔ stringr   1.5.1
+✔ ggplot2   3.5.1     ✔ tibble    3.2.1
+✔ lubridate 1.9.4     ✔ tidyr     1.3.1
+✔ purrr     1.0.4     
+── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()
+ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>tuesdata <span class="ot">&lt;-</span> tidytuesdayR<span class="sc">::</span><span class="fu">tt_load</span>(<span class="dv">2021</span>, <span class="at">week =</span> <span class="dv">29</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="fu">library</span>(tidytuesdayR)</span>
+<span id="cb3-2"><a href="#cb3-2"></a></span>
+<span id="cb3-3"><a href="#cb3-3"></a>tuesdata <span class="ot">&lt;-</span> tidytuesdayR<span class="sc">::</span><span class="fu">tt_load</span>(<span class="dv">2021</span>, <span class="at">week =</span> <span class="dv">29</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>---- Compiling #TidyTuesday Information for 2021-07-13 ----
 --- There is 1 file available ---
@@ -299,10 +308,147 @@ cookieconsent.run({
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>scoobydoo <span class="ot">&lt;-</span> tuesdata<span class="sc">$</span>scoobydoo</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="co"># number of monsters in each episode</span></span>
-<span id="cb6-2"><a href="#cb6-2"></a>scoobydoo <span class="sc">|&gt;</span></span>
-<span id="cb6-3"><a href="#cb6-3"></a>  <span class="fu">filter</span>(monster_amount <span class="sc">&gt;</span> <span class="dv">16</span>) <span class="sc">|&gt;</span></span>
-<span id="cb6-4"><a href="#cb6-4"></a>  <span class="fu">select</span>(title, <span class="fu">contains</span>(<span class="st">"monster"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="fu">summary</span>(scoobydoo)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     index       series_name          network             season         
+ Min.   :  1.0   Length:603         Length:603         Length:603        
+ 1st Qu.:151.5   Class :character   Class :character   Class :character  
+ Median :302.0   Mode  :character   Mode  :character   Mode  :character  
+ Mean   :302.0                                                           
+ 3rd Qu.:452.5                                                           
+ Max.   :603.0                                                           
+    title               imdb            engagement          date_aired        
+ Length:603         Length:603         Length:603         Min.   :1969-09-13  
+ Class :character   Class :character   Class :character   1st Qu.:1979-12-04  
+ Mode  :character   Mode  :character   Mode  :character   Median :1988-09-10  
+                                                          Mean   :1994-09-18  
+                                                          3rd Qu.:2011-12-09  
+                                                          Max.   :2021-02-25  
+    run_time        format          monster_name       monster_gender    
+ Min.   : 4.00   Length:603         Length:603         Length:603        
+ 1st Qu.:12.00   Class :character   Class :character   Class :character  
+ Median :22.00   Mode  :character   Mode  :character   Mode  :character  
+ Mean   :23.52                                                           
+ 3rd Qu.:23.00                                                           
+ Max.   :94.00                                                           
+ monster_type       monster_subtype    monster_species    monster_real      
+ Length:603         Length:603         Length:603         Length:603        
+ Class :character   Class :character   Class :character   Class :character  
+ Mode  :character   Mode  :character   Mode  :character   Mode  :character  
+                                                                            
+                                                                            
+                                                                            
+ monster_amount  caught_fred        caught_daphnie     caught_velma      
+ Min.   : 0.00   Length:603         Length:603         Length:603        
+ 1st Qu.: 1.00   Class :character   Class :character   Class :character  
+ Median : 1.00   Mode  :character   Mode  :character   Mode  :character  
+ Mean   : 1.75                                                           
+ 3rd Qu.: 2.00                                                           
+ Max.   :19.00                                                           
+ caught_shaggy      caught_scooby      captured_fred      captured_daphnie  
+ Length:603         Length:603         Length:603         Length:603        
+ Class :character   Class :character   Class :character   Class :character  
+ Mode  :character   Mode  :character   Mode  :character   Mode  :character  
+                                                                            
+                                                                            
+                                                                            
+ captured_velma     captured_shaggy    captured_scooby    unmask_fred       
+ Length:603         Length:603         Length:603         Length:603        
+ Class :character   Class :character   Class :character   Class :character  
+ Mode  :character   Mode  :character   Mode  :character   Mode  :character  
+                                                                            
+                                                                            
+                                                                            
+ unmask_daphnie     unmask_velma       unmask_shaggy      unmask_scooby     
+ Length:603         Length:603         Length:603         Length:603        
+ Class :character   Class :character   Class :character   Class :character  
+ Mode  :character   Mode  :character   Mode  :character   Mode  :character  
+                                                                            
+                                                                            
+                                                                            
+  snack_fred        snack_daphnie      snack_velma        snack_shaggy      
+ Length:603         Length:603         Length:603         Length:603        
+ Class :character   Class :character   Class :character   Class :character  
+ Mode  :character   Mode  :character   Mode  :character   Mode  :character  
+                                                                            
+                                                                            
+                                                                            
+ snack_scooby       unmask_other    caught_other    caught_not     
+ Length:603         Mode :logical   Mode :logical   Mode :logical  
+ Class :character   FALSE:568       FALSE:519       FALSE:572      
+ Mode  :character   TRUE :35        TRUE :84        TRUE :31       
+                                                                   
+                                                                   
+                                                                   
+ trap_work_first    setting_terrain    setting_country_state suspects_amount 
+ Length:603         Length:603         Length:603            Min.   : 0.000  
+ Class :character   Class :character   Class :character      1st Qu.: 1.000  
+ Mode  :character   Mode  :character   Mode  :character      Median : 3.000  
+                                                             Mean   : 2.851  
+                                                             3rd Qu.: 4.000  
+                                                             Max.   :20.000  
+ non_suspect          arrested         culprit_name       culprit_gender    
+ Length:603         Length:603         Length:603         Length:603        
+ Class :character   Class :character   Class :character   Class :character  
+ Mode  :character   Mode  :character   Mode  :character   Mode  :character  
+                                                                            
+                                                                            
+                                                                            
+ culprit_amount     motive          if_it_wasnt_for      and_that        
+ Min.   : 0.00   Length:603         Length:603         Length:603        
+ 1st Qu.: 0.00   Class :character   Class :character   Class :character  
+ Median : 1.00   Mode  :character   Mode  :character   Mode  :character  
+ Mean   : 1.04                                                           
+ 3rd Qu.: 1.00                                                           
+ Max.   :11.00                                                           
+  door_gag       number_of_snacks     split_up         another_mystery   
+ Mode :logical   Length:603         Length:603         Length:603        
+ FALSE:544       Class :character   Class :character   Class :character  
+ TRUE :59        Mode  :character   Mode  :character   Mode  :character  
+                                                                         
+                                                                         
+                                                                         
+  set_a_trap          jeepers            jinkies           my_glasses       
+ Length:603         Length:603         Length:603         Length:603        
+ Class :character   Class :character   Class :character   Class :character  
+ Mode  :character   Mode  :character   Mode  :character   Mode  :character  
+                                                                            
+                                                                            
+                                                                            
+ just_about_wrapped_up    zoinks             groovy         
+ Length:603            Length:603         Length:603        
+ Class :character      Class :character   Class :character  
+ Mode  :character      Mode  :character   Mode  :character  
+                                                            
+                                                            
+                                                            
+ scooby_doo_where_are_you rooby_rooby_roo      batman        scooby_dum     
+ Length:603               Length:603         Mode :logical   Mode :logical  
+ Class :character         Class :character   FALSE:599       FALSE:586      
+ Mode  :character         Mode  :character   TRUE :4         TRUE :17       
+                                                                            
+                                                                            
+                                                                            
+ scrappy_doo     hex_girls       blue_falcon       fred_va         
+ Mode :logical   Mode :logical   Mode :logical   Length:603        
+ FALSE:438       FALSE:597       FALSE:570       Class :character  
+ TRUE :165       TRUE :6         TRUE :33        Mode  :character  
+                                                                   
+                                                                   
+                                                                   
+  daphnie_va          velma_va          shaggy_va          scooby_va        
+ Length:603         Length:603         Length:603         Length:603        
+ Class :character   Class :character   Class :character   Class :character  
+ Mode  :character   Mode  :character   Mode  :character   Mode  :character  
+                                                                            
+                                                                            
+                                                                            </code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a>scoobydoo <span class="sc">|&gt;</span></span>
+<span id="cb8-2"><a href="#cb8-2"></a>  <span class="fu">filter</span>(monster_amount <span class="sc">&gt;</span> <span class="dv">16</span>) <span class="sc">|&gt;</span></span>
+<span id="cb8-3"><a href="#cb8-3"></a>  <span class="fu">select</span>(title, <span class="fu">contains</span>(<span class="st">"monster"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 8
   title monster_name monster_gender monster_type monster_subtype monster_species
@@ -310,136 +456,80 @@ cookieconsent.run({
 1 Scoo… Count Dracu… Male,Male,Mal… Undead,Anim… Vampire,Humano… Human,Wolf,Hum…
 # ℹ 2 more variables: monster_real &lt;chr&gt;, monster_amount &lt;dbl&gt;</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="fu">ggplot</span>(scoobydoo, <span class="fu">aes</span>(<span class="at">x=</span>monster_amount))<span class="sc">+</span></span>
-<span id="cb8-2"><a href="#cb8-2"></a>  <span class="fu">geom_bar</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="fu">ggplot</span>(scoobydoo, <span class="fu">aes</span>(<span class="at">x=</span>monster_amount))<span class="sc">+</span></span>
+<span id="cb10-2"><a href="#cb10-2"></a>  <span class="fu">geom_bar</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="SarahR_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="672"></p>
+<figure class="figure"><p><img src="SarahR_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a>scoobydoo <span class="sc">|&gt;</span></span>
-<span id="cb9-2"><a href="#cb9-2"></a>  <span class="fu">filter</span>(imdb <span class="sc">!=</span> <span class="st">"NULL"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb9-3"><a href="#cb9-3"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>imdb, <span class="at">group=</span>series_name, <span class="at">fill =</span> series_name))<span class="sc">+</span></span>
-<span id="cb9-4"><a href="#cb9-4"></a>  <span class="fu">geom_histogram</span>(<span class="at">stat=</span><span class="st">"count"</span>, <span class="at">binwidth =</span> <span class="dv">1</span>)<span class="sc">+</span></span>
-<span id="cb9-5"><a href="#cb9-5"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"bottom"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a>scoobydoo <span class="sc">|&gt;</span></span>
+<span id="cb11-2"><a href="#cb11-2"></a>  <span class="fu">filter</span>(imdb <span class="sc">!=</span> <span class="st">"NULL"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb11-3"><a href="#cb11-3"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>imdb, <span class="at">group=</span>series_name, <span class="at">fill =</span> series_name))<span class="sc">+</span></span>
+<span id="cb11-4"><a href="#cb11-4"></a>  <span class="fu">geom_histogram</span>(<span class="at">stat=</span><span class="st">"count"</span>, <span class="at">binwidth =</span> <span class="dv">1</span>)<span class="sc">+</span></span>
+<span id="cb11-5"><a href="#cb11-5"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"bottom"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning in geom_histogram(stat = "count", binwidth = 1): Ignoring unknown
 parameters: `binwidth`, `bins`, and `pad`</code></pre>
 </div>
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="SarahR_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="1152"></p>
+<figure class="figure"><p><img src="SarahR_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="1152"></p>
 </figure>
 </div>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="co"># individual monsters of TV series</span></span>
-<span id="cb11-2"><a href="#cb11-2"></a>scoobydoo_clean <span class="ot">&lt;-</span> scoobydoo <span class="sc">|&gt;</span></span>
-<span id="cb11-3"><a href="#cb11-3"></a>  <span class="fu">filter</span>(season <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"1"</span>, <span class="st">"2"</span>,<span class="st">"3"</span>, <span class="st">"4"</span>),</span>
-<span id="cb11-4"><a href="#cb11-4"></a>         format <span class="sc">==</span> <span class="st">"TV Series"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb11-5"><a href="#cb11-5"></a>  <span class="fu">filter</span>(monster_name <span class="sc">!=</span> <span class="st">"NULL"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb11-6"><a href="#cb11-6"></a>  <span class="fu">mutate</span>(<span class="at">monster_amount =</span> <span class="fu">ifelse</span>(title <span class="sc">==</span> <span class="st">"The Ghastly Ghost Town"</span>, <span class="dv">5</span>, monster_amount),</span>
-<span id="cb11-7"><a href="#cb11-7"></a>         <span class="at">monster_amount =</span> <span class="fu">ifelse</span>(title <span class="sc">==</span> <span class="st">"Me and My Shadow Demon"</span>, <span class="dv">3</span>, monster_amount))<span class="sc">|&gt;</span></span>
-<span id="cb11-8"><a href="#cb11-8"></a>  <span class="fu">mutate</span>(<span class="at">monster_name =</span> <span class="fu">str_replace</span>(monster_name, <span class="st">"Dr. Phineus Phibes,Agent 1,Agent 2,Agent 3,Agent 4,Agent 5,Agent 6,Agent 7,Agent,8,Agent,9,Agent 10,Agent 11,Agent 12,Agent 13,Dr. Trebal"</span>, <span class="st">"Dr. Phineus Phibes,Agent 1,Agent 2,Agent 3,Agent 4,Agent 5,Agent 6,Agent 7,Agent 8,Agent 9,Agent 10,Agent 11,Agent 12,Agent 13,Dr. Trebal"</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb11-9"><a href="#cb11-9"></a>  <span class="fu">select</span>(title, season, series_name, <span class="fu">contains</span>(<span class="st">"monster"</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb11-10"><a href="#cb11-10"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">c</span>(monster_name, monster_gender, monster_type, monster_subtype, monster_species), <span class="at">names_to =</span> <span class="st">"monster_var"</span>, <span class="at">values_to =</span> <span class="st">"monster"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb11-11"><a href="#cb11-11"></a>  <span class="fu">separate</span>(monster, <span class="fu">c</span>(<span class="st">"1monster"</span>, <span class="st">"2monster"</span>, <span class="st">"3monster"</span>, <span class="st">"4monster"</span>, <span class="st">"5monster"</span>, <span class="st">"6monster"</span>, <span class="st">"7monster"</span>, <span class="st">"8monster"</span>, <span class="st">"9monster"</span>, <span class="st">"10monster"</span>, <span class="st">"11monster"</span>, <span class="st">"12monster"</span>, <span class="st">"13monster"</span>, <span class="st">"14monster"</span>, <span class="st">"15monster"</span>), <span class="at">sep =</span> <span class="st">","</span>) <span class="sc">|&gt;</span></span>
-<span id="cb11-12"><a href="#cb11-12"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">ends_with</span>(<span class="st">"monster"</span>), <span class="at">names_to =</span> <span class="st">"monster_num"</span>, <span class="at">values_to =</span> <span class="st">"monster_value"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb11-13"><a href="#cb11-13"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> monster_var, <span class="at">values_from =</span> monster_value) <span class="sc">|&gt;</span></span>
-<span id="cb11-14"><a href="#cb11-14"></a>  <span class="fu">separate</span>(monster_num, <span class="fu">c</span>(<span class="st">"monster_num"</span>, <span class="st">"x"</span>), <span class="at">sep =</span> <span class="st">"m"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb11-15"><a href="#cb11-15"></a>  <span class="fu">mutate</span>(<span class="at">monster_num =</span> <span class="fu">as.numeric</span>(monster_num)) <span class="sc">|&gt;</span></span>
-<span id="cb11-16"><a href="#cb11-16"></a>  <span class="fu">select</span>(<span class="sc">-</span>x) <span class="sc">|&gt;</span></span>
-<span id="cb11-17"><a href="#cb11-17"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(monster_name)) <span class="sc">|&gt;</span></span>
-<span id="cb11-18"><a href="#cb11-18"></a>   <span class="fu">mutate</span>(<span class="at">monster_type =</span> <span class="fu">ifelse</span>(monster_type <span class="sc">==</span> <span class="st">"Disugised"</span>, <span class="st">"Disguised"</span>, monster_type),</span>
-<span id="cb11-19"><a href="#cb11-19"></a>          <span class="at">monster_type =</span> <span class="fu">ifelse</span>(monster_type <span class="sc">==</span> <span class="st">"Disguise"</span>, <span class="st">"Disguised"</span>, monster_type)) <span class="sc">|&gt;</span></span>
-<span id="cb11-20"><a href="#cb11-20"></a>  <span class="fu">mutate</span>(<span class="at">monster_type =</span> <span class="fu">str_trim</span>(monster_type, <span class="at">side =</span> <span class="st">"left"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a><span class="co"># individual monsters of TV series</span></span>
+<span id="cb13-2"><a href="#cb13-2"></a>scoobydoo2 <span class="ot">&lt;-</span> scoobydoo <span class="sc">|&gt;</span></span>
+<span id="cb13-3"><a href="#cb13-3"></a>  <span class="fu">filter</span>(season <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"1"</span>, <span class="st">"2"</span>,<span class="st">"3"</span>, <span class="st">"4"</span>),</span>
+<span id="cb13-4"><a href="#cb13-4"></a>         format <span class="sc">==</span> <span class="st">"TV Series"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb13-5"><a href="#cb13-5"></a>  <span class="fu">filter</span>(monster_name <span class="sc">!=</span> <span class="st">"NULL"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb13-6"><a href="#cb13-6"></a>  <span class="fu">mutate</span>(<span class="at">monster_name =</span> <span class="fu">str_replace</span>(monster_name, <span class="st">"Dr. Phineus Phibes,Agent 1,Agent 2,Agent 3,Agent 4,Agent 5,Agent 6,Agent 7,Agent,8,Agent,9,Agent 10,Agent 11,Agent 12,Agent 13,Dr. Trebal"</span>, <span class="st">"Dr. Phineus Phibes,Agent 1,Agent 2,Agent 3,Agent 4,Agent 5,Agent 6,Agent 7,Agent 8,Agent 9,Agent 10,Agent 11,Agent 12,Agent 13,Dr. Trebal"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb13-7"><a href="#cb13-7"></a>  <span class="fu">select</span>(title, season, series_name, <span class="fu">contains</span>(<span class="st">"monster"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb13-8"><a href="#cb13-8"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">c</span>(monster_name, monster_gender, monster_type, monster_subtype, monster_species), <span class="at">names_to =</span> <span class="st">"monster_var"</span>, <span class="at">values_to =</span> <span class="st">"monster"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb13-9"><a href="#cb13-9"></a>  <span class="fu">separate</span>(monster, <span class="fu">c</span>(<span class="st">"monster1"</span>, <span class="st">"monster2"</span>, <span class="st">"monster3"</span>, <span class="st">"monster4"</span>, <span class="st">"monster5"</span>, <span class="st">"monster6"</span>, <span class="st">"monster7"</span>, <span class="st">"monster8"</span>, <span class="st">"monster9"</span>, <span class="st">"monster10"</span>, <span class="st">"monster11"</span>, <span class="st">"monster12"</span>, <span class="st">"monster13"</span>, <span class="st">"monster14"</span>, <span class="st">"monster15"</span>, <span class="st">"monster16"</span>), <span class="at">sep =</span> <span class="st">","</span>) <span class="sc">|&gt;</span></span>
+<span id="cb13-10"><a href="#cb13-10"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> monster_var, <span class="at">values_from =</span> monster1<span class="sc">:</span>monster16) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Warning: Expected 15 pieces. Additional pieces discarded in 2 rows [960, 962].</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: Expected 15 pieces. Missing pieces filled with `NA` in 1809 rows [1, 2, 3, 4,
+<pre><code>Warning: Expected 16 pieces. Missing pieces filled with `NA` in 1813 rows [1, 2, 3, 4,
 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, ...].</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a><span class="co"># what are the most common monster types, names from TV episodes?</span></span>
-<span id="cb14-2"><a href="#cb14-2"></a>scoobydoo_clean <span class="sc">|&gt;</span></span>
-<span id="cb14-3"><a href="#cb14-3"></a>  <span class="fu">group_by</span>(monster_type) <span class="sc">|&gt;</span></span>
-<span id="cb14-4"><a href="#cb14-4"></a>  <span class="fu">mutate</span>(<span class="at">n=</span> <span class="fu">n</span>()) <span class="sc">|&gt;</span></span>
-<span id="cb14-5"><a href="#cb14-5"></a>  <span class="fu">filter</span>(n <span class="sc">&gt;</span> <span class="dv">5</span>) <span class="sc">|&gt;</span></span>
-<span id="cb14-6"><a href="#cb14-6"></a>  <span class="fu">mutate</span>(<span class="at">monster_type =</span> <span class="fu">fct_reorder</span>(monster_type, n)) <span class="sc">|&gt;</span></span>
-<span id="cb14-7"><a href="#cb14-7"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">y =</span> series_name, <span class="at">fill =</span> monster_type))<span class="sc">+</span></span>
-<span id="cb14-8"><a href="#cb14-8"></a>  <span class="fu">geom_bar</span>(<span class="at">position =</span> <span class="st">"fill"</span>)<span class="sc">+</span></span>
-<span id="cb14-9"><a href="#cb14-9"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Most Common Monster Types by series"</span>)<span class="sc">+</span></span>
-<span id="cb14-10"><a href="#cb14-10"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"bottom"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure"><p><img src="SarahR_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a><span class="co"># are monsters real or not?</span></span>
-<span id="cb15-2"><a href="#cb15-2"></a><span class="fu">ggplot</span>(scoobydoo_clean, <span class="fu">aes</span>(<span class="at">x=</span>monster_real, <span class="at">fill =</span> monster_type))<span class="sc">+</span></span>
-<span id="cb15-3"><a href="#cb15-3"></a>  <span class="fu">geom_bar</span>(<span class="at">color =</span> <span class="st">"white"</span>, <span class="at">position =</span> <span class="st">"fill"</span>)<span class="sc">+</span></span>
-<span id="cb15-4"><a href="#cb15-4"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Monster Type by Real/Not Real Status"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure"><p><img src="SarahR_files/figure-html/unnamed-chunk-5-2.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a><span class="co"># monster genders</span></span>
-<span id="cb16-2"><a href="#cb16-2"></a>scoobydoo_clean <span class="sc">|&gt;</span></span>
-<span id="cb16-3"><a href="#cb16-3"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(monster_gender)) <span class="sc">|&gt;</span></span>
-<span id="cb16-4"><a href="#cb16-4"></a>  <span class="fu">group_by</span>(monster_gender) <span class="sc">|&gt;</span></span>
-<span id="cb16-5"><a href="#cb16-5"></a>  <span class="fu">mutate</span>(<span class="at">n =</span> <span class="fu">n</span>()) <span class="sc">|&gt;</span></span>
-<span id="cb16-6"><a href="#cb16-6"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">y =</span> series_name, <span class="at">fill =</span> monster_gender)) <span class="sc">+</span></span>
-<span id="cb16-7"><a href="#cb16-7"></a>  <span class="fu">geom_bar</span>(<span class="at">position =</span> <span class="st">"fill"</span>)<span class="sc">+</span></span>
-<span id="cb16-8"><a href="#cb16-8"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Percent"</span>,</span>
-<span id="cb16-9"><a href="#cb16-9"></a>       <span class="at">title =</span> <span class="st">"% of Monsters by Gender per Series"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a><span class="co"># what are the most common monster types, names from TV episodes?</span></span>
+<span id="cb15-2"><a href="#cb15-2"></a><span class="co"># figure out how to get this for all monsters (not just monster1)</span></span>
+<span id="cb15-3"><a href="#cb15-3"></a>scoobydoo2 <span class="sc">|&gt;</span></span>
+<span id="cb15-4"><a href="#cb15-4"></a>  <span class="fu">count</span>(monster1_monster_name) <span class="sc">|&gt;</span></span>
+<span id="cb15-5"><a href="#cb15-5"></a>  <span class="fu">filter</span>(n <span class="sc">&gt;</span> <span class="dv">1</span>) <span class="sc">|&gt;</span></span>
+<span id="cb15-6"><a href="#cb15-6"></a>  <span class="fu">mutate</span>(<span class="at">monster1_monster_name =</span> <span class="fu">fct_reorder</span>(monster1_monster_name, n)) <span class="sc">|&gt;</span></span>
+<span id="cb15-7"><a href="#cb15-7"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">y=</span>monster1_monster_name, <span class="at">x =</span> n))<span class="sc">+</span></span>
+<span id="cb15-8"><a href="#cb15-8"></a>  <span class="fu">geom_col</span>()<span class="sc">+</span></span>
+<span id="cb15-9"><a href="#cb15-9"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Most Common Monster Names"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure"><p><img src="SarahR_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a><span class="co"># monster genders over time</span></span>
-<span id="cb17-2"><a href="#cb17-2"></a>scoobydoo_clean <span class="sc">|&gt;</span></span>
-<span id="cb17-3"><a href="#cb17-3"></a>  <span class="fu">left_join</span>(scoobydoo) <span class="sc">|&gt;</span></span>
-<span id="cb17-4"><a href="#cb17-4"></a>  <span class="fu">select</span>(monster_gender, title, season, series_name, date_aired) <span class="sc">|&gt;</span></span>
-<span id="cb17-5"><a href="#cb17-5"></a>  <span class="fu">mutate</span>(<span class="at">year =</span> <span class="fu">as.character</span>(<span class="fu">year</span>(date_aired))) <span class="sc">|&gt;</span></span>
-<span id="cb17-6"><a href="#cb17-6"></a>  <span class="fu">group_by</span>(year, monster_gender) <span class="sc">|&gt;</span></span>
-<span id="cb17-7"><a href="#cb17-7"></a>  <span class="fu">summarize</span>(<span class="at">n =</span> <span class="fu">n</span>()) <span class="sc">|&gt;</span></span>
-<span id="cb17-8"><a href="#cb17-8"></a>  <span class="fu">na.omit</span>() <span class="sc">|&gt;</span></span>
-<span id="cb17-9"><a href="#cb17-9"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">y =</span> year, <span class="at">x =</span> n, <span class="at">fill =</span> monster_gender))<span class="sc">+</span></span>
-<span id="cb17-10"><a href="#cb17-10"></a>  <span class="fu">geom_col</span>(<span class="at">position =</span> <span class="st">"fill"</span>)<span class="sc">+</span></span>
-<span id="cb17-11"><a href="#cb17-11"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Monster Gender Percentages by Year"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Joining with `by = join_by(title, season, series_name, monster_real,
-monster_amount, monster_name, monster_gender, monster_type, monster_subtype,
-monster_species)`
-`summarise()` has grouped output by 'year'. You can override using the
-`.groups` argument.</code></pre>
-</div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a>scoobydoo2 <span class="sc">|&gt;</span></span>
+<span id="cb16-2"><a href="#cb16-2"></a>  <span class="fu">count</span>(monster1_monster_type) <span class="sc">|&gt;</span></span>
+<span id="cb16-3"><a href="#cb16-3"></a>  <span class="fu">filter</span>(n <span class="sc">&gt;</span> <span class="dv">1</span>) <span class="sc">|&gt;</span></span>
+<span id="cb16-4"><a href="#cb16-4"></a>  <span class="fu">mutate</span>(<span class="at">monster1_monster_type =</span> <span class="fu">fct_reorder</span>(monster1_monster_type, n)) <span class="sc">|&gt;</span></span>
+<span id="cb16-5"><a href="#cb16-5"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">y=</span>monster1_monster_type, <span class="at">x =</span> n))<span class="sc">+</span></span>
+<span id="cb16-6"><a href="#cb16-6"></a>  <span class="fu">geom_col</span>()<span class="sc">+</span></span>
+<span id="cb16-7"><a href="#cb16-7"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Most Common Monster Types"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure"><p><img src="SarahR_files/figure-html/unnamed-chunk-6-2.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a><span class="co"># monster gender by seasons</span></span>
-<span id="cb19-2"><a href="#cb19-2"></a>scoobydoo_clean <span class="sc">|&gt;</span></span>
-<span id="cb19-3"><a href="#cb19-3"></a>  <span class="fu">count</span>(monster_gender, series_name, season) <span class="sc">|&gt;</span></span>
-<span id="cb19-4"><a href="#cb19-4"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> season, <span class="at">y =</span> n, <span class="at">fill =</span> monster_gender))<span class="sc">+</span></span>
-<span id="cb19-5"><a href="#cb19-5"></a>  <span class="fu">geom_col</span>(<span class="at">position =</span> <span class="st">"fill"</span>)<span class="sc">+</span></span>
-<span id="cb19-6"><a href="#cb19-6"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>series_name)<span class="sc">+</span></span>
-<span id="cb19-7"><a href="#cb19-7"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Monster Gender Breakdown by Season of Series"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a><span class="co"># are monsters real or not?</span></span>
+<span id="cb17-2"><a href="#cb17-2"></a><span class="fu">ggplot</span>(scoobydoo2, <span class="fu">aes</span>(<span class="at">x=</span>monster_real, <span class="at">fill =</span> monster1_monster_type))<span class="sc">+</span></span>
+<span id="cb17-3"><a href="#cb17-3"></a>  <span class="fu">geom_bar</span>(<span class="at">color =</span> <span class="st">"white"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure"><p><img src="SarahR_files/figure-html/unnamed-chunk-6-3.png" class="img-fluid figure-img" width="672"></p>
@@ -448,208 +538,10 @@ monster_species)`
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a>p1 <span class="ot">&lt;-</span> scoobydoo_clean <span class="sc">|&gt;</span></span>
-<span id="cb20-2"><a href="#cb20-2"></a>  <span class="fu">filter</span>(monster_gender <span class="sc">==</span> <span class="st">"Male"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb20-3"><a href="#cb20-3"></a>  <span class="fu">count</span>(monster_name) <span class="sc">|&gt;</span></span>
-<span id="cb20-4"><a href="#cb20-4"></a>  <span class="fu">filter</span>(n <span class="sc">&gt;</span> <span class="dv">3</span>) <span class="sc">|&gt;</span></span>
-<span id="cb20-5"><a href="#cb20-5"></a>  <span class="fu">mutate</span>(<span class="at">monster_name =</span> <span class="fu">fct_reorder</span>(monster_name, n)) <span class="sc">|&gt;</span></span>
-<span id="cb20-6"><a href="#cb20-6"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">y =</span> monster_name, <span class="at">x =</span> n))<span class="sc">+</span></span>
-<span id="cb20-7"><a href="#cb20-7"></a>  <span class="fu">geom_col</span>()<span class="sc">+</span></span>
-<span id="cb20-8"><a href="#cb20-8"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Monster Names by Gender in Scooby-Doo TV Episodes"</span>,</span>
-<span id="cb20-9"><a href="#cb20-9"></a>       <span class="at">subtitle =</span> <span class="st">"Male Monsters (n &gt;3)"</span>,</span>
-<span id="cb20-10"><a href="#cb20-10"></a>         <span class="at">x =</span> <span class="st">"Number of Occurences"</span>, <span class="at">y =</span> <span class="st">"Monster Name"</span>)<span class="sc">+</span></span>
-<span id="cb20-11"><a href="#cb20-11"></a>  <span class="fu">theme</span>(<span class="at">plot.title=</span><span class="fu">element_text</span>(<span class="at">face=</span><span class="st">"bold"</span>, <span class="at">size=</span><span class="dv">15</span>))</span>
-<span id="cb20-12"><a href="#cb20-12"></a></span>
-<span id="cb20-13"><a href="#cb20-13"></a>p2 <span class="ot">&lt;-</span> scoobydoo_clean <span class="sc">|&gt;</span></span>
-<span id="cb20-14"><a href="#cb20-14"></a>  <span class="fu">filter</span>(monster_gender <span class="sc">==</span> <span class="st">"Female"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb20-15"><a href="#cb20-15"></a>  <span class="fu">count</span>(monster_name) <span class="sc">|&gt;</span></span>
-<span id="cb20-16"><a href="#cb20-16"></a>  <span class="fu">mutate</span>(<span class="at">monster_name =</span> (<span class="fu">fct_reorder</span>(monster_name, n))) <span class="sc">|&gt;</span></span>
-<span id="cb20-17"><a href="#cb20-17"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">y=</span> monster_name, <span class="at">x =</span> n))<span class="sc">+</span></span>
-<span id="cb20-18"><a href="#cb20-18"></a>  <span class="fu">geom_col</span>()<span class="sc">+</span></span>
-<span id="cb20-19"><a href="#cb20-19"></a>  <span class="fu">labs</span>(<span class="at">subtitle =</span> <span class="st">"Female Monsters"</span>,</span>
-<span id="cb20-20"><a href="#cb20-20"></a>       <span class="at">x=</span> <span class="st">"Number of Occurences"</span>, <span class="at">y =</span> <span class="st">""</span>)</span>
-<span id="cb20-21"><a href="#cb20-21"></a></span>
-<span id="cb20-22"><a href="#cb20-22"></a>p1 <span class="sc">|</span> p2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure"><p><img src="SarahR_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="960"></p>
-</figure>
-</div>
-</div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a>scoobydoo_clean <span class="sc">|&gt;</span></span>
-<span id="cb21-2"><a href="#cb21-2"></a>  <span class="fu">filter</span>(monster_name <span class="sc">==</span> <span class="st">"Dr. Phineus Phibes"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb21-3"><a href="#cb21-3"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">y=</span>series_name))<span class="sc">+</span></span>
-<span id="cb21-4"><a href="#cb21-4"></a>  <span class="fu">geom_bar</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure"><p><img src="SarahR_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a>scoobydoo_clean <span class="sc">|&gt;</span></span>
-<span id="cb22-2"><a href="#cb22-2"></a>  <span class="fu">filter</span>(series_name <span class="sc">==</span> <span class="st">"Shaggy &amp; Scooby-Doo Get a Clue!"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb22-3"><a href="#cb22-3"></a>  <span class="fu">count</span>(monster_name) <span class="sc">|&gt;</span></span>
-<span id="cb22-4"><a href="#cb22-4"></a>  <span class="fu">mutate</span>(<span class="at">monster_name =</span> <span class="fu">fct_reorder</span>(monster_name, n)) <span class="sc">|&gt;</span></span>
-<span id="cb22-5"><a href="#cb22-5"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">y=</span>monster_name, <span class="at">x =</span> n))<span class="sc">+</span></span>
-<span id="cb22-6"><a href="#cb22-6"></a>  <span class="fu">geom_col</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure"><p><img src="SarahR_files/figure-html/unnamed-chunk-8-2.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a>scoobydoo_clean <span class="sc">|&gt;</span></span>
-<span id="cb23-2"><a href="#cb23-2"></a>  <span class="fu">filter</span>(monster_type <span class="sc">==</span> <span class="st">"Ghost"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb23-3"><a href="#cb23-3"></a>  <span class="fu">select</span>(monster_name, monster_gender) <span class="sc">|&gt;</span></span>
-<span id="cb23-4"><a href="#cb23-4"></a>  <span class="fu">group_by</span>(monster_gender) <span class="sc">|&gt;</span></span>
-<span id="cb23-5"><a href="#cb23-5"></a>  <span class="fu">summarize</span>(<span class="at">n =</span> <span class="fu">n</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 2 × 2
-  monster_gender     n
-  &lt;chr&gt;          &lt;int&gt;
-1 Female            10
-2 Male             149</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1"></a>scoobydoo_clean <span class="sc">|&gt;</span></span>
-<span id="cb25-2"><a href="#cb25-2"></a>  <span class="fu">filter</span>(monster_gender <span class="sc">==</span> <span class="st">"Male"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb25-3"><a href="#cb25-3"></a>  <span class="fu">count</span>(monster_name) <span class="sc">|&gt;</span></span>
-<span id="cb25-4"><a href="#cb25-4"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(n))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 425 × 2
-   monster_name           n
-   &lt;chr&gt;              &lt;int&gt;
- 1 Dr. Phineus Phibes    26
- 2 Agent 2               22
- 3 Dr. Trebla            20
- 4 Agent 1               19
- 5 Agent 4               12
- 6 Mark                  12
- 7 Ricky                 12
- 8 Agent 13              10
- 9 Zombies               10
-10 Agent 3                9
-# ℹ 415 more rows</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1"></a>p1<span class="ot">&lt;-</span> scoobydoo_clean <span class="sc">|&gt;</span> </span>
-<span id="cb27-2"><a href="#cb27-2"></a>  <span class="fu">filter</span>(monster_type <span class="sc">==</span> <span class="st">"Magician"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb27-3"><a href="#cb27-3"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">y=</span>monster_subtype, <span class="at">fill =</span> monster_gender))<span class="sc">+</span></span>
-<span id="cb27-4"><a href="#cb27-4"></a>  <span class="fu">geom_bar</span>()<span class="sc">+</span></span>
-<span id="cb27-5"><a href="#cb27-5"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Subtypes of Magician Monsters, by Gender"</span>,</span>
-<span id="cb27-6"><a href="#cb27-6"></a>       <span class="at">x =</span> <span class="st">"Count"</span>, <span class="at">y =</span> <span class="st">"Monster Subtype"</span>)</span>
-<span id="cb27-7"><a href="#cb27-7"></a></span>
-<span id="cb27-8"><a href="#cb27-8"></a>p2 <span class="ot">&lt;-</span> scoobydoo_clean <span class="sc">|&gt;</span></span>
-<span id="cb27-9"><a href="#cb27-9"></a>  <span class="fu">filter</span>(monster_subtype <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Witch"</span>, <span class="st">"Wizard"</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb27-10"><a href="#cb27-10"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>monster_subtype, <span class="at">fill =</span> monster_gender))<span class="sc">+</span></span>
-<span id="cb27-11"><a href="#cb27-11"></a>  <span class="fu">geom_bar</span>()<span class="sc">+</span></span>
-<span id="cb27-12"><a href="#cb27-12"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Witch and Wizard Monsters by Gender"</span>,</span>
-<span id="cb27-13"><a href="#cb27-13"></a>       <span class="at">x =</span> <span class="st">"Monster Subtype"</span>, <span class="at">y =</span> <span class="st">"Count"</span>)<span class="sc">+</span></span>
-<span id="cb27-14"><a href="#cb27-14"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>monster_type)</span>
-<span id="cb27-15"><a href="#cb27-15"></a></span>
-<span id="cb27-16"><a href="#cb27-16"></a>p1 <span class="sc">/</span> p2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure"><p><img src="SarahR_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1"></a>scoobydoo_clean <span class="sc">|&gt;</span></span>
-<span id="cb28-2"><a href="#cb28-2"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">y=</span>monster_type, <span class="at">fill =</span> monster_gender))<span class="sc">+</span></span>
-<span id="cb28-3"><a href="#cb28-3"></a>  <span class="fu">geom_bar</span>(<span class="at">position =</span> <span class="st">"fill"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure"><p><img src="SarahR_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1"></a><span class="co"># do female monsters appear alone or with groups of monsters?</span></span>
-<span id="cb29-2"><a href="#cb29-2"></a>scoobydoo_clean <span class="sc">|&gt;</span></span>
-<span id="cb29-3"><a href="#cb29-3"></a>  <span class="fu">filter</span>(monster_gender <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Male"</span>, <span class="st">"Female"</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb29-4"><a href="#cb29-4"></a>  <span class="fu">mutate</span>(<span class="at">monster_amount =</span> <span class="fu">ifelse</span>(monster_amount <span class="sc">&gt;=</span><span class="dv">10</span>, <span class="st">"10+"</span>,</span>
-<span id="cb29-5"><a href="#cb29-5"></a>                                 <span class="fu">as.character</span>(monster_amount))) <span class="sc">|&gt;</span></span>
-<span id="cb29-6"><a href="#cb29-6"></a>  <span class="fu">mutate</span>(<span class="at">monster_amount =</span> <span class="fu">fct_relevel</span>(monster_amount, <span class="fu">c</span>(<span class="st">"1"</span>, <span class="st">"2"</span>, <span class="st">"3"</span>, <span class="st">"4"</span>, <span class="st">"5"</span>, <span class="st">"6"</span>,</span>
-<span id="cb29-7"><a href="#cb29-7"></a>                                                        <span class="st">"7"</span>,<span class="st">"8"</span>,<span class="st">"9"</span>,<span class="st">"10+"</span>))) <span class="sc">|&gt;</span></span>
-<span id="cb29-8"><a href="#cb29-8"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>monster_gender, <span class="at">fill =</span> monster_amount))<span class="sc">+</span></span>
-<span id="cb29-9"><a href="#cb29-9"></a>  <span class="fu">geom_bar</span>(<span class="at">position =</span> <span class="st">"fill"</span>, <span class="at">color =</span> <span class="st">"white"</span>) <span class="sc">+</span></span>
-<span id="cb29-10"><a href="#cb29-10"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Monster Amount by Gender (%)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure"><p><img src="SarahR_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1"></a><span class="co"># when there are 2 monsters, is it 2 female or 1 male and 1 female?</span></span>
-<span id="cb30-2"><a href="#cb30-2"></a>scoobydoo_clean <span class="sc">|&gt;</span>  </span>
-<span id="cb30-3"><a href="#cb30-3"></a>  <span class="fu">filter</span>(monster_amount <span class="sc">==</span> <span class="dv">2</span>) <span class="sc">|&gt;</span>  </span>
-<span id="cb30-4"><a href="#cb30-4"></a>  <span class="fu">select</span>(title, monster_num, monster_gender) <span class="sc">|&gt;</span>  </span>
-<span id="cb30-5"><a href="#cb30-5"></a>  <span class="fu">group_by</span>(title, monster_num) <span class="sc">|&gt;</span>  </span>
-<span id="cb30-6"><a href="#cb30-6"></a>  <span class="fu">summarize</span>(<span class="at">monster_gender =</span> <span class="fu">first</span>(monster_gender)) <span class="sc">|&gt;</span>  </span>
-<span id="cb30-7"><a href="#cb30-7"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> monster_num, <span class="at">values_from =</span> monster_gender) <span class="sc">|&gt;</span></span>
-<span id="cb30-8"><a href="#cb30-8"></a>  <span class="fu">mutate</span>(<span class="at">genders =</span> <span class="fu">paste</span>(<span class="st">`</span><span class="at">1</span><span class="st">`</span>,<span class="st">`</span><span class="at">2</span><span class="st">`</span>, <span class="at">sep =</span> <span class="st">"_"</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb30-9"><a href="#cb30-9"></a>  <span class="fu">mutate</span>(<span class="at">genders =</span> <span class="fu">str_replace</span>(genders, <span class="st">"Female_Male"</span>,<span class="st">"Male_Female"</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb30-10"><a href="#cb30-10"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>genders))<span class="sc">+</span></span>
-<span id="cb30-11"><a href="#cb30-11"></a>  <span class="fu">geom_bar</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>`summarise()` has grouped output by 'title'. You can override using the
-`.groups` argument.</code></pre>
-</div>
-<div class="cell-output-display">
-<div>
-<figure class="figure"><p><img src="SarahR_files/figure-html/unnamed-chunk-11-2.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1"></a><span class="co"># runtime</span></span>
-<span id="cb32-2"><a href="#cb32-2"></a></span>
-<span id="cb32-3"><a href="#cb32-3"></a>scoobydoo_clean <span class="sc">|&gt;</span></span>
-<span id="cb32-4"><a href="#cb32-4"></a>  <span class="fu">left_join</span>(scoobydoo <span class="sc">|&gt;</span> <span class="fu">select</span>(title, run_time)) <span class="sc">|&gt;</span></span>
-<span id="cb32-5"><a href="#cb32-5"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(monster_gender)) <span class="sc">|&gt;</span></span>
-<span id="cb32-6"><a href="#cb32-6"></a>  <span class="fu">filter</span>(monster_gender <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Male"</span>, <span class="st">"Female"</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb32-7"><a href="#cb32-7"></a>  <span class="fu">group_by</span>(series_name) <span class="sc">|&gt;</span></span>
-<span id="cb32-8"><a href="#cb32-8"></a>  <span class="fu">summarize</span>(<span class="fu">mean</span>(run_time))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Joining with `by = join_by(title)`</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning in left_join(scoobydoo_clean, select(scoobydoo, title, run_time)): Detected an unexpected many-to-many relationship between `x` and `y`.
-ℹ Row 273 of `x` matches multiple rows in `y`.
-ℹ Row 11 of `y` matches multiple rows in `x`.
-ℹ If a many-to-many relationship is expected, set `relationship =
-  "many-to-many"` to silence this warning.</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 13 × 2
-   series_name                               `mean(run_time)`
-   &lt;chr&gt;                                                &lt;dbl&gt;
- 1 A Pup Named Scooby-Doo                                22.9
- 2 Be Cool, Scooby-Doo!                                  21.7
- 3 Scooby Doo, Where Are You!                            21.1
- 4 Scooby-Doo Mystery Incorporated                       22.4
- 5 Scooby-Doo and Guess Who?                             22.4
- 6 Scooby-Doo and Scrappy-Doo (first series)             21  
- 7 Shaggy &amp; Scooby-Doo Get a Clue!                       22.7
- 8 The 13 Ghosts of Scooby-Doo                           24  
- 9 The New Scooby and Scrappy Doo Show                   23  
-10 The New Scooby-Doo Movies                             42.6
-11 The New Scooby-Doo Mysteries                          23  
-12 The Scooby-Doo Show                                   23.6
-13 What's New Scooby-Doo?                                21.0</code></pre>
-</div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1"></a>scoobydoo <span class="sc">|&gt;</span></span>
-<span id="cb36-2"><a href="#cb36-2"></a>  <span class="fu">group_by</span>(series_name) <span class="sc">|&gt;</span></span>
-<span id="cb36-3"><a href="#cb36-3"></a>  <span class="fu">summarize</span>(<span class="at">n =</span> <span class="fu">n</span>()) <span class="sc">|&gt;</span></span>
-<span id="cb36-4"><a href="#cb36-4"></a>  <span class="fu">arrange</span>((<span class="fu">desc</span>(n)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a>scoobydoo <span class="sc">|&gt;</span></span>
+<span id="cb18-2"><a href="#cb18-2"></a>  <span class="fu">group_by</span>(series_name) <span class="sc">|&gt;</span></span>
+<span id="cb18-3"><a href="#cb18-3"></a>  <span class="fu">summarize</span>(<span class="at">n =</span> <span class="fu">n</span>()) <span class="sc">|&gt;</span></span>
+<span id="cb18-4"><a href="#cb18-4"></a>  <span class="fu">arrange</span>((<span class="fu">desc</span>(n)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 29 × 2
    series_name                                    n
@@ -666,9 +558,9 @@ monster_species)`
 10 Shaggy &amp; Scooby-Doo Get a Clue!               26
 # ℹ 19 more rows</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1"></a>scoobydoo <span class="sc">|&gt;</span></span>
-<span id="cb38-2"><a href="#cb38-2"></a>  <span class="fu">group_by</span>(season) <span class="sc">|&gt;</span></span>
-<span id="cb38-3"><a href="#cb38-3"></a>  <span class="fu">summarize</span>(<span class="at">n =</span> <span class="fu">n</span>()) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a>scoobydoo <span class="sc">|&gt;</span></span>
+<span id="cb20-2"><a href="#cb20-2"></a>  <span class="fu">group_by</span>(season) <span class="sc">|&gt;</span></span>
+<span id="cb20-3"><a href="#cb20-3"></a>  <span class="fu">summarize</span>(<span class="at">n =</span> <span class="fu">n</span>()) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 7 × 2
   season        n
@@ -681,9 +573,9 @@ monster_species)`
 6 Movie        42
 7 Special      13</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1"></a>scoobydoo <span class="sc">|&gt;</span></span>
-<span id="cb40-2"><a href="#cb40-2"></a>  <span class="fu">group_by</span>(format) <span class="sc">|&gt;</span></span>
-<span id="cb40-3"><a href="#cb40-3"></a>  <span class="fu">summarize</span>(<span class="at">n =</span> <span class="fu">n</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a>scoobydoo <span class="sc">|&gt;</span></span>
+<span id="cb22-2"><a href="#cb22-2"></a>  <span class="fu">group_by</span>(format) <span class="sc">|&gt;</span></span>
+<span id="cb22-3"><a href="#cb22-3"></a>  <span class="fu">summarize</span>(<span class="at">n =</span> <span class="fu">n</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 5 × 2
   format                    n
@@ -694,16 +586,16 @@ monster_species)`
 4 TV Series               374
 5 TV Series (segmented)   175</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1"></a><span class="co"># so we should probably focus on tv episodes and not movies?</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a><span class="co"># so we should probably focus on tv episodes and not movies?</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1"></a><span class="co"># filter to be just seasons</span></span>
-<span id="cb43-2"><a href="#cb43-2"></a>scoobydoo_tv <span class="ot">&lt;-</span> scoobydoo <span class="sc">|&gt;</span></span>
-<span id="cb43-3"><a href="#cb43-3"></a>  <span class="fu">filter</span>(season <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"1"</span>, <span class="st">"2"</span>, <span class="st">"3"</span>, <span class="st">"4"</span>))</span>
-<span id="cb43-4"><a href="#cb43-4"></a></span>
-<span id="cb43-5"><a href="#cb43-5"></a>scoobydoo_tv <span class="sc">|&gt;</span></span>
-<span id="cb43-6"><a href="#cb43-6"></a>  <span class="fu">group_by</span>(season) <span class="sc">|&gt;</span></span>
-<span id="cb43-7"><a href="#cb43-7"></a>  <span class="fu">summarize</span>(<span class="at">n =</span> <span class="fu">n</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1"></a><span class="co"># filter to be just seasons</span></span>
+<span id="cb25-2"><a href="#cb25-2"></a>scoobydoo_tv <span class="ot">&lt;-</span> scoobydoo <span class="sc">|&gt;</span></span>
+<span id="cb25-3"><a href="#cb25-3"></a>  <span class="fu">filter</span>(season <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"1"</span>, <span class="st">"2"</span>, <span class="st">"3"</span>, <span class="st">"4"</span>))</span>
+<span id="cb25-4"><a href="#cb25-4"></a></span>
+<span id="cb25-5"><a href="#cb25-5"></a>scoobydoo_tv <span class="sc">|&gt;</span></span>
+<span id="cb25-6"><a href="#cb25-6"></a>  <span class="fu">group_by</span>(season) <span class="sc">|&gt;</span></span>
+<span id="cb25-7"><a href="#cb25-7"></a>  <span class="fu">summarize</span>(<span class="at">n =</span> <span class="fu">n</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 4 × 2
   season     n
@@ -713,10 +605,10 @@ monster_species)`
 3 3         60
 4 4          5</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1"></a><span class="co"># i'm not well-versed enough on scoobydoo...why does season 4 only have 5 episodes?</span></span>
-<span id="cb45-2"><a href="#cb45-2"></a></span>
-<span id="cb45-3"><a href="#cb45-3"></a>scoobydoo_tv <span class="sc">|&gt;</span></span>
-<span id="cb45-4"><a href="#cb45-4"></a>  <span class="fu">filter</span>(season <span class="sc">==</span> <span class="st">"4"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1"></a><span class="co"># i'm not well-versed enough on scoobydoo...why does season 4 only have 5 episodes?</span></span>
+<span id="cb27-2"><a href="#cb27-2"></a></span>
+<span id="cb27-3"><a href="#cb27-3"></a>scoobydoo_tv <span class="sc">|&gt;</span></span>
+<span id="cb27-4"><a href="#cb27-4"></a>  <span class="fu">filter</span>(season <span class="sc">==</span> <span class="st">"4"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 5 × 75
   index series_name    network season title imdb  engagement date_aired run_time
@@ -736,20 +628,20 @@ monster_species)`
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1"></a><span class="fu">ggplot</span>(scoobydoo_tv, <span class="fu">aes</span>(<span class="at">x=</span>run_time))<span class="sc">+</span></span>
-<span id="cb47-2"><a href="#cb47-2"></a>  <span class="fu">geom_histogram</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1"></a><span class="fu">ggplot</span>(scoobydoo_tv, <span class="fu">aes</span>(<span class="at">x=</span>run_time))<span class="sc">+</span></span>
+<span id="cb29-2"><a href="#cb29-2"></a>  <span class="fu">geom_histogram</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
 </div>
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="SarahR_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid figure-img" width="672"></p>
+<figure class="figure"><p><img src="SarahR_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
-<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1"></a>scoobydoo_tv <span class="sc">|&gt;</span></span>
-<span id="cb49-2"><a href="#cb49-2"></a>  <span class="fu">filter</span>(series_name <span class="sc">==</span> <span class="st">"A Pup Named Scooby-Doo"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb49-3"><a href="#cb49-3"></a>  <span class="fu">summarize</span>(<span class="at">sum =</span> <span class="fu">sum</span>(run_time))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1"></a>scoobydoo_tv <span class="sc">|&gt;</span></span>
+<span id="cb31-2"><a href="#cb31-2"></a>  <span class="fu">filter</span>(series_name <span class="sc">==</span> <span class="st">"A Pup Named Scooby-Doo"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb31-3"><a href="#cb31-3"></a>  <span class="fu">summarize</span>(<span class="at">sum =</span> <span class="fu">sum</span>(run_time))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 1
     sum
@@ -758,238 +650,79 @@ monster_species)`
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1"></a>scoobydoo_tv <span class="sc">|&gt;</span></span>
-<span id="cb51-2"><a href="#cb51-2"></a>  <span class="fu">group_by</span>(series_name, season) <span class="sc">|&gt;</span>  </span>
-<span id="cb51-3"><a href="#cb51-3"></a>  <span class="fu">summarize</span>(<span class="at">length =</span> <span class="fu">sum</span>(run_time), <span class="at">.groups =</span> <span class="st">"drop"</span>) <span class="sc">|&gt;</span>  </span>
-<span id="cb51-4"><a href="#cb51-4"></a>  <span class="fu">group_by</span>(series_name) <span class="sc">|&gt;</span>  </span>
-<span id="cb51-5"><a href="#cb51-5"></a>  <span class="fu">mutate</span>(<span class="at">total_length =</span> <span class="fu">sum</span>(length)) <span class="sc">|&gt;</span>  </span>
-<span id="cb51-6"><a href="#cb51-6"></a>  <span class="fu">ungroup</span>() <span class="sc">|&gt;</span>  </span>
-<span id="cb51-7"><a href="#cb51-7"></a>  <span class="fu">mutate</span>(<span class="at">series_name =</span> <span class="fu">fct_reorder</span>(series_name, total_length)) <span class="sc">|&gt;</span> </span>
-<span id="cb51-8"><a href="#cb51-8"></a>  <span class="fu">mutate</span>(<span class="at">season =</span> <span class="fu">factor</span>(season, <span class="at">levels=</span><span class="fu">sort</span>(<span class="fu">unique</span>(season), <span class="at">decreasing =</span> <span class="cn">TRUE</span>))) <span class="sc">|&gt;</span></span>
-<span id="cb51-9"><a href="#cb51-9"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> series_name, <span class="at">y =</span> length, <span class="at">fill =</span> season)) <span class="sc">+</span></span>
-<span id="cb51-10"><a href="#cb51-10"></a>  <span class="fu">geom_col</span>(<span class="at">color =</span> <span class="st">"white"</span>, <span class="at">linewidth =</span> <span class="fl">0.25</span>) <span class="sc">+</span></span>
-<span id="cb51-11"><a href="#cb51-11"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
-<span id="cb51-12"><a href="#cb51-12"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> length), <span class="at">position =</span> <span class="fu">position_stack</span>(<span class="at">vjust =</span> <span class="fl">0.5</span>), </span>
-<span id="cb51-13"><a href="#cb51-13"></a>            <span class="at">size =</span> <span class="fl">2.75</span>, <span class="at">color =</span> <span class="st">"black"</span>) <span class="sc">+</span></span>
-<span id="cb51-14"><a href="#cb51-14"></a>  <span class="fu">geom_label</span>(<span class="fu">aes</span>(<span class="at">label =</span> total_length, <span class="at">y =</span><span class="dv">1250</span>), <span class="at">size =</span> <span class="dv">3</span>, <span class="at">fill =</span> <span class="st">"white"</span>)<span class="sc">+</span></span>
-<span id="cb51-15"><a href="#cb51-15"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Scooby-Doo Series Runtime by Season"</span>,</span>
-<span id="cb51-16"><a href="#cb51-16"></a>       <span class="at">subtitle =</span> <span class="st">"Total Series Runtime at the Right"</span>,</span>
-<span id="cb51-17"><a href="#cb51-17"></a>       <span class="at">x =</span> <span class="st">"Series Name"</span>,</span>
-<span id="cb51-18"><a href="#cb51-18"></a>       <span class="at">y =</span> <span class="st">"Total Runtime"</span>,</span>
-<span id="cb51-19"><a href="#cb51-19"></a>       <span class="at">fill =</span> <span class="st">"Season"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1"></a>scoobydoo_tv <span class="sc">|&gt;</span></span>
+<span id="cb33-2"><a href="#cb33-2"></a>  <span class="fu">group_by</span>(series_name, season) <span class="sc">|&gt;</span>  </span>
+<span id="cb33-3"><a href="#cb33-3"></a>  <span class="fu">summarize</span>(<span class="at">length =</span> <span class="fu">sum</span>(run_time), <span class="at">.groups =</span> <span class="st">"drop"</span>) <span class="sc">|&gt;</span>  </span>
+<span id="cb33-4"><a href="#cb33-4"></a>  <span class="fu">group_by</span>(series_name) <span class="sc">|&gt;</span>  </span>
+<span id="cb33-5"><a href="#cb33-5"></a>  <span class="fu">mutate</span>(<span class="at">total_length =</span> <span class="fu">sum</span>(length)) <span class="sc">|&gt;</span>  </span>
+<span id="cb33-6"><a href="#cb33-6"></a>  <span class="fu">ungroup</span>() <span class="sc">|&gt;</span>  </span>
+<span id="cb33-7"><a href="#cb33-7"></a>  <span class="fu">mutate</span>(<span class="at">series_name =</span> <span class="fu">fct_reorder</span>(series_name, total_length)) <span class="sc">|&gt;</span> </span>
+<span id="cb33-8"><a href="#cb33-8"></a>  <span class="fu">mutate</span>(<span class="at">season =</span> <span class="fu">factor</span>(season, <span class="at">levels=</span><span class="fu">sort</span>(<span class="fu">unique</span>(season), <span class="at">decreasing =</span> <span class="cn">TRUE</span>))) <span class="sc">|&gt;</span></span>
+<span id="cb33-9"><a href="#cb33-9"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> series_name, <span class="at">y =</span> length, <span class="at">fill =</span> season)) <span class="sc">+</span></span>
+<span id="cb33-10"><a href="#cb33-10"></a>  <span class="fu">geom_col</span>(<span class="at">color =</span> <span class="st">"white"</span>, <span class="at">linewidth =</span> <span class="fl">0.25</span>) <span class="sc">+</span></span>
+<span id="cb33-11"><a href="#cb33-11"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
+<span id="cb33-12"><a href="#cb33-12"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> length), <span class="at">position =</span> <span class="fu">position_stack</span>(<span class="at">vjust =</span> <span class="fl">0.5</span>), </span>
+<span id="cb33-13"><a href="#cb33-13"></a>            <span class="at">size =</span> <span class="fl">2.75</span>, <span class="at">color =</span> <span class="st">"black"</span>) <span class="sc">+</span></span>
+<span id="cb33-14"><a href="#cb33-14"></a>  <span class="fu">geom_label</span>(<span class="fu">aes</span>(<span class="at">label =</span> total_length, <span class="at">y =</span><span class="dv">1250</span>), <span class="at">size =</span> <span class="dv">3</span>, <span class="at">fill =</span> <span class="st">"white"</span>)<span class="sc">+</span></span>
+<span id="cb33-15"><a href="#cb33-15"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Scooby-Doo Series Runtime by Season"</span>,</span>
+<span id="cb33-16"><a href="#cb33-16"></a>       <span class="at">subtitle =</span> <span class="st">"Total Series Runtime at the Right"</span>,</span>
+<span id="cb33-17"><a href="#cb33-17"></a>       <span class="at">x =</span> <span class="st">"Series Name"</span>,</span>
+<span id="cb33-18"><a href="#cb33-18"></a>       <span class="at">y =</span> <span class="st">"Total Runtime"</span>,</span>
+<span id="cb33-19"><a href="#cb33-19"></a>       <span class="at">fill =</span> <span class="st">"Season"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="SarahR_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid figure-img" width="672"></p>
+<figure class="figure"><p><img src="SarahR_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1"></a><span class="co"># snacks!</span></span>
-<span id="cb52-2"><a href="#cb52-2"></a></span>
-<span id="cb52-3"><a href="#cb52-3"></a>scooby_snacks <span class="ot">&lt;-</span> scoobydoo_tv <span class="sc">|&gt;</span></span>
-<span id="cb52-4"><a href="#cb52-4"></a>  <span class="fu">select</span>(index, series_name, title, season, <span class="fu">contains</span>(<span class="st">"snack"</span>))</span>
-<span id="cb52-5"><a href="#cb52-5"></a></span>
-<span id="cb52-6"><a href="#cb52-6"></a>scooby_snacks <span class="sc">|&gt;</span></span>
-<span id="cb52-7"><a href="#cb52-7"></a>  <span class="fu">select</span>(<span class="fu">contains</span>(<span class="st">"snack"</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb52-8"><a href="#cb52-8"></a>  <span class="fu">mutate</span>(<span class="at">velma_snacks =</span> <span class="fu">str_count</span>(snack_velma, <span class="st">"TRUE"</span>),</span>
-<span id="cb52-9"><a href="#cb52-9"></a>         <span class="at">fred_snacks =</span> <span class="fu">str_count</span>(snack_fred, <span class="st">"TRUE"</span>),</span>
-<span id="cb52-10"><a href="#cb52-10"></a>         <span class="at">daphnie_snacks =</span> <span class="fu">str_count</span>(snack_daphnie, <span class="st">"TRUE"</span>),</span>
-<span id="cb52-11"><a href="#cb52-11"></a>         <span class="at">shaggy_snacks =</span> <span class="fu">str_count</span>(snack_shaggy, <span class="st">"TRUE"</span>),</span>
-<span id="cb52-12"><a href="#cb52-12"></a>         <span class="at">scooby_snacks =</span> <span class="fu">str_count</span>(snack_scooby, <span class="st">"TRUE"</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb52-13"><a href="#cb52-13"></a>  <span class="fu">summarize</span>(<span class="at">total_velma =</span> <span class="fu">sum</span>(velma_snacks),</span>
-<span id="cb52-14"><a href="#cb52-14"></a>            <span class="at">total_fred =</span> <span class="fu">sum</span>(fred_snacks),</span>
-<span id="cb52-15"><a href="#cb52-15"></a>            <span class="at">total_daphnie =</span> <span class="fu">sum</span>(daphnie_snacks),</span>
-<span id="cb52-16"><a href="#cb52-16"></a>            <span class="at">total_shaggy =</span> <span class="fu">sum</span>(shaggy_snacks),</span>
-<span id="cb52-17"><a href="#cb52-17"></a>            <span class="at">total_scooby =</span> <span class="fu">sum</span>(scooby_snacks)) <span class="sc">|&gt;</span></span>
-<span id="cb52-18"><a href="#cb52-18"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, <span class="at">names_to =</span> <span class="st">"char"</span>, <span class="at">values_to =</span> <span class="st">"n_snacks"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb52-19"><a href="#cb52-19"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>char, <span class="at">y =</span> n_snacks))<span class="sc">+</span></span>
-<span id="cb52-20"><a href="#cb52-20"></a>  <span class="fu">geom_col</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1"></a><span class="co"># snacks!</span></span>
+<span id="cb34-2"><a href="#cb34-2"></a></span>
+<span id="cb34-3"><a href="#cb34-3"></a>scooby_snacks <span class="ot">&lt;-</span> scoobydoo_tv <span class="sc">|&gt;</span></span>
+<span id="cb34-4"><a href="#cb34-4"></a>  <span class="fu">select</span>(index, series_name, title, season, <span class="fu">contains</span>(<span class="st">"snack"</span>))</span>
+<span id="cb34-5"><a href="#cb34-5"></a></span>
+<span id="cb34-6"><a href="#cb34-6"></a>scooby_snacks <span class="sc">|&gt;</span></span>
+<span id="cb34-7"><a href="#cb34-7"></a>  <span class="fu">select</span>(<span class="fu">contains</span>(<span class="st">"snack"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb34-8"><a href="#cb34-8"></a>  <span class="fu">mutate</span>(<span class="at">velma_snacks =</span> <span class="fu">str_count</span>(snack_velma, <span class="st">"TRUE"</span>),</span>
+<span id="cb34-9"><a href="#cb34-9"></a>         <span class="at">fred_snacks =</span> <span class="fu">str_count</span>(snack_fred, <span class="st">"TRUE"</span>),</span>
+<span id="cb34-10"><a href="#cb34-10"></a>         <span class="at">daphnie_snacks =</span> <span class="fu">str_count</span>(snack_daphnie, <span class="st">"TRUE"</span>),</span>
+<span id="cb34-11"><a href="#cb34-11"></a>         <span class="at">shaggy_snacks =</span> <span class="fu">str_count</span>(snack_shaggy, <span class="st">"TRUE"</span>),</span>
+<span id="cb34-12"><a href="#cb34-12"></a>         <span class="at">scooby_snacks =</span> <span class="fu">str_count</span>(snack_scooby, <span class="st">"TRUE"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb34-13"><a href="#cb34-13"></a>  <span class="fu">summarize</span>(<span class="at">total_velma =</span> <span class="fu">sum</span>(velma_snacks),</span>
+<span id="cb34-14"><a href="#cb34-14"></a>            <span class="at">total_fred =</span> <span class="fu">sum</span>(fred_snacks),</span>
+<span id="cb34-15"><a href="#cb34-15"></a>            <span class="at">total_daphnie =</span> <span class="fu">sum</span>(daphnie_snacks),</span>
+<span id="cb34-16"><a href="#cb34-16"></a>            <span class="at">total_shaggy =</span> <span class="fu">sum</span>(shaggy_snacks),</span>
+<span id="cb34-17"><a href="#cb34-17"></a>            <span class="at">total_scooby =</span> <span class="fu">sum</span>(scooby_snacks)) <span class="sc">|&gt;</span></span>
+<span id="cb34-18"><a href="#cb34-18"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, <span class="at">names_to =</span> <span class="st">"char"</span>, <span class="at">values_to =</span> <span class="st">"n_snacks"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb34-19"><a href="#cb34-19"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>char, <span class="at">y =</span> n_snacks))<span class="sc">+</span></span>
+<span id="cb34-20"><a href="#cb34-20"></a>  <span class="fu">geom_col</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="SarahR_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid figure-img" width="672"></p>
+<figure class="figure"><p><img src="SarahR_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
-<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1"></a>scooby_snacks <span class="sc">|&gt;</span></span>
-<span id="cb53-2"><a href="#cb53-2"></a>  <span class="fu">mutate</span>(<span class="at">number_of_snacks =</span> <span class="fu">str_sub</span>(number_of_snacks, <span class="at">start =</span> <span class="dv">0</span>, <span class="at">end =</span> <span class="dv">1</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb53-3"><a href="#cb53-3"></a>  <span class="fu">filter</span>(number_of_snacks <span class="sc">!=</span> <span class="st">"a"</span>,</span>
-<span id="cb53-4"><a href="#cb53-4"></a>         number_of_snacks <span class="sc">!=</span> <span class="st">"l"</span>,</span>
-<span id="cb53-5"><a href="#cb53-5"></a>         number_of_snacks <span class="sc">!=</span> <span class="st">"N"</span>, </span>
-<span id="cb53-6"><a href="#cb53-6"></a>         number_of_snacks <span class="sc">!=</span> <span class="st">"s"</span>,</span>
-<span id="cb53-7"><a href="#cb53-7"></a>         number_of_snacks <span class="sc">!=</span> <span class="st">"t"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb53-8"><a href="#cb53-8"></a>  <span class="fu">group_by</span>(series_name) <span class="sc">|&gt;</span></span>
-<span id="cb53-9"><a href="#cb53-9"></a>  <span class="fu">mutate</span>(<span class="at">total_snacks =</span> <span class="fu">sum</span>(<span class="fu">as.numeric</span>(number_of_snacks))) <span class="sc">|&gt;</span> <span class="co"># fix these numbers</span></span>
-<span id="cb53-10"><a href="#cb53-10"></a>  <span class="fu">mutate</span>(<span class="at">n_episodes =</span> <span class="fu">n</span>()) <span class="sc">|&gt;</span></span>
-<span id="cb53-11"><a href="#cb53-11"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>total_snacks, <span class="at">y =</span>series_name))<span class="sc">+</span></span>
-<span id="cb53-12"><a href="#cb53-12"></a>  <span class="fu">geom_col</span>()<span class="sc">+</span></span>
-<span id="cb53-13"><a href="#cb53-13"></a>  <span class="fu">geom_label</span>(<span class="fu">aes</span>(<span class="at">label =</span> n_episodes, <span class="at">x =</span> <span class="dv">10</span>))<span class="sc">+</span></span>
-<span id="cb53-14"><a href="#cb53-14"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Number of Snacks Eaten in each series"</span>,</span>
-<span id="cb53-15"><a href="#cb53-15"></a>       <span class="at">subtitle =</span> <span class="st">"number of episodes displayed at the right"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1"></a>scooby_snacks <span class="sc">|&gt;</span></span>
+<span id="cb35-2"><a href="#cb35-2"></a>  <span class="fu">mutate</span>(<span class="at">number_of_snacks =</span> <span class="fu">str_sub</span>(number_of_snacks, <span class="at">start =</span> <span class="dv">0</span>, <span class="at">end =</span> <span class="dv">1</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb35-3"><a href="#cb35-3"></a>  <span class="fu">filter</span>(number_of_snacks <span class="sc">!=</span> <span class="st">"a"</span>,</span>
+<span id="cb35-4"><a href="#cb35-4"></a>         number_of_snacks <span class="sc">!=</span> <span class="st">"l"</span>,</span>
+<span id="cb35-5"><a href="#cb35-5"></a>         number_of_snacks <span class="sc">!=</span> <span class="st">"N"</span>, </span>
+<span id="cb35-6"><a href="#cb35-6"></a>         number_of_snacks <span class="sc">!=</span> <span class="st">"s"</span>,</span>
+<span id="cb35-7"><a href="#cb35-7"></a>         number_of_snacks <span class="sc">!=</span> <span class="st">"t"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb35-8"><a href="#cb35-8"></a>  <span class="fu">group_by</span>(series_name) <span class="sc">|&gt;</span></span>
+<span id="cb35-9"><a href="#cb35-9"></a>  <span class="fu">mutate</span>(<span class="at">total_snacks =</span> <span class="fu">sum</span>(<span class="fu">as.numeric</span>(number_of_snacks))) <span class="sc">|&gt;</span> <span class="co"># fix these numbers</span></span>
+<span id="cb35-10"><a href="#cb35-10"></a>  <span class="fu">mutate</span>(<span class="at">n_episodes =</span> <span class="fu">n</span>()) <span class="sc">|&gt;</span></span>
+<span id="cb35-11"><a href="#cb35-11"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>total_snacks, <span class="at">y =</span>series_name))<span class="sc">+</span></span>
+<span id="cb35-12"><a href="#cb35-12"></a>  <span class="fu">geom_col</span>()<span class="sc">+</span></span>
+<span id="cb35-13"><a href="#cb35-13"></a>  <span class="fu">geom_label</span>(<span class="fu">aes</span>(<span class="at">label =</span> n_episodes, <span class="at">x =</span> <span class="dv">10</span>))<span class="sc">+</span></span>
+<span id="cb35-14"><a href="#cb35-14"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Number of Snacks Eateneaten in each series"</span>,</span>
+<span id="cb35-15"><a href="#cb35-15"></a>       <span class="at">subtitle =</span> <span class="st">"number of episodes displayed at the right"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="SarahR_files/figure-html/unnamed-chunk-17-2.png" class="img-fluid figure-img" width="672"></p>
+<figure class="figure"><p><img src="SarahR_files/figure-html/unnamed-chunk-11-2.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
-</div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1"></a><span class="co"># wrangle the culprit vars</span></span>
-<span id="cb54-2"><a href="#cb54-2"></a>scoobydoo_culprit <span class="ot">&lt;-</span> scoobydoo <span class="sc">|&gt;</span></span>
-<span id="cb54-3"><a href="#cb54-3"></a>  <span class="fu">filter</span>(season <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"1"</span>, <span class="st">"2"</span>,<span class="st">"3"</span>, <span class="st">"4"</span>),</span>
-<span id="cb54-4"><a href="#cb54-4"></a>         format <span class="sc">==</span> <span class="st">"TV Series"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb54-5"><a href="#cb54-5"></a>  <span class="fu">filter</span>(culprit_name <span class="sc">!=</span> <span class="st">"NULL"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb54-6"><a href="#cb54-6"></a>  <span class="fu">select</span>(title, season, series_name, motive, <span class="fu">contains</span>(<span class="st">"culprit"</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb54-7"><a href="#cb54-7"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">c</span>(culprit_name, culprit_gender), <span class="at">names_to =</span> <span class="st">"culprit_var"</span>,</span>
-<span id="cb54-8"><a href="#cb54-8"></a>               <span class="at">values_to =</span> <span class="st">"culprit"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb54-9"><a href="#cb54-9"></a>  <span class="fu">separate</span>(culprit, <span class="fu">c</span>(<span class="st">"1culprit"</span>, <span class="st">"2culprit"</span>, <span class="st">"3culprit"</span>, <span class="st">"4culprit"</span>, <span class="st">"5culprit"</span>,</span>
-<span id="cb54-10"><a href="#cb54-10"></a>                      <span class="st">"6culprit"</span>, <span class="st">"7culprit"</span>, <span class="st">"8culprit"</span>, <span class="st">"9culprit"</span>, <span class="st">"10culprit"</span>,</span>
-<span id="cb54-11"><a href="#cb54-11"></a>                      <span class="st">"11culprit"</span>), <span class="at">sep =</span> <span class="st">","</span>) <span class="sc">|&gt;</span></span>
-<span id="cb54-12"><a href="#cb54-12"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">ends_with</span>(<span class="st">"culprit"</span>), <span class="at">names_to =</span> <span class="st">"culprit_num"</span>, <span class="at">values_to =</span> <span class="st">"culprit_value"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb54-13"><a href="#cb54-13"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> culprit_var, <span class="at">values_from =</span> culprit_value) <span class="sc">|&gt;</span></span>
-<span id="cb54-14"><a href="#cb54-14"></a>  <span class="fu">separate</span>(culprit_num, <span class="fu">c</span>(<span class="st">"culprit_num"</span>, <span class="st">"x"</span>), <span class="at">sep =</span> <span class="st">"c"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb54-15"><a href="#cb54-15"></a>  <span class="fu">select</span>(<span class="sc">-</span>x) <span class="sc">|&gt;</span></span>
-<span id="cb54-16"><a href="#cb54-16"></a>  <span class="fu">mutate</span>(<span class="at">culprit_num =</span> <span class="fu">as.numeric</span>(culprit_num)) <span class="sc">|&gt;</span></span>
-<span id="cb54-17"><a href="#cb54-17"></a>  <span class="fu">na.omit</span>() <span class="sc">|&gt;</span></span>
-<span id="cb54-18"><a href="#cb54-18"></a>  <span class="fu">mutate</span>(<span class="at">culprit_gender =</span> <span class="fu">str_trim</span>(culprit_gender, <span class="at">side =</span> <span class="st">"left"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: Expected 11 pieces. Missing pieces filled with `NA` in 634 rows [1, 2, 3, 4, 5,
-6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, ...].</code></pre>
-</div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1"></a><span class="co"># examine motives</span></span>
-<span id="cb56-2"><a href="#cb56-2"></a>scoobydoo_tv <span class="sc">|&gt;</span></span>
-<span id="cb56-3"><a href="#cb56-3"></a>  <span class="fu">filter</span>(motive <span class="sc">!=</span> <span class="st">"NULL"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb56-4"><a href="#cb56-4"></a>  <span class="fu">group_by</span>(motive) <span class="sc">|&gt;</span></span>
-<span id="cb56-5"><a href="#cb56-5"></a>  <span class="fu">summarize</span>(<span class="at">n =</span> <span class="fu">n</span>()) <span class="sc">|&gt;</span></span>
-<span id="cb56-6"><a href="#cb56-6"></a>  <span class="fu">mutate</span>(<span class="at">motive =</span> <span class="fu">fct_reorder</span>(motive, n)) <span class="sc">|&gt;</span></span>
-<span id="cb56-7"><a href="#cb56-7"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">y=</span>motive, <span class="at">x =</span> n))<span class="sc">+</span></span>
-<span id="cb56-8"><a href="#cb56-8"></a>  <span class="fu">geom_col</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure"><p><img src="SarahR_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1"></a>scoobydoo_clean <span class="sc">|&gt;</span></span>
-<span id="cb57-2"><a href="#cb57-2"></a>  <span class="fu">left_join</span>(scoobydoo_tv) <span class="sc">|&gt;</span></span>
-<span id="cb57-3"><a href="#cb57-3"></a>  <span class="fu">select</span>(title, series_name, season, motive, monster_gender, </span>
-<span id="cb57-4"><a href="#cb57-4"></a>         monster_name, culprit_gender, culprit_name) <span class="sc">|&gt;</span></span>
-<span id="cb57-5"><a href="#cb57-5"></a>  <span class="fu">group_by</span>(motive, monster_gender) <span class="sc">|&gt;</span></span>
-<span id="cb57-6"><a href="#cb57-6"></a>  <span class="fu">summarize</span>(<span class="at">n =</span> <span class="fu">n</span>()) <span class="sc">|&gt;</span></span>
-<span id="cb57-7"><a href="#cb57-7"></a>  <span class="fu">na.omit</span>() <span class="sc">|&gt;</span></span>
-<span id="cb57-8"><a href="#cb57-8"></a>  <span class="fu">filter</span>(motive <span class="sc">!=</span> <span class="st">"NULL"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb57-9"><a href="#cb57-9"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> monster_gender, <span class="at">y =</span> n, <span class="at">fill =</span> motive))<span class="sc">+</span></span>
-<span id="cb57-10"><a href="#cb57-10"></a>  <span class="fu">geom_col</span>(<span class="at">color =</span> <span class="st">"white"</span>, <span class="at">position =</span> <span class="st">"fill"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Joining with `by = join_by(title, season, series_name, monster_real,
-monster_amount, monster_name, monster_gender, monster_type, monster_subtype,
-monster_species)`
-`summarise()` has grouped output by 'motive'. You can override using the
-`.groups` argument.</code></pre>
-</div>
-<div class="cell-output-display">
-<div>
-<figure class="figure"><p><img src="SarahR_files/figure-html/unnamed-chunk-19-2.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1"></a>p1 <span class="ot">&lt;-</span> scoobydoo_culprit <span class="sc">|&gt;</span></span>
-<span id="cb59-2"><a href="#cb59-2"></a>  <span class="fu">filter</span>(culprit_gender <span class="sc">==</span> <span class="st">"Female"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb59-3"><a href="#cb59-3"></a>  <span class="fu">count</span>(culprit_name) <span class="sc">|&gt;</span></span>
-<span id="cb59-4"><a href="#cb59-4"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">y =</span> culprit_name, <span class="at">x =</span> n))<span class="sc">+</span></span>
-<span id="cb59-5"><a href="#cb59-5"></a>  <span class="fu">geom_col</span>()<span class="sc">+</span></span>
-<span id="cb59-6"><a href="#cb59-6"></a>  <span class="fu">labs</span>(<span class="at">subtitle =</span> <span class="st">"Male Culprits"</span>)</span>
-<span id="cb59-7"><a href="#cb59-7"></a></span>
-<span id="cb59-8"><a href="#cb59-8"></a>p2 <span class="ot">&lt;-</span> scoobydoo_culprit <span class="sc">|&gt;</span></span>
-<span id="cb59-9"><a href="#cb59-9"></a>  <span class="fu">filter</span>(culprit_gender <span class="sc">==</span> <span class="st">"Male"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb59-10"><a href="#cb59-10"></a>  <span class="fu">count</span>(culprit_name) <span class="sc">|&gt;</span></span>
-<span id="cb59-11"><a href="#cb59-11"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">y =</span> culprit_name, <span class="at">x =</span> n))<span class="sc">+</span></span>
-<span id="cb59-12"><a href="#cb59-12"></a>  <span class="fu">geom_col</span>()<span class="sc">+</span></span>
-<span id="cb59-13"><a href="#cb59-13"></a>  <span class="fu">labs</span>(<span class="at">subtitle =</span> <span class="st">"Female Culprits"</span>)</span>
-<span id="cb59-14"><a href="#cb59-14"></a></span>
-<span id="cb59-15"><a href="#cb59-15"></a>p1 <span class="sc">|</span> p2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure"><p><img src="SarahR_files/figure-html/unnamed-chunk-20-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1"></a><span class="fu">ggplot</span>(scoobydoo_culprit, <span class="fu">aes</span>(<span class="at">y=</span>series_name, <span class="at">fill =</span> culprit_gender)) <span class="sc">+</span></span>
-<span id="cb60-2"><a href="#cb60-2"></a>  <span class="fu">geom_bar</span>(<span class="at">position =</span> <span class="st">"fill"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure"><p><img src="SarahR_files/figure-html/unnamed-chunk-21-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb61"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1"></a>scoobydoo_culprit <span class="sc">|&gt;</span></span>
-<span id="cb61-2"><a href="#cb61-2"></a>  <span class="fu">count</span>(culprit_gender) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 2 × 2
-  culprit_gender     n
-  &lt;chr&gt;          &lt;int&gt;
-1 Female           101
-2 Male             332</code></pre>
-</div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1"></a><span class="co"># gender of plants???</span></span>
-<span id="cb63-2"><a href="#cb63-2"></a>scoobydoo_clean <span class="sc">|&gt;</span></span>
-<span id="cb63-3"><a href="#cb63-3"></a>  <span class="fu">filter</span>(monster_type <span class="sc">==</span> <span class="st">"Plant"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb63-4"><a href="#cb63-4"></a>  <span class="fu">select</span>(monster_type, monster_name, monster_gender)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 10 × 3
-   monster_type monster_name   monster_gender
-   &lt;chr&gt;        &lt;chr&gt;          &lt;chr&gt;         
- 1 Plant        Cactus         None          
- 2 Plant        Kelp Monster   Male          
- 3 Plant        Evil Tree      Male          
- 4 Plant        Evil Tree      Male          
- 5 Plant        Living Plants  Male          
- 6 Plant        Stinkweed      Male          
- 7 Plant        Coral Creature Male          
- 8 Plant        Swamp Monster  Male          
- 9 Plant        Plant Monster  Male          
-10 Plant        Gnarled One    Male          </code></pre>
-</div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb65"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1"></a>scoobydoo_clean <span class="sc">|&gt;</span></span>
-<span id="cb65-2"><a href="#cb65-2"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>monster_real, <span class="at">fill =</span> monster_type))<span class="sc">+</span></span>
-<span id="cb65-3"><a href="#cb65-3"></a>  <span class="fu">geom_bar</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure"><p><img src="SarahR_files/figure-html/unnamed-chunk-24-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-<div class="sourceCode cell-code" id="cb66"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1"></a>scoobydoo_clean <span class="sc">|&gt;</span></span>
-<span id="cb66-2"><a href="#cb66-2"></a>  <span class="fu">filter</span>(monster_real <span class="sc">==</span> <span class="st">"TRUE"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb66-3"><a href="#cb66-3"></a>  <span class="fu">count</span>(monster_name) <span class="sc">|&gt;</span></span>
-<span id="cb66-4"><a href="#cb66-4"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(n))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 97 × 2
-   monster_name           n
-   &lt;chr&gt;              &lt;int&gt;
- 1 Dr. Phineus Phibes    26
- 2 Agent 2               22
- 3 Dr. Trebla            20
- 4 Agent 1               19
- 5 Agent 4               12
- 6 Mark                  12
- 7 Ricky                 12
- 8 Agent 13              10
- 9 Agent 11               9
-10 Agent 3                9
-# ℹ 87 more rows</code></pre>
 </div>
 </div>
 
@@ -1627,457 +1360,187 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>
   </div>
 </nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="sourceCode" id="cb68" data-shortcodes="false"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb68-1"><a href="#cb68-1"></a><span class="co">---</span></span>
-<span id="cb68-2"><a href="#cb68-2"></a><span class="an">title:</span><span class="co"> "SarahR"</span></span>
-<span id="cb68-3"><a href="#cb68-3"></a><span class="an">format:</span><span class="co"> html</span></span>
-<span id="cb68-4"><a href="#cb68-4"></a><span class="co">---</span></span>
-<span id="cb68-5"><a href="#cb68-5"></a></span>
-<span id="cb68-8"><a href="#cb68-8"></a><span class="in">```{r}</span></span>
-<span id="cb68-9"><a href="#cb68-9"></a><span class="co"># load data and packages</span></span>
-<span id="cb68-10"><a href="#cb68-10"></a></span>
-<span id="cb68-11"><a href="#cb68-11"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb68-12"><a href="#cb68-12"></a><span class="fu">library</span>(tidytuesdayR)</span>
-<span id="cb68-13"><a href="#cb68-13"></a><span class="fu">library</span>(patchwork)</span>
-<span id="cb68-14"><a href="#cb68-14"></a></span>
-<span id="cb68-15"><a href="#cb68-15"></a>tuesdata <span class="ot">&lt;-</span> tidytuesdayR<span class="sc">::</span><span class="fu">tt_load</span>(<span class="dv">2021</span>, <span class="at">week =</span> <span class="dv">29</span>)</span>
-<span id="cb68-16"><a href="#cb68-16"></a></span>
-<span id="cb68-17"><a href="#cb68-17"></a>scoobydoo <span class="ot">&lt;-</span> tuesdata<span class="sc">$</span>scoobydoo</span>
-<span id="cb68-18"><a href="#cb68-18"></a><span class="in">```</span></span>
-<span id="cb68-19"><a href="#cb68-19"></a></span>
-<span id="cb68-20"><a href="#cb68-20"></a></span>
-<span id="cb68-21"><a href="#cb68-21"></a></span>
-<span id="cb68-24"><a href="#cb68-24"></a><span class="in">```{r}</span></span>
-<span id="cb68-25"><a href="#cb68-25"></a><span class="co"># number of monsters in each episode</span></span>
-<span id="cb68-26"><a href="#cb68-26"></a>scoobydoo <span class="sc">|&gt;</span></span>
-<span id="cb68-27"><a href="#cb68-27"></a>  <span class="fu">filter</span>(monster_amount <span class="sc">&gt;</span> <span class="dv">16</span>) <span class="sc">|&gt;</span></span>
-<span id="cb68-28"><a href="#cb68-28"></a>  <span class="fu">select</span>(title, <span class="fu">contains</span>(<span class="st">"monster"</span>))</span>
-<span id="cb68-29"><a href="#cb68-29"></a></span>
-<span id="cb68-30"><a href="#cb68-30"></a><span class="fu">ggplot</span>(scoobydoo, <span class="fu">aes</span>(<span class="at">x=</span>monster_amount))<span class="sc">+</span></span>
-<span id="cb68-31"><a href="#cb68-31"></a>  <span class="fu">geom_bar</span>()</span>
-<span id="cb68-32"><a href="#cb68-32"></a><span class="in">```</span></span>
-<span id="cb68-33"><a href="#cb68-33"></a></span>
-<span id="cb68-34"><a href="#cb68-34"></a></span>
-<span id="cb68-35"><a href="#cb68-35"></a><span class="in">```{r, fig.width = 12}</span></span>
-<span id="cb68-36"><a href="#cb68-36"></a><span class="in">scoobydoo |&gt;</span></span>
-<span id="cb68-37"><a href="#cb68-37"></a><span class="in">  filter(imdb != "NULL") |&gt;</span></span>
-<span id="cb68-38"><a href="#cb68-38"></a><span class="in">  ggplot(aes(x=imdb, group=series_name, fill = series_name))+</span></span>
-<span id="cb68-39"><a href="#cb68-39"></a><span class="in">  geom_histogram(stat="count", binwidth = 1)+</span></span>
-<span id="cb68-40"><a href="#cb68-40"></a><span class="in">  theme(legend.position = "bottom")</span></span>
-<span id="cb68-41"><a href="#cb68-41"></a></span>
-<span id="cb68-42"><a href="#cb68-42"></a><span class="in">```</span></span>
-<span id="cb68-43"><a href="#cb68-43"></a></span>
-<span id="cb68-44"><a href="#cb68-44"></a></span>
-<span id="cb68-47"><a href="#cb68-47"></a><span class="in">```{r}</span></span>
-<span id="cb68-48"><a href="#cb68-48"></a><span class="co"># individual monsters of TV series</span></span>
-<span id="cb68-49"><a href="#cb68-49"></a>scoobydoo_clean <span class="ot">&lt;-</span> scoobydoo <span class="sc">|&gt;</span></span>
-<span id="cb68-50"><a href="#cb68-50"></a>  <span class="fu">filter</span>(season <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"1"</span>, <span class="st">"2"</span>,<span class="st">"3"</span>, <span class="st">"4"</span>),</span>
-<span id="cb68-51"><a href="#cb68-51"></a>         format <span class="sc">==</span> <span class="st">"TV Series"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb68-52"><a href="#cb68-52"></a>  <span class="fu">filter</span>(monster_name <span class="sc">!=</span> <span class="st">"NULL"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb68-53"><a href="#cb68-53"></a>  <span class="fu">mutate</span>(<span class="at">monster_amount =</span> <span class="fu">ifelse</span>(title <span class="sc">==</span> <span class="st">"The Ghastly Ghost Town"</span>, <span class="dv">5</span>, monster_amount),</span>
-<span id="cb68-54"><a href="#cb68-54"></a>         <span class="at">monster_amount =</span> <span class="fu">ifelse</span>(title <span class="sc">==</span> <span class="st">"Me and My Shadow Demon"</span>, <span class="dv">3</span>, monster_amount))<span class="sc">|&gt;</span></span>
-<span id="cb68-55"><a href="#cb68-55"></a>  <span class="fu">mutate</span>(<span class="at">monster_name =</span> <span class="fu">str_replace</span>(monster_name, <span class="st">"Dr. Phineus Phibes,Agent 1,Agent 2,Agent 3,Agent 4,Agent 5,Agent 6,Agent 7,Agent,8,Agent,9,Agent 10,Agent 11,Agent 12,Agent 13,Dr. Trebal"</span>, <span class="st">"Dr. Phineus Phibes,Agent 1,Agent 2,Agent 3,Agent 4,Agent 5,Agent 6,Agent 7,Agent 8,Agent 9,Agent 10,Agent 11,Agent 12,Agent 13,Dr. Trebal"</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb68-56"><a href="#cb68-56"></a>  <span class="fu">select</span>(title, season, series_name, <span class="fu">contains</span>(<span class="st">"monster"</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb68-57"><a href="#cb68-57"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">c</span>(monster_name, monster_gender, monster_type, monster_subtype, monster_species), <span class="at">names_to =</span> <span class="st">"monster_var"</span>, <span class="at">values_to =</span> <span class="st">"monster"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb68-58"><a href="#cb68-58"></a>  <span class="fu">separate</span>(monster, <span class="fu">c</span>(<span class="st">"1monster"</span>, <span class="st">"2monster"</span>, <span class="st">"3monster"</span>, <span class="st">"4monster"</span>, <span class="st">"5monster"</span>, <span class="st">"6monster"</span>, <span class="st">"7monster"</span>, <span class="st">"8monster"</span>, <span class="st">"9monster"</span>, <span class="st">"10monster"</span>, <span class="st">"11monster"</span>, <span class="st">"12monster"</span>, <span class="st">"13monster"</span>, <span class="st">"14monster"</span>, <span class="st">"15monster"</span>), <span class="at">sep =</span> <span class="st">","</span>) <span class="sc">|&gt;</span></span>
-<span id="cb68-59"><a href="#cb68-59"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">ends_with</span>(<span class="st">"monster"</span>), <span class="at">names_to =</span> <span class="st">"monster_num"</span>, <span class="at">values_to =</span> <span class="st">"monster_value"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb68-60"><a href="#cb68-60"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> monster_var, <span class="at">values_from =</span> monster_value) <span class="sc">|&gt;</span></span>
-<span id="cb68-61"><a href="#cb68-61"></a>  <span class="fu">separate</span>(monster_num, <span class="fu">c</span>(<span class="st">"monster_num"</span>, <span class="st">"x"</span>), <span class="at">sep =</span> <span class="st">"m"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb68-62"><a href="#cb68-62"></a>  <span class="fu">mutate</span>(<span class="at">monster_num =</span> <span class="fu">as.numeric</span>(monster_num)) <span class="sc">|&gt;</span></span>
-<span id="cb68-63"><a href="#cb68-63"></a>  <span class="fu">select</span>(<span class="sc">-</span>x) <span class="sc">|&gt;</span></span>
-<span id="cb68-64"><a href="#cb68-64"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(monster_name)) <span class="sc">|&gt;</span></span>
-<span id="cb68-65"><a href="#cb68-65"></a>   <span class="fu">mutate</span>(<span class="at">monster_type =</span> <span class="fu">ifelse</span>(monster_type <span class="sc">==</span> <span class="st">"Disugised"</span>, <span class="st">"Disguised"</span>, monster_type),</span>
-<span id="cb68-66"><a href="#cb68-66"></a>          <span class="at">monster_type =</span> <span class="fu">ifelse</span>(monster_type <span class="sc">==</span> <span class="st">"Disguise"</span>, <span class="st">"Disguised"</span>, monster_type)) <span class="sc">|&gt;</span></span>
-<span id="cb68-67"><a href="#cb68-67"></a>  <span class="fu">mutate</span>(<span class="at">monster_type =</span> <span class="fu">str_trim</span>(monster_type, <span class="at">side =</span> <span class="st">"left"</span>))</span>
-<span id="cb68-68"><a href="#cb68-68"></a></span>
-<span id="cb68-69"><a href="#cb68-69"></a></span>
-<span id="cb68-70"><a href="#cb68-70"></a><span class="in">```</span></span>
-<span id="cb68-71"><a href="#cb68-71"></a></span>
-<span id="cb68-72"><a href="#cb68-72"></a></span>
-<span id="cb68-73"><a href="#cb68-73"></a></span>
-<span id="cb68-74"><a href="#cb68-74"></a></span>
-<span id="cb68-75"><a href="#cb68-75"></a></span>
-<span id="cb68-76"><a href="#cb68-76"></a></span>
-<span id="cb68-77"><a href="#cb68-77"></a></span>
-<span id="cb68-78"><a href="#cb68-78"></a><span class="in">``` {r}</span></span>
-<span id="cb68-79"><a href="#cb68-79"></a><span class="in"># what are the most common monster types, names from TV episodes?</span></span>
-<span id="cb68-80"><a href="#cb68-80"></a><span class="in">scoobydoo_clean |&gt;</span></span>
-<span id="cb68-81"><a href="#cb68-81"></a><span class="in">  group_by(monster_type) |&gt;</span></span>
-<span id="cb68-82"><a href="#cb68-82"></a><span class="in">  mutate(n= n()) |&gt;</span></span>
-<span id="cb68-83"><a href="#cb68-83"></a><span class="in">  filter(n &gt; 5) |&gt;</span></span>
-<span id="cb68-84"><a href="#cb68-84"></a><span class="in">  mutate(monster_type = fct_reorder(monster_type, n)) |&gt;</span></span>
-<span id="cb68-85"><a href="#cb68-85"></a><span class="in">  ggplot(aes(y = series_name, fill = monster_type))+</span></span>
-<span id="cb68-86"><a href="#cb68-86"></a><span class="in">  geom_bar(position = "fill")+</span></span>
-<span id="cb68-87"><a href="#cb68-87"></a><span class="in">  labs(title = "Most Common Monster Types by series")+</span></span>
-<span id="cb68-88"><a href="#cb68-88"></a><span class="in">  theme(legend.position = "bottom")</span></span>
-<span id="cb68-89"><a href="#cb68-89"></a></span>
-<span id="cb68-90"><a href="#cb68-90"></a></span>
-<span id="cb68-91"><a href="#cb68-91"></a><span class="in"># are monsters real or not?</span></span>
-<span id="cb68-92"><a href="#cb68-92"></a><span class="in">ggplot(scoobydoo_clean, aes(x=monster_real, fill = monster_type))+</span></span>
-<span id="cb68-93"><a href="#cb68-93"></a><span class="in">  geom_bar(color = "white", position = "fill")+</span></span>
-<span id="cb68-94"><a href="#cb68-94"></a><span class="in">  labs(title = "Monster Type by Real/Not Real Status")</span></span>
-<span id="cb68-95"><a href="#cb68-95"></a></span>
-<span id="cb68-96"><a href="#cb68-96"></a></span>
-<span id="cb68-97"><a href="#cb68-97"></a><span class="in">```</span></span>
-<span id="cb68-100"><a href="#cb68-100"></a><span class="in">```{r}</span></span>
-<span id="cb68-101"><a href="#cb68-101"></a><span class="co"># monster genders</span></span>
-<span id="cb68-102"><a href="#cb68-102"></a>scoobydoo_clean <span class="sc">|&gt;</span></span>
-<span id="cb68-103"><a href="#cb68-103"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(monster_gender)) <span class="sc">|&gt;</span></span>
-<span id="cb68-104"><a href="#cb68-104"></a>  <span class="fu">group_by</span>(monster_gender) <span class="sc">|&gt;</span></span>
-<span id="cb68-105"><a href="#cb68-105"></a>  <span class="fu">mutate</span>(<span class="at">n =</span> <span class="fu">n</span>()) <span class="sc">|&gt;</span></span>
-<span id="cb68-106"><a href="#cb68-106"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">y =</span> series_name, <span class="at">fill =</span> monster_gender)) <span class="sc">+</span></span>
-<span id="cb68-107"><a href="#cb68-107"></a>  <span class="fu">geom_bar</span>(<span class="at">position =</span> <span class="st">"fill"</span>)<span class="sc">+</span></span>
-<span id="cb68-108"><a href="#cb68-108"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Percent"</span>,</span>
-<span id="cb68-109"><a href="#cb68-109"></a>       <span class="at">title =</span> <span class="st">"% of Monsters by Gender per Series"</span>)</span>
-<span id="cb68-110"><a href="#cb68-110"></a></span>
-<span id="cb68-111"><a href="#cb68-111"></a><span class="co"># monster genders over time</span></span>
-<span id="cb68-112"><a href="#cb68-112"></a>scoobydoo_clean <span class="sc">|&gt;</span></span>
-<span id="cb68-113"><a href="#cb68-113"></a>  <span class="fu">left_join</span>(scoobydoo) <span class="sc">|&gt;</span></span>
-<span id="cb68-114"><a href="#cb68-114"></a>  <span class="fu">select</span>(monster_gender, title, season, series_name, date_aired) <span class="sc">|&gt;</span></span>
-<span id="cb68-115"><a href="#cb68-115"></a>  <span class="fu">mutate</span>(<span class="at">year =</span> <span class="fu">as.character</span>(<span class="fu">year</span>(date_aired))) <span class="sc">|&gt;</span></span>
-<span id="cb68-116"><a href="#cb68-116"></a>  <span class="fu">group_by</span>(year, monster_gender) <span class="sc">|&gt;</span></span>
-<span id="cb68-117"><a href="#cb68-117"></a>  <span class="fu">summarize</span>(<span class="at">n =</span> <span class="fu">n</span>()) <span class="sc">|&gt;</span></span>
-<span id="cb68-118"><a href="#cb68-118"></a>  <span class="fu">na.omit</span>() <span class="sc">|&gt;</span></span>
-<span id="cb68-119"><a href="#cb68-119"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">y =</span> year, <span class="at">x =</span> n, <span class="at">fill =</span> monster_gender))<span class="sc">+</span></span>
-<span id="cb68-120"><a href="#cb68-120"></a>  <span class="fu">geom_col</span>(<span class="at">position =</span> <span class="st">"fill"</span>)<span class="sc">+</span></span>
-<span id="cb68-121"><a href="#cb68-121"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Monster Gender Percentages by Year"</span>)</span>
-<span id="cb68-122"><a href="#cb68-122"></a></span>
-<span id="cb68-123"><a href="#cb68-123"></a><span class="co"># monster gender by seasons</span></span>
-<span id="cb68-124"><a href="#cb68-124"></a>scoobydoo_clean <span class="sc">|&gt;</span></span>
-<span id="cb68-125"><a href="#cb68-125"></a>  <span class="fu">count</span>(monster_gender, series_name, season) <span class="sc">|&gt;</span></span>
-<span id="cb68-126"><a href="#cb68-126"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> season, <span class="at">y =</span> n, <span class="at">fill =</span> monster_gender))<span class="sc">+</span></span>
-<span id="cb68-127"><a href="#cb68-127"></a>  <span class="fu">geom_col</span>(<span class="at">position =</span> <span class="st">"fill"</span>)<span class="sc">+</span></span>
-<span id="cb68-128"><a href="#cb68-128"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>series_name)<span class="sc">+</span></span>
-<span id="cb68-129"><a href="#cb68-129"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Monster Gender Breakdown by Season of Series"</span>)</span>
-<span id="cb68-130"><a href="#cb68-130"></a><span class="in">```</span></span>
-<span id="cb68-131"><a href="#cb68-131"></a></span>
-<span id="cb68-132"><a href="#cb68-132"></a><span class="in">```{r, fig.width = 10}</span></span>
-<span id="cb68-133"><a href="#cb68-133"></a><span class="in">p1 &lt;- scoobydoo_clean |&gt;</span></span>
-<span id="cb68-134"><a href="#cb68-134"></a><span class="in">  filter(monster_gender == "Male") |&gt;</span></span>
-<span id="cb68-135"><a href="#cb68-135"></a><span class="in">  count(monster_name) |&gt;</span></span>
-<span id="cb68-136"><a href="#cb68-136"></a><span class="in">  filter(n &gt; 3) |&gt;</span></span>
-<span id="cb68-137"><a href="#cb68-137"></a><span class="in">  mutate(monster_name = fct_reorder(monster_name, n)) |&gt;</span></span>
-<span id="cb68-138"><a href="#cb68-138"></a><span class="in">  ggplot(aes(y = monster_name, x = n))+</span></span>
-<span id="cb68-139"><a href="#cb68-139"></a><span class="in">  geom_col()+</span></span>
-<span id="cb68-140"><a href="#cb68-140"></a><span class="in">  labs(title = "Monster Names by Gender in Scooby-Doo TV Episodes",</span></span>
-<span id="cb68-141"><a href="#cb68-141"></a><span class="in">       subtitle = "Male Monsters (n &gt;3)",</span></span>
-<span id="cb68-142"><a href="#cb68-142"></a><span class="in">         x = "Number of Occurences", y = "Monster Name")+</span></span>
-<span id="cb68-143"><a href="#cb68-143"></a><span class="in">  theme(plot.title=element_text(face="bold", size=15))</span></span>
-<span id="cb68-144"><a href="#cb68-144"></a></span>
-<span id="cb68-145"><a href="#cb68-145"></a><span class="in">p2 &lt;- scoobydoo_clean |&gt;</span></span>
-<span id="cb68-146"><a href="#cb68-146"></a><span class="in">  filter(monster_gender == "Female") |&gt;</span></span>
-<span id="cb68-147"><a href="#cb68-147"></a><span class="in">  count(monster_name) |&gt;</span></span>
-<span id="cb68-148"><a href="#cb68-148"></a><span class="in">  mutate(monster_name = (fct_reorder(monster_name, n))) |&gt;</span></span>
-<span id="cb68-149"><a href="#cb68-149"></a><span class="in">  ggplot(aes(y= monster_name, x = n))+</span></span>
-<span id="cb68-150"><a href="#cb68-150"></a><span class="in">  geom_col()+</span></span>
-<span id="cb68-151"><a href="#cb68-151"></a><span class="in">  labs(subtitle = "Female Monsters",</span></span>
-<span id="cb68-152"><a href="#cb68-152"></a><span class="in">       x= "Number of Occurences", y = "")</span></span>
-<span id="cb68-153"><a href="#cb68-153"></a></span>
-<span id="cb68-154"><a href="#cb68-154"></a><span class="in">p1 | p2</span></span>
-<span id="cb68-155"><a href="#cb68-155"></a><span class="in">```</span></span>
-<span id="cb68-158"><a href="#cb68-158"></a><span class="in">```{r}</span></span>
-<span id="cb68-159"><a href="#cb68-159"></a>scoobydoo_clean <span class="sc">|&gt;</span></span>
-<span id="cb68-160"><a href="#cb68-160"></a>  <span class="fu">filter</span>(monster_name <span class="sc">==</span> <span class="st">"Dr. Phineus Phibes"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb68-161"><a href="#cb68-161"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">y=</span>series_name))<span class="sc">+</span></span>
-<span id="cb68-162"><a href="#cb68-162"></a>  <span class="fu">geom_bar</span>()</span>
-<span id="cb68-163"><a href="#cb68-163"></a></span>
-<span id="cb68-164"><a href="#cb68-164"></a>scoobydoo_clean <span class="sc">|&gt;</span></span>
-<span id="cb68-165"><a href="#cb68-165"></a>  <span class="fu">filter</span>(series_name <span class="sc">==</span> <span class="st">"Shaggy &amp; Scooby-Doo Get a Clue!"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb68-166"><a href="#cb68-166"></a>  <span class="fu">count</span>(monster_name) <span class="sc">|&gt;</span></span>
-<span id="cb68-167"><a href="#cb68-167"></a>  <span class="fu">mutate</span>(<span class="at">monster_name =</span> <span class="fu">fct_reorder</span>(monster_name, n)) <span class="sc">|&gt;</span></span>
-<span id="cb68-168"><a href="#cb68-168"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">y=</span>monster_name, <span class="at">x =</span> n))<span class="sc">+</span></span>
-<span id="cb68-169"><a href="#cb68-169"></a>  <span class="fu">geom_col</span>()</span>
-<span id="cb68-170"><a href="#cb68-170"></a><span class="in">```</span></span>
-<span id="cb68-171"><a href="#cb68-171"></a></span>
-<span id="cb68-172"><a href="#cb68-172"></a></span>
-<span id="cb68-173"><a href="#cb68-173"></a></span>
-<span id="cb68-176"><a href="#cb68-176"></a><span class="in">```{r}</span></span>
-<span id="cb68-177"><a href="#cb68-177"></a>scoobydoo_clean <span class="sc">|&gt;</span></span>
-<span id="cb68-178"><a href="#cb68-178"></a>  <span class="fu">filter</span>(monster_type <span class="sc">==</span> <span class="st">"Ghost"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb68-179"><a href="#cb68-179"></a>  <span class="fu">select</span>(monster_name, monster_gender) <span class="sc">|&gt;</span></span>
-<span id="cb68-180"><a href="#cb68-180"></a>  <span class="fu">group_by</span>(monster_gender) <span class="sc">|&gt;</span></span>
-<span id="cb68-181"><a href="#cb68-181"></a>  <span class="fu">summarize</span>(<span class="at">n =</span> <span class="fu">n</span>())</span>
-<span id="cb68-182"><a href="#cb68-182"></a></span>
-<span id="cb68-183"><a href="#cb68-183"></a>scoobydoo_clean <span class="sc">|&gt;</span></span>
-<span id="cb68-184"><a href="#cb68-184"></a>  <span class="fu">filter</span>(monster_gender <span class="sc">==</span> <span class="st">"Male"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb68-185"><a href="#cb68-185"></a>  <span class="fu">count</span>(monster_name) <span class="sc">|&gt;</span></span>
-<span id="cb68-186"><a href="#cb68-186"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(n))</span>
-<span id="cb68-187"><a href="#cb68-187"></a></span>
-<span id="cb68-188"><a href="#cb68-188"></a></span>
-<span id="cb68-189"><a href="#cb68-189"></a>p1<span class="ot">&lt;-</span> scoobydoo_clean <span class="sc">|&gt;</span> </span>
-<span id="cb68-190"><a href="#cb68-190"></a>  <span class="fu">filter</span>(monster_type <span class="sc">==</span> <span class="st">"Magician"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb68-191"><a href="#cb68-191"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">y=</span>monster_subtype, <span class="at">fill =</span> monster_gender))<span class="sc">+</span></span>
-<span id="cb68-192"><a href="#cb68-192"></a>  <span class="fu">geom_bar</span>()<span class="sc">+</span></span>
-<span id="cb68-193"><a href="#cb68-193"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Subtypes of Magician Monsters, by Gender"</span>,</span>
-<span id="cb68-194"><a href="#cb68-194"></a>       <span class="at">x =</span> <span class="st">"Count"</span>, <span class="at">y =</span> <span class="st">"Monster Subtype"</span>)</span>
-<span id="cb68-195"><a href="#cb68-195"></a></span>
-<span id="cb68-196"><a href="#cb68-196"></a>p2 <span class="ot">&lt;-</span> scoobydoo_clean <span class="sc">|&gt;</span></span>
-<span id="cb68-197"><a href="#cb68-197"></a>  <span class="fu">filter</span>(monster_subtype <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Witch"</span>, <span class="st">"Wizard"</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb68-198"><a href="#cb68-198"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>monster_subtype, <span class="at">fill =</span> monster_gender))<span class="sc">+</span></span>
-<span id="cb68-199"><a href="#cb68-199"></a>  <span class="fu">geom_bar</span>()<span class="sc">+</span></span>
-<span id="cb68-200"><a href="#cb68-200"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Witch and Wizard Monsters by Gender"</span>,</span>
-<span id="cb68-201"><a href="#cb68-201"></a>       <span class="at">x =</span> <span class="st">"Monster Subtype"</span>, <span class="at">y =</span> <span class="st">"Count"</span>)<span class="sc">+</span></span>
-<span id="cb68-202"><a href="#cb68-202"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>monster_type)</span>
-<span id="cb68-203"><a href="#cb68-203"></a></span>
-<span id="cb68-204"><a href="#cb68-204"></a>p1 <span class="sc">/</span> p2</span>
-<span id="cb68-205"><a href="#cb68-205"></a><span class="in">```</span></span>
-<span id="cb68-206"><a href="#cb68-206"></a></span>
-<span id="cb68-207"><a href="#cb68-207"></a></span>
-<span id="cb68-208"><a href="#cb68-208"></a></span>
-<span id="cb68-209"><a href="#cb68-209"></a></span>
-<span id="cb68-212"><a href="#cb68-212"></a><span class="in">```{r}</span></span>
-<span id="cb68-213"><a href="#cb68-213"></a>scoobydoo_clean <span class="sc">|&gt;</span></span>
-<span id="cb68-214"><a href="#cb68-214"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">y=</span>monster_type, <span class="at">fill =</span> monster_gender))<span class="sc">+</span></span>
-<span id="cb68-215"><a href="#cb68-215"></a>  <span class="fu">geom_bar</span>(<span class="at">position =</span> <span class="st">"fill"</span>)</span>
-<span id="cb68-216"><a href="#cb68-216"></a><span class="in">```</span></span>
-<span id="cb68-217"><a href="#cb68-217"></a></span>
-<span id="cb68-220"><a href="#cb68-220"></a><span class="in">```{r}</span></span>
-<span id="cb68-221"><a href="#cb68-221"></a><span class="co"># do female monsters appear alone or with groups of monsters?</span></span>
-<span id="cb68-222"><a href="#cb68-222"></a>scoobydoo_clean <span class="sc">|&gt;</span></span>
-<span id="cb68-223"><a href="#cb68-223"></a>  <span class="fu">filter</span>(monster_gender <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Male"</span>, <span class="st">"Female"</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb68-224"><a href="#cb68-224"></a>  <span class="fu">mutate</span>(<span class="at">monster_amount =</span> <span class="fu">ifelse</span>(monster_amount <span class="sc">&gt;=</span><span class="dv">10</span>, <span class="st">"10+"</span>,</span>
-<span id="cb68-225"><a href="#cb68-225"></a>                                 <span class="fu">as.character</span>(monster_amount))) <span class="sc">|&gt;</span></span>
-<span id="cb68-226"><a href="#cb68-226"></a>  <span class="fu">mutate</span>(<span class="at">monster_amount =</span> <span class="fu">fct_relevel</span>(monster_amount, <span class="fu">c</span>(<span class="st">"1"</span>, <span class="st">"2"</span>, <span class="st">"3"</span>, <span class="st">"4"</span>, <span class="st">"5"</span>, <span class="st">"6"</span>,</span>
-<span id="cb68-227"><a href="#cb68-227"></a>                                                        <span class="st">"7"</span>,<span class="st">"8"</span>,<span class="st">"9"</span>,<span class="st">"10+"</span>))) <span class="sc">|&gt;</span></span>
-<span id="cb68-228"><a href="#cb68-228"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>monster_gender, <span class="at">fill =</span> monster_amount))<span class="sc">+</span></span>
-<span id="cb68-229"><a href="#cb68-229"></a>  <span class="fu">geom_bar</span>(<span class="at">position =</span> <span class="st">"fill"</span>, <span class="at">color =</span> <span class="st">"white"</span>) <span class="sc">+</span></span>
-<span id="cb68-230"><a href="#cb68-230"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Monster Amount by Gender (%)"</span>)</span>
-<span id="cb68-231"><a href="#cb68-231"></a></span>
-<span id="cb68-232"><a href="#cb68-232"></a><span class="co"># when there are 2 monsters, is it 2 female or 1 male and 1 female?</span></span>
-<span id="cb68-233"><a href="#cb68-233"></a>scoobydoo_clean <span class="sc">|&gt;</span>  </span>
-<span id="cb68-234"><a href="#cb68-234"></a>  <span class="fu">filter</span>(monster_amount <span class="sc">==</span> <span class="dv">2</span>) <span class="sc">|&gt;</span>  </span>
-<span id="cb68-235"><a href="#cb68-235"></a>  <span class="fu">select</span>(title, monster_num, monster_gender) <span class="sc">|&gt;</span>  </span>
-<span id="cb68-236"><a href="#cb68-236"></a>  <span class="fu">group_by</span>(title, monster_num) <span class="sc">|&gt;</span>  </span>
-<span id="cb68-237"><a href="#cb68-237"></a>  <span class="fu">summarize</span>(<span class="at">monster_gender =</span> <span class="fu">first</span>(monster_gender)) <span class="sc">|&gt;</span>  </span>
-<span id="cb68-238"><a href="#cb68-238"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> monster_num, <span class="at">values_from =</span> monster_gender) <span class="sc">|&gt;</span></span>
-<span id="cb68-239"><a href="#cb68-239"></a>  <span class="fu">mutate</span>(<span class="at">genders =</span> <span class="fu">paste</span>(<span class="st">`</span><span class="at">1</span><span class="st">`</span>,<span class="st">`</span><span class="at">2</span><span class="st">`</span>, <span class="at">sep =</span> <span class="st">"_"</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb68-240"><a href="#cb68-240"></a>  <span class="fu">mutate</span>(<span class="at">genders =</span> <span class="fu">str_replace</span>(genders, <span class="st">"Female_Male"</span>,<span class="st">"Male_Female"</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb68-241"><a href="#cb68-241"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>genders))<span class="sc">+</span></span>
-<span id="cb68-242"><a href="#cb68-242"></a>  <span class="fu">geom_bar</span>()</span>
-<span id="cb68-243"><a href="#cb68-243"></a></span>
-<span id="cb68-244"><a href="#cb68-244"></a><span class="in">```</span></span>
-<span id="cb68-247"><a href="#cb68-247"></a><span class="in">```{r}</span></span>
-<span id="cb68-248"><a href="#cb68-248"></a><span class="co"># runtime</span></span>
-<span id="cb68-249"><a href="#cb68-249"></a></span>
-<span id="cb68-250"><a href="#cb68-250"></a>scoobydoo_clean <span class="sc">|&gt;</span></span>
-<span id="cb68-251"><a href="#cb68-251"></a>  <span class="fu">left_join</span>(scoobydoo <span class="sc">|&gt;</span> <span class="fu">select</span>(title, run_time)) <span class="sc">|&gt;</span></span>
-<span id="cb68-252"><a href="#cb68-252"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(monster_gender)) <span class="sc">|&gt;</span></span>
-<span id="cb68-253"><a href="#cb68-253"></a>  <span class="fu">filter</span>(monster_gender <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Male"</span>, <span class="st">"Female"</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb68-254"><a href="#cb68-254"></a>  <span class="fu">group_by</span>(series_name) <span class="sc">|&gt;</span></span>
-<span id="cb68-255"><a href="#cb68-255"></a>  <span class="fu">summarize</span>(<span class="fu">mean</span>(run_time))</span>
-<span id="cb68-256"><a href="#cb68-256"></a></span>
-<span id="cb68-257"><a href="#cb68-257"></a><span class="in">```</span></span>
-<span id="cb68-258"><a href="#cb68-258"></a></span>
-<span id="cb68-259"><a href="#cb68-259"></a></span>
-<span id="cb68-260"><a href="#cb68-260"></a></span>
-<span id="cb68-261"><a href="#cb68-261"></a></span>
-<span id="cb68-262"><a href="#cb68-262"></a></span>
-<span id="cb68-263"><a href="#cb68-263"></a></span>
-<span id="cb68-264"><a href="#cb68-264"></a><span class="in">``` {r}</span></span>
-<span id="cb68-265"><a href="#cb68-265"></a><span class="in">scoobydoo |&gt;</span></span>
-<span id="cb68-266"><a href="#cb68-266"></a><span class="in">  group_by(series_name) |&gt;</span></span>
-<span id="cb68-267"><a href="#cb68-267"></a><span class="in">  summarize(n = n()) |&gt;</span></span>
-<span id="cb68-268"><a href="#cb68-268"></a><span class="in">  arrange((desc(n)))</span></span>
-<span id="cb68-269"><a href="#cb68-269"></a></span>
-<span id="cb68-270"><a href="#cb68-270"></a><span class="in">scoobydoo |&gt;</span></span>
-<span id="cb68-271"><a href="#cb68-271"></a><span class="in">  group_by(season) |&gt;</span></span>
-<span id="cb68-272"><a href="#cb68-272"></a><span class="in">  summarize(n = n()) </span></span>
-<span id="cb68-273"><a href="#cb68-273"></a></span>
-<span id="cb68-274"><a href="#cb68-274"></a><span class="in">scoobydoo |&gt;</span></span>
-<span id="cb68-275"><a href="#cb68-275"></a><span class="in">  group_by(format) |&gt;</span></span>
-<span id="cb68-276"><a href="#cb68-276"></a><span class="in">  summarize(n = n())</span></span>
-<span id="cb68-277"><a href="#cb68-277"></a></span>
-<span id="cb68-278"><a href="#cb68-278"></a></span>
-<span id="cb68-279"><a href="#cb68-279"></a><span class="in"># so we should probably focus on tv episodes and not movies?</span></span>
-<span id="cb68-280"><a href="#cb68-280"></a><span class="in">```</span></span>
-<span id="cb68-283"><a href="#cb68-283"></a><span class="in">```{r}</span></span>
-<span id="cb68-284"><a href="#cb68-284"></a><span class="co"># filter to be just seasons</span></span>
-<span id="cb68-285"><a href="#cb68-285"></a>scoobydoo_tv <span class="ot">&lt;-</span> scoobydoo <span class="sc">|&gt;</span></span>
-<span id="cb68-286"><a href="#cb68-286"></a>  <span class="fu">filter</span>(season <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"1"</span>, <span class="st">"2"</span>, <span class="st">"3"</span>, <span class="st">"4"</span>))</span>
-<span id="cb68-287"><a href="#cb68-287"></a></span>
-<span id="cb68-288"><a href="#cb68-288"></a>scoobydoo_tv <span class="sc">|&gt;</span></span>
-<span id="cb68-289"><a href="#cb68-289"></a>  <span class="fu">group_by</span>(season) <span class="sc">|&gt;</span></span>
-<span id="cb68-290"><a href="#cb68-290"></a>  <span class="fu">summarize</span>(<span class="at">n =</span> <span class="fu">n</span>())</span>
-<span id="cb68-291"><a href="#cb68-291"></a><span class="co"># i'm not well-versed enough on scoobydoo...why does season 4 only have 5 episodes?</span></span>
-<span id="cb68-292"><a href="#cb68-292"></a></span>
-<span id="cb68-293"><a href="#cb68-293"></a>scoobydoo_tv <span class="sc">|&gt;</span></span>
-<span id="cb68-294"><a href="#cb68-294"></a>  <span class="fu">filter</span>(season <span class="sc">==</span> <span class="st">"4"</span>)</span>
-<span id="cb68-295"><a href="#cb68-295"></a><span class="in">```</span></span>
-<span id="cb68-296"><a href="#cb68-296"></a></span>
-<span id="cb68-299"><a href="#cb68-299"></a><span class="in">```{r}</span></span>
-<span id="cb68-300"><a href="#cb68-300"></a><span class="fu">ggplot</span>(scoobydoo_tv, <span class="fu">aes</span>(<span class="at">x=</span>run_time))<span class="sc">+</span></span>
-<span id="cb68-301"><a href="#cb68-301"></a>  <span class="fu">geom_histogram</span>()</span>
-<span id="cb68-302"><a href="#cb68-302"></a></span>
-<span id="cb68-303"><a href="#cb68-303"></a>scoobydoo_tv <span class="sc">|&gt;</span></span>
-<span id="cb68-304"><a href="#cb68-304"></a>  <span class="fu">filter</span>(series_name <span class="sc">==</span> <span class="st">"A Pup Named Scooby-Doo"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb68-305"><a href="#cb68-305"></a>  <span class="fu">summarize</span>(<span class="at">sum =</span> <span class="fu">sum</span>(run_time))</span>
-<span id="cb68-306"><a href="#cb68-306"></a></span>
-<span id="cb68-307"><a href="#cb68-307"></a></span>
-<span id="cb68-308"><a href="#cb68-308"></a><span class="in">```</span></span>
-<span id="cb68-309"><a href="#cb68-309"></a></span>
-<span id="cb68-312"><a href="#cb68-312"></a><span class="in">```{r}</span></span>
-<span id="cb68-313"><a href="#cb68-313"></a>scoobydoo_tv <span class="sc">|&gt;</span></span>
-<span id="cb68-314"><a href="#cb68-314"></a>  <span class="fu">group_by</span>(series_name, season) <span class="sc">|&gt;</span>  </span>
-<span id="cb68-315"><a href="#cb68-315"></a>  <span class="fu">summarize</span>(<span class="at">length =</span> <span class="fu">sum</span>(run_time), <span class="at">.groups =</span> <span class="st">"drop"</span>) <span class="sc">|&gt;</span>  </span>
-<span id="cb68-316"><a href="#cb68-316"></a>  <span class="fu">group_by</span>(series_name) <span class="sc">|&gt;</span>  </span>
-<span id="cb68-317"><a href="#cb68-317"></a>  <span class="fu">mutate</span>(<span class="at">total_length =</span> <span class="fu">sum</span>(length)) <span class="sc">|&gt;</span>  </span>
-<span id="cb68-318"><a href="#cb68-318"></a>  <span class="fu">ungroup</span>() <span class="sc">|&gt;</span>  </span>
-<span id="cb68-319"><a href="#cb68-319"></a>  <span class="fu">mutate</span>(<span class="at">series_name =</span> <span class="fu">fct_reorder</span>(series_name, total_length)) <span class="sc">|&gt;</span> </span>
-<span id="cb68-320"><a href="#cb68-320"></a>  <span class="fu">mutate</span>(<span class="at">season =</span> <span class="fu">factor</span>(season, <span class="at">levels=</span><span class="fu">sort</span>(<span class="fu">unique</span>(season), <span class="at">decreasing =</span> <span class="cn">TRUE</span>))) <span class="sc">|&gt;</span></span>
-<span id="cb68-321"><a href="#cb68-321"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> series_name, <span class="at">y =</span> length, <span class="at">fill =</span> season)) <span class="sc">+</span></span>
-<span id="cb68-322"><a href="#cb68-322"></a>  <span class="fu">geom_col</span>(<span class="at">color =</span> <span class="st">"white"</span>, <span class="at">linewidth =</span> <span class="fl">0.25</span>) <span class="sc">+</span></span>
-<span id="cb68-323"><a href="#cb68-323"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
-<span id="cb68-324"><a href="#cb68-324"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> length), <span class="at">position =</span> <span class="fu">position_stack</span>(<span class="at">vjust =</span> <span class="fl">0.5</span>), </span>
-<span id="cb68-325"><a href="#cb68-325"></a>            <span class="at">size =</span> <span class="fl">2.75</span>, <span class="at">color =</span> <span class="st">"black"</span>) <span class="sc">+</span></span>
-<span id="cb68-326"><a href="#cb68-326"></a>  <span class="fu">geom_label</span>(<span class="fu">aes</span>(<span class="at">label =</span> total_length, <span class="at">y =</span><span class="dv">1250</span>), <span class="at">size =</span> <span class="dv">3</span>, <span class="at">fill =</span> <span class="st">"white"</span>)<span class="sc">+</span></span>
-<span id="cb68-327"><a href="#cb68-327"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Scooby-Doo Series Runtime by Season"</span>,</span>
-<span id="cb68-328"><a href="#cb68-328"></a>       <span class="at">subtitle =</span> <span class="st">"Total Series Runtime at the Right"</span>,</span>
-<span id="cb68-329"><a href="#cb68-329"></a>       <span class="at">x =</span> <span class="st">"Series Name"</span>,</span>
-<span id="cb68-330"><a href="#cb68-330"></a>       <span class="at">y =</span> <span class="st">"Total Runtime"</span>,</span>
-<span id="cb68-331"><a href="#cb68-331"></a>       <span class="at">fill =</span> <span class="st">"Season"</span>)</span>
-<span id="cb68-332"><a href="#cb68-332"></a><span class="in">```</span></span>
-<span id="cb68-333"><a href="#cb68-333"></a></span>
-<span id="cb68-334"><a href="#cb68-334"></a></span>
-<span id="cb68-337"><a href="#cb68-337"></a><span class="in">```{r}</span></span>
-<span id="cb68-338"><a href="#cb68-338"></a><span class="co"># snacks!</span></span>
-<span id="cb68-339"><a href="#cb68-339"></a></span>
-<span id="cb68-340"><a href="#cb68-340"></a>scooby_snacks <span class="ot">&lt;-</span> scoobydoo_tv <span class="sc">|&gt;</span></span>
-<span id="cb68-341"><a href="#cb68-341"></a>  <span class="fu">select</span>(index, series_name, title, season, <span class="fu">contains</span>(<span class="st">"snack"</span>))</span>
-<span id="cb68-342"><a href="#cb68-342"></a></span>
-<span id="cb68-343"><a href="#cb68-343"></a>scooby_snacks <span class="sc">|&gt;</span></span>
-<span id="cb68-344"><a href="#cb68-344"></a>  <span class="fu">select</span>(<span class="fu">contains</span>(<span class="st">"snack"</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb68-345"><a href="#cb68-345"></a>  <span class="fu">mutate</span>(<span class="at">velma_snacks =</span> <span class="fu">str_count</span>(snack_velma, <span class="st">"TRUE"</span>),</span>
-<span id="cb68-346"><a href="#cb68-346"></a>         <span class="at">fred_snacks =</span> <span class="fu">str_count</span>(snack_fred, <span class="st">"TRUE"</span>),</span>
-<span id="cb68-347"><a href="#cb68-347"></a>         <span class="at">daphnie_snacks =</span> <span class="fu">str_count</span>(snack_daphnie, <span class="st">"TRUE"</span>),</span>
-<span id="cb68-348"><a href="#cb68-348"></a>         <span class="at">shaggy_snacks =</span> <span class="fu">str_count</span>(snack_shaggy, <span class="st">"TRUE"</span>),</span>
-<span id="cb68-349"><a href="#cb68-349"></a>         <span class="at">scooby_snacks =</span> <span class="fu">str_count</span>(snack_scooby, <span class="st">"TRUE"</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb68-350"><a href="#cb68-350"></a>  <span class="fu">summarize</span>(<span class="at">total_velma =</span> <span class="fu">sum</span>(velma_snacks),</span>
-<span id="cb68-351"><a href="#cb68-351"></a>            <span class="at">total_fred =</span> <span class="fu">sum</span>(fred_snacks),</span>
-<span id="cb68-352"><a href="#cb68-352"></a>            <span class="at">total_daphnie =</span> <span class="fu">sum</span>(daphnie_snacks),</span>
-<span id="cb68-353"><a href="#cb68-353"></a>            <span class="at">total_shaggy =</span> <span class="fu">sum</span>(shaggy_snacks),</span>
-<span id="cb68-354"><a href="#cb68-354"></a>            <span class="at">total_scooby =</span> <span class="fu">sum</span>(scooby_snacks)) <span class="sc">|&gt;</span></span>
-<span id="cb68-355"><a href="#cb68-355"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, <span class="at">names_to =</span> <span class="st">"char"</span>, <span class="at">values_to =</span> <span class="st">"n_snacks"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb68-356"><a href="#cb68-356"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>char, <span class="at">y =</span> n_snacks))<span class="sc">+</span></span>
-<span id="cb68-357"><a href="#cb68-357"></a>  <span class="fu">geom_col</span>()</span>
-<span id="cb68-358"><a href="#cb68-358"></a></span>
-<span id="cb68-359"><a href="#cb68-359"></a>scooby_snacks <span class="sc">|&gt;</span></span>
-<span id="cb68-360"><a href="#cb68-360"></a>  <span class="fu">mutate</span>(<span class="at">number_of_snacks =</span> <span class="fu">str_sub</span>(number_of_snacks, <span class="at">start =</span> <span class="dv">0</span>, <span class="at">end =</span> <span class="dv">1</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb68-361"><a href="#cb68-361"></a>  <span class="fu">filter</span>(number_of_snacks <span class="sc">!=</span> <span class="st">"a"</span>,</span>
-<span id="cb68-362"><a href="#cb68-362"></a>         number_of_snacks <span class="sc">!=</span> <span class="st">"l"</span>,</span>
-<span id="cb68-363"><a href="#cb68-363"></a>         number_of_snacks <span class="sc">!=</span> <span class="st">"N"</span>, </span>
-<span id="cb68-364"><a href="#cb68-364"></a>         number_of_snacks <span class="sc">!=</span> <span class="st">"s"</span>,</span>
-<span id="cb68-365"><a href="#cb68-365"></a>         number_of_snacks <span class="sc">!=</span> <span class="st">"t"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb68-366"><a href="#cb68-366"></a>  <span class="fu">group_by</span>(series_name) <span class="sc">|&gt;</span></span>
-<span id="cb68-367"><a href="#cb68-367"></a>  <span class="fu">mutate</span>(<span class="at">total_snacks =</span> <span class="fu">sum</span>(<span class="fu">as.numeric</span>(number_of_snacks))) <span class="sc">|&gt;</span> <span class="co"># fix these numbers</span></span>
-<span id="cb68-368"><a href="#cb68-368"></a>  <span class="fu">mutate</span>(<span class="at">n_episodes =</span> <span class="fu">n</span>()) <span class="sc">|&gt;</span></span>
-<span id="cb68-369"><a href="#cb68-369"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>total_snacks, <span class="at">y =</span>series_name))<span class="sc">+</span></span>
-<span id="cb68-370"><a href="#cb68-370"></a>  <span class="fu">geom_col</span>()<span class="sc">+</span></span>
-<span id="cb68-371"><a href="#cb68-371"></a>  <span class="fu">geom_label</span>(<span class="fu">aes</span>(<span class="at">label =</span> n_episodes, <span class="at">x =</span> <span class="dv">10</span>))<span class="sc">+</span></span>
-<span id="cb68-372"><a href="#cb68-372"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Number of Snacks Eaten in each series"</span>,</span>
-<span id="cb68-373"><a href="#cb68-373"></a>       <span class="at">subtitle =</span> <span class="st">"number of episodes displayed at the right"</span>)</span>
-<span id="cb68-374"><a href="#cb68-374"></a></span>
-<span id="cb68-375"><a href="#cb68-375"></a></span>
-<span id="cb68-376"><a href="#cb68-376"></a><span class="in">```</span></span>
-<span id="cb68-377"><a href="#cb68-377"></a></span>
-<span id="cb68-378"><a href="#cb68-378"></a></span>
-<span id="cb68-381"><a href="#cb68-381"></a><span class="in">```{r}</span></span>
-<span id="cb68-382"><a href="#cb68-382"></a><span class="co"># wrangle the culprit vars</span></span>
-<span id="cb68-383"><a href="#cb68-383"></a>scoobydoo_culprit <span class="ot">&lt;-</span> scoobydoo <span class="sc">|&gt;</span></span>
-<span id="cb68-384"><a href="#cb68-384"></a>  <span class="fu">filter</span>(season <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"1"</span>, <span class="st">"2"</span>,<span class="st">"3"</span>, <span class="st">"4"</span>),</span>
-<span id="cb68-385"><a href="#cb68-385"></a>         format <span class="sc">==</span> <span class="st">"TV Series"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb68-386"><a href="#cb68-386"></a>  <span class="fu">filter</span>(culprit_name <span class="sc">!=</span> <span class="st">"NULL"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb68-387"><a href="#cb68-387"></a>  <span class="fu">select</span>(title, season, series_name, motive, <span class="fu">contains</span>(<span class="st">"culprit"</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb68-388"><a href="#cb68-388"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">c</span>(culprit_name, culprit_gender), <span class="at">names_to =</span> <span class="st">"culprit_var"</span>,</span>
-<span id="cb68-389"><a href="#cb68-389"></a>               <span class="at">values_to =</span> <span class="st">"culprit"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb68-390"><a href="#cb68-390"></a>  <span class="fu">separate</span>(culprit, <span class="fu">c</span>(<span class="st">"1culprit"</span>, <span class="st">"2culprit"</span>, <span class="st">"3culprit"</span>, <span class="st">"4culprit"</span>, <span class="st">"5culprit"</span>,</span>
-<span id="cb68-391"><a href="#cb68-391"></a>                      <span class="st">"6culprit"</span>, <span class="st">"7culprit"</span>, <span class="st">"8culprit"</span>, <span class="st">"9culprit"</span>, <span class="st">"10culprit"</span>,</span>
-<span id="cb68-392"><a href="#cb68-392"></a>                      <span class="st">"11culprit"</span>), <span class="at">sep =</span> <span class="st">","</span>) <span class="sc">|&gt;</span></span>
-<span id="cb68-393"><a href="#cb68-393"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">ends_with</span>(<span class="st">"culprit"</span>), <span class="at">names_to =</span> <span class="st">"culprit_num"</span>, <span class="at">values_to =</span> <span class="st">"culprit_value"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb68-394"><a href="#cb68-394"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> culprit_var, <span class="at">values_from =</span> culprit_value) <span class="sc">|&gt;</span></span>
-<span id="cb68-395"><a href="#cb68-395"></a>  <span class="fu">separate</span>(culprit_num, <span class="fu">c</span>(<span class="st">"culprit_num"</span>, <span class="st">"x"</span>), <span class="at">sep =</span> <span class="st">"c"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb68-396"><a href="#cb68-396"></a>  <span class="fu">select</span>(<span class="sc">-</span>x) <span class="sc">|&gt;</span></span>
-<span id="cb68-397"><a href="#cb68-397"></a>  <span class="fu">mutate</span>(<span class="at">culprit_num =</span> <span class="fu">as.numeric</span>(culprit_num)) <span class="sc">|&gt;</span></span>
-<span id="cb68-398"><a href="#cb68-398"></a>  <span class="fu">na.omit</span>() <span class="sc">|&gt;</span></span>
-<span id="cb68-399"><a href="#cb68-399"></a>  <span class="fu">mutate</span>(<span class="at">culprit_gender =</span> <span class="fu">str_trim</span>(culprit_gender, <span class="at">side =</span> <span class="st">"left"</span>))</span>
-<span id="cb68-400"><a href="#cb68-400"></a></span>
-<span id="cb68-401"><a href="#cb68-401"></a></span>
-<span id="cb68-402"><a href="#cb68-402"></a><span class="in">```</span></span>
-<span id="cb68-403"><a href="#cb68-403"></a></span>
-<span id="cb68-406"><a href="#cb68-406"></a><span class="in">```{r}</span></span>
-<span id="cb68-407"><a href="#cb68-407"></a><span class="co"># examine motives</span></span>
-<span id="cb68-408"><a href="#cb68-408"></a>scoobydoo_tv <span class="sc">|&gt;</span></span>
-<span id="cb68-409"><a href="#cb68-409"></a>  <span class="fu">filter</span>(motive <span class="sc">!=</span> <span class="st">"NULL"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb68-410"><a href="#cb68-410"></a>  <span class="fu">group_by</span>(motive) <span class="sc">|&gt;</span></span>
-<span id="cb68-411"><a href="#cb68-411"></a>  <span class="fu">summarize</span>(<span class="at">n =</span> <span class="fu">n</span>()) <span class="sc">|&gt;</span></span>
-<span id="cb68-412"><a href="#cb68-412"></a>  <span class="fu">mutate</span>(<span class="at">motive =</span> <span class="fu">fct_reorder</span>(motive, n)) <span class="sc">|&gt;</span></span>
-<span id="cb68-413"><a href="#cb68-413"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">y=</span>motive, <span class="at">x =</span> n))<span class="sc">+</span></span>
-<span id="cb68-414"><a href="#cb68-414"></a>  <span class="fu">geom_col</span>()</span>
-<span id="cb68-415"><a href="#cb68-415"></a></span>
-<span id="cb68-416"><a href="#cb68-416"></a>scoobydoo_clean <span class="sc">|&gt;</span></span>
-<span id="cb68-417"><a href="#cb68-417"></a>  <span class="fu">left_join</span>(scoobydoo_tv) <span class="sc">|&gt;</span></span>
-<span id="cb68-418"><a href="#cb68-418"></a>  <span class="fu">select</span>(title, series_name, season, motive, monster_gender, </span>
-<span id="cb68-419"><a href="#cb68-419"></a>         monster_name, culprit_gender, culprit_name) <span class="sc">|&gt;</span></span>
-<span id="cb68-420"><a href="#cb68-420"></a>  <span class="fu">group_by</span>(motive, monster_gender) <span class="sc">|&gt;</span></span>
-<span id="cb68-421"><a href="#cb68-421"></a>  <span class="fu">summarize</span>(<span class="at">n =</span> <span class="fu">n</span>()) <span class="sc">|&gt;</span></span>
-<span id="cb68-422"><a href="#cb68-422"></a>  <span class="fu">na.omit</span>() <span class="sc">|&gt;</span></span>
-<span id="cb68-423"><a href="#cb68-423"></a>  <span class="fu">filter</span>(motive <span class="sc">!=</span> <span class="st">"NULL"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb68-424"><a href="#cb68-424"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> monster_gender, <span class="at">y =</span> n, <span class="at">fill =</span> motive))<span class="sc">+</span></span>
-<span id="cb68-425"><a href="#cb68-425"></a>  <span class="fu">geom_col</span>(<span class="at">color =</span> <span class="st">"white"</span>, <span class="at">position =</span> <span class="st">"fill"</span>)</span>
-<span id="cb68-426"><a href="#cb68-426"></a></span>
-<span id="cb68-427"><a href="#cb68-427"></a></span>
-<span id="cb68-428"><a href="#cb68-428"></a><span class="in">```</span></span>
-<span id="cb68-429"><a href="#cb68-429"></a></span>
-<span id="cb68-430"><a href="#cb68-430"></a><span class="in">``` {r}</span></span>
-<span id="cb68-431"><a href="#cb68-431"></a><span class="in">p1 &lt;- scoobydoo_culprit |&gt;</span></span>
-<span id="cb68-432"><a href="#cb68-432"></a><span class="in">  filter(culprit_gender == "Female") |&gt;</span></span>
-<span id="cb68-433"><a href="#cb68-433"></a><span class="in">  count(culprit_name) |&gt;</span></span>
-<span id="cb68-434"><a href="#cb68-434"></a><span class="in">  ggplot(aes(y = culprit_name, x = n))+</span></span>
-<span id="cb68-435"><a href="#cb68-435"></a><span class="in">  geom_col()+</span></span>
-<span id="cb68-436"><a href="#cb68-436"></a><span class="in">  labs(subtitle = "Male Culprits")</span></span>
-<span id="cb68-437"><a href="#cb68-437"></a></span>
-<span id="cb68-438"><a href="#cb68-438"></a><span class="in">p2 &lt;- scoobydoo_culprit |&gt;</span></span>
-<span id="cb68-439"><a href="#cb68-439"></a><span class="in">  filter(culprit_gender == "Male") |&gt;</span></span>
-<span id="cb68-440"><a href="#cb68-440"></a><span class="in">  count(culprit_name) |&gt;</span></span>
-<span id="cb68-441"><a href="#cb68-441"></a><span class="in">  ggplot(aes(y = culprit_name, x = n))+</span></span>
-<span id="cb68-442"><a href="#cb68-442"></a><span class="in">  geom_col()+</span></span>
-<span id="cb68-443"><a href="#cb68-443"></a><span class="in">  labs(subtitle = "Female Culprits")</span></span>
-<span id="cb68-444"><a href="#cb68-444"></a></span>
-<span id="cb68-445"><a href="#cb68-445"></a><span class="in">p1 | p2</span></span>
-<span id="cb68-446"><a href="#cb68-446"></a><span class="in">```</span></span>
-<span id="cb68-447"><a href="#cb68-447"></a></span>
-<span id="cb68-448"><a href="#cb68-448"></a></span>
-<span id="cb68-449"><a href="#cb68-449"></a></span>
-<span id="cb68-450"><a href="#cb68-450"></a></span>
-<span id="cb68-451"><a href="#cb68-451"></a>  </span>
-<span id="cb68-454"><a href="#cb68-454"></a><span class="in">```{r}</span></span>
-<span id="cb68-455"><a href="#cb68-455"></a><span class="fu">ggplot</span>(scoobydoo_culprit, <span class="fu">aes</span>(<span class="at">y=</span>series_name, <span class="at">fill =</span> culprit_gender)) <span class="sc">+</span></span>
-<span id="cb68-456"><a href="#cb68-456"></a>  <span class="fu">geom_bar</span>(<span class="at">position =</span> <span class="st">"fill"</span>)</span>
-<span id="cb68-457"><a href="#cb68-457"></a><span class="in">```</span></span>
-<span id="cb68-458"><a href="#cb68-458"></a></span>
-<span id="cb68-459"><a href="#cb68-459"></a></span>
-<span id="cb68-462"><a href="#cb68-462"></a><span class="in">```{r}</span></span>
-<span id="cb68-463"><a href="#cb68-463"></a>scoobydoo_culprit <span class="sc">|&gt;</span></span>
-<span id="cb68-464"><a href="#cb68-464"></a>  <span class="fu">count</span>(culprit_gender) </span>
-<span id="cb68-465"><a href="#cb68-465"></a><span class="in">```</span></span>
-<span id="cb68-466"><a href="#cb68-466"></a></span>
-<span id="cb68-467"><a href="#cb68-467"></a></span>
-<span id="cb68-470"><a href="#cb68-470"></a><span class="in">```{r}</span></span>
-<span id="cb68-471"><a href="#cb68-471"></a><span class="co"># gender of plants???</span></span>
-<span id="cb68-472"><a href="#cb68-472"></a>scoobydoo_clean <span class="sc">|&gt;</span></span>
-<span id="cb68-473"><a href="#cb68-473"></a>  <span class="fu">filter</span>(monster_type <span class="sc">==</span> <span class="st">"Plant"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb68-474"><a href="#cb68-474"></a>  <span class="fu">select</span>(monster_type, monster_name, monster_gender)</span>
-<span id="cb68-475"><a href="#cb68-475"></a><span class="in">```</span></span>
-<span id="cb68-476"><a href="#cb68-476"></a></span>
-<span id="cb68-477"><a href="#cb68-477"></a></span>
-<span id="cb68-480"><a href="#cb68-480"></a><span class="in">```{r}</span></span>
-<span id="cb68-481"><a href="#cb68-481"></a>scoobydoo_clean <span class="sc">|&gt;</span></span>
-<span id="cb68-482"><a href="#cb68-482"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>monster_real, <span class="at">fill =</span> monster_type))<span class="sc">+</span></span>
-<span id="cb68-483"><a href="#cb68-483"></a>  <span class="fu">geom_bar</span>()</span>
-<span id="cb68-484"><a href="#cb68-484"></a></span>
-<span id="cb68-485"><a href="#cb68-485"></a>scoobydoo_clean <span class="sc">|&gt;</span></span>
-<span id="cb68-486"><a href="#cb68-486"></a>  <span class="fu">filter</span>(monster_real <span class="sc">==</span> <span class="st">"TRUE"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb68-487"><a href="#cb68-487"></a>  <span class="fu">count</span>(monster_name) <span class="sc">|&gt;</span></span>
-<span id="cb68-488"><a href="#cb68-488"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(n))</span>
-<span id="cb68-489"><a href="#cb68-489"></a><span class="in">```</span></span>
+<div class="sourceCode" id="cb36" data-shortcodes="false"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb36-1"><a href="#cb36-1"></a><span class="co">---</span></span>
+<span id="cb36-2"><a href="#cb36-2"></a><span class="an">title:</span><span class="co"> "SarahR"</span></span>
+<span id="cb36-3"><a href="#cb36-3"></a><span class="an">format:</span><span class="co"> html</span></span>
+<span id="cb36-4"><a href="#cb36-4"></a><span class="co">---</span></span>
+<span id="cb36-5"><a href="#cb36-5"></a></span>
+<span id="cb36-8"><a href="#cb36-8"></a><span class="in">```{r}</span></span>
+<span id="cb36-9"><a href="#cb36-9"></a><span class="co"># load data and packages</span></span>
+<span id="cb36-10"><a href="#cb36-10"></a></span>
+<span id="cb36-11"><a href="#cb36-11"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb36-12"><a href="#cb36-12"></a><span class="fu">library</span>(tidytuesdayR)</span>
+<span id="cb36-13"><a href="#cb36-13"></a></span>
+<span id="cb36-14"><a href="#cb36-14"></a>tuesdata <span class="ot">&lt;-</span> tidytuesdayR<span class="sc">::</span><span class="fu">tt_load</span>(<span class="dv">2021</span>, <span class="at">week =</span> <span class="dv">29</span>)</span>
+<span id="cb36-15"><a href="#cb36-15"></a></span>
+<span id="cb36-16"><a href="#cb36-16"></a>scoobydoo <span class="ot">&lt;-</span> tuesdata<span class="sc">$</span>scoobydoo</span>
+<span id="cb36-17"><a href="#cb36-17"></a><span class="in">```</span></span>
+<span id="cb36-18"><a href="#cb36-18"></a></span>
+<span id="cb36-21"><a href="#cb36-21"></a><span class="in">```{r}</span></span>
+<span id="cb36-22"><a href="#cb36-22"></a><span class="fu">summary</span>(scoobydoo)</span>
+<span id="cb36-23"><a href="#cb36-23"></a><span class="in">```</span></span>
+<span id="cb36-26"><a href="#cb36-26"></a><span class="in">```{r}</span></span>
+<span id="cb36-27"><a href="#cb36-27"></a>scoobydoo <span class="sc">|&gt;</span></span>
+<span id="cb36-28"><a href="#cb36-28"></a>  <span class="fu">filter</span>(monster_amount <span class="sc">&gt;</span> <span class="dv">16</span>) <span class="sc">|&gt;</span></span>
+<span id="cb36-29"><a href="#cb36-29"></a>  <span class="fu">select</span>(title, <span class="fu">contains</span>(<span class="st">"monster"</span>))</span>
+<span id="cb36-30"><a href="#cb36-30"></a></span>
+<span id="cb36-31"><a href="#cb36-31"></a><span class="fu">ggplot</span>(scoobydoo, <span class="fu">aes</span>(<span class="at">x=</span>monster_amount))<span class="sc">+</span></span>
+<span id="cb36-32"><a href="#cb36-32"></a>  <span class="fu">geom_bar</span>()</span>
+<span id="cb36-33"><a href="#cb36-33"></a><span class="in">```</span></span>
+<span id="cb36-34"><a href="#cb36-34"></a><span class="in">```{r, fig.width = 12}</span></span>
+<span id="cb36-35"><a href="#cb36-35"></a><span class="in">scoobydoo |&gt;</span></span>
+<span id="cb36-36"><a href="#cb36-36"></a><span class="in">  filter(imdb != "NULL") |&gt;</span></span>
+<span id="cb36-37"><a href="#cb36-37"></a><span class="in">  ggplot(aes(x=imdb, group=series_name, fill = series_name))+</span></span>
+<span id="cb36-38"><a href="#cb36-38"></a><span class="in">  geom_histogram(stat="count", binwidth = 1)+</span></span>
+<span id="cb36-39"><a href="#cb36-39"></a><span class="in">  theme(legend.position = "bottom")</span></span>
+<span id="cb36-40"><a href="#cb36-40"></a></span>
+<span id="cb36-41"><a href="#cb36-41"></a><span class="in">```</span></span>
+<span id="cb36-44"><a href="#cb36-44"></a><span class="in">```{r}</span></span>
+<span id="cb36-45"><a href="#cb36-45"></a><span class="co"># individual monsters of TV series</span></span>
+<span id="cb36-46"><a href="#cb36-46"></a>scoobydoo2 <span class="ot">&lt;-</span> scoobydoo <span class="sc">|&gt;</span></span>
+<span id="cb36-47"><a href="#cb36-47"></a>  <span class="fu">filter</span>(season <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"1"</span>, <span class="st">"2"</span>,<span class="st">"3"</span>, <span class="st">"4"</span>),</span>
+<span id="cb36-48"><a href="#cb36-48"></a>         format <span class="sc">==</span> <span class="st">"TV Series"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb36-49"><a href="#cb36-49"></a>  <span class="fu">filter</span>(monster_name <span class="sc">!=</span> <span class="st">"NULL"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb36-50"><a href="#cb36-50"></a>  <span class="fu">mutate</span>(<span class="at">monster_name =</span> <span class="fu">str_replace</span>(monster_name, <span class="st">"Dr. Phineus Phibes,Agent 1,Agent 2,Agent 3,Agent 4,Agent 5,Agent 6,Agent 7,Agent,8,Agent,9,Agent 10,Agent 11,Agent 12,Agent 13,Dr. Trebal"</span>, <span class="st">"Dr. Phineus Phibes,Agent 1,Agent 2,Agent 3,Agent 4,Agent 5,Agent 6,Agent 7,Agent 8,Agent 9,Agent 10,Agent 11,Agent 12,Agent 13,Dr. Trebal"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb36-51"><a href="#cb36-51"></a>  <span class="fu">select</span>(title, season, series_name, <span class="fu">contains</span>(<span class="st">"monster"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb36-52"><a href="#cb36-52"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">c</span>(monster_name, monster_gender, monster_type, monster_subtype, monster_species), <span class="at">names_to =</span> <span class="st">"monster_var"</span>, <span class="at">values_to =</span> <span class="st">"monster"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb36-53"><a href="#cb36-53"></a>  <span class="fu">separate</span>(monster, <span class="fu">c</span>(<span class="st">"monster1"</span>, <span class="st">"monster2"</span>, <span class="st">"monster3"</span>, <span class="st">"monster4"</span>, <span class="st">"monster5"</span>, <span class="st">"monster6"</span>, <span class="st">"monster7"</span>, <span class="st">"monster8"</span>, <span class="st">"monster9"</span>, <span class="st">"monster10"</span>, <span class="st">"monster11"</span>, <span class="st">"monster12"</span>, <span class="st">"monster13"</span>, <span class="st">"monster14"</span>, <span class="st">"monster15"</span>, <span class="st">"monster16"</span>), <span class="at">sep =</span> <span class="st">","</span>) <span class="sc">|&gt;</span></span>
+<span id="cb36-54"><a href="#cb36-54"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> monster_var, <span class="at">values_from =</span> monster1<span class="sc">:</span>monster16) </span>
+<span id="cb36-55"><a href="#cb36-55"></a><span class="in">```</span></span>
+<span id="cb36-56"><a href="#cb36-56"></a></span>
+<span id="cb36-57"><a href="#cb36-57"></a><span class="in">``` {r}</span></span>
+<span id="cb36-58"><a href="#cb36-58"></a><span class="in"># what are the most common monster types, names from TV episodes?</span></span>
+<span id="cb36-59"><a href="#cb36-59"></a><span class="in"># figure out how to get this for all monsters (not just monster1)</span></span>
+<span id="cb36-60"><a href="#cb36-60"></a><span class="in">scoobydoo2 |&gt;</span></span>
+<span id="cb36-61"><a href="#cb36-61"></a><span class="in">  count(monster1_monster_name) |&gt;</span></span>
+<span id="cb36-62"><a href="#cb36-62"></a><span class="in">  filter(n &gt; 1) |&gt;</span></span>
+<span id="cb36-63"><a href="#cb36-63"></a><span class="in">  mutate(monster1_monster_name = fct_reorder(monster1_monster_name, n)) |&gt;</span></span>
+<span id="cb36-64"><a href="#cb36-64"></a><span class="in">  ggplot(aes(y=monster1_monster_name, x = n))+</span></span>
+<span id="cb36-65"><a href="#cb36-65"></a><span class="in">  geom_col()+</span></span>
+<span id="cb36-66"><a href="#cb36-66"></a><span class="in">  labs(title = "Most Common Monster Names")</span></span>
+<span id="cb36-67"><a href="#cb36-67"></a></span>
+<span id="cb36-68"><a href="#cb36-68"></a><span class="in">scoobydoo2 |&gt;</span></span>
+<span id="cb36-69"><a href="#cb36-69"></a><span class="in">  count(monster1_monster_type) |&gt;</span></span>
+<span id="cb36-70"><a href="#cb36-70"></a><span class="in">  filter(n &gt; 1) |&gt;</span></span>
+<span id="cb36-71"><a href="#cb36-71"></a><span class="in">  mutate(monster1_monster_type = fct_reorder(monster1_monster_type, n)) |&gt;</span></span>
+<span id="cb36-72"><a href="#cb36-72"></a><span class="in">  ggplot(aes(y=monster1_monster_type, x = n))+</span></span>
+<span id="cb36-73"><a href="#cb36-73"></a><span class="in">  geom_col()+</span></span>
+<span id="cb36-74"><a href="#cb36-74"></a><span class="in">  labs(title = "Most Common Monster Types")</span></span>
+<span id="cb36-75"><a href="#cb36-75"></a><span class="in">  </span></span>
+<span id="cb36-76"><a href="#cb36-76"></a></span>
+<span id="cb36-77"><a href="#cb36-77"></a><span class="in"># are monsters real or not?</span></span>
+<span id="cb36-78"><a href="#cb36-78"></a><span class="in">ggplot(scoobydoo2, aes(x=monster_real, fill = monster1_monster_type))+</span></span>
+<span id="cb36-79"><a href="#cb36-79"></a><span class="in">  geom_bar(color = "white")</span></span>
+<span id="cb36-80"><a href="#cb36-80"></a><span class="in">```</span></span>
+<span id="cb36-81"><a href="#cb36-81"></a></span>
+<span id="cb36-82"><a href="#cb36-82"></a></span>
+<span id="cb36-83"><a href="#cb36-83"></a></span>
+<span id="cb36-84"><a href="#cb36-84"></a><span class="in">``` {r}</span></span>
+<span id="cb36-85"><a href="#cb36-85"></a><span class="in">scoobydoo |&gt;</span></span>
+<span id="cb36-86"><a href="#cb36-86"></a><span class="in">  group_by(series_name) |&gt;</span></span>
+<span id="cb36-87"><a href="#cb36-87"></a><span class="in">  summarize(n = n()) |&gt;</span></span>
+<span id="cb36-88"><a href="#cb36-88"></a><span class="in">  arrange((desc(n)))</span></span>
+<span id="cb36-89"><a href="#cb36-89"></a></span>
+<span id="cb36-90"><a href="#cb36-90"></a><span class="in">scoobydoo |&gt;</span></span>
+<span id="cb36-91"><a href="#cb36-91"></a><span class="in">  group_by(season) |&gt;</span></span>
+<span id="cb36-92"><a href="#cb36-92"></a><span class="in">  summarize(n = n()) </span></span>
+<span id="cb36-93"><a href="#cb36-93"></a></span>
+<span id="cb36-94"><a href="#cb36-94"></a><span class="in">scoobydoo |&gt;</span></span>
+<span id="cb36-95"><a href="#cb36-95"></a><span class="in">  group_by(format) |&gt;</span></span>
+<span id="cb36-96"><a href="#cb36-96"></a><span class="in">  summarize(n = n())</span></span>
+<span id="cb36-97"><a href="#cb36-97"></a></span>
+<span id="cb36-98"><a href="#cb36-98"></a></span>
+<span id="cb36-99"><a href="#cb36-99"></a><span class="in"># so we should probably focus on tv episodes and not movies?</span></span>
+<span id="cb36-100"><a href="#cb36-100"></a><span class="in">```</span></span>
+<span id="cb36-103"><a href="#cb36-103"></a><span class="in">```{r}</span></span>
+<span id="cb36-104"><a href="#cb36-104"></a><span class="co"># filter to be just seasons</span></span>
+<span id="cb36-105"><a href="#cb36-105"></a>scoobydoo_tv <span class="ot">&lt;-</span> scoobydoo <span class="sc">|&gt;</span></span>
+<span id="cb36-106"><a href="#cb36-106"></a>  <span class="fu">filter</span>(season <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"1"</span>, <span class="st">"2"</span>, <span class="st">"3"</span>, <span class="st">"4"</span>))</span>
+<span id="cb36-107"><a href="#cb36-107"></a></span>
+<span id="cb36-108"><a href="#cb36-108"></a>scoobydoo_tv <span class="sc">|&gt;</span></span>
+<span id="cb36-109"><a href="#cb36-109"></a>  <span class="fu">group_by</span>(season) <span class="sc">|&gt;</span></span>
+<span id="cb36-110"><a href="#cb36-110"></a>  <span class="fu">summarize</span>(<span class="at">n =</span> <span class="fu">n</span>())</span>
+<span id="cb36-111"><a href="#cb36-111"></a><span class="co"># i'm not well-versed enough on scoobydoo...why does season 4 only have 5 episodes?</span></span>
+<span id="cb36-112"><a href="#cb36-112"></a></span>
+<span id="cb36-113"><a href="#cb36-113"></a>scoobydoo_tv <span class="sc">|&gt;</span></span>
+<span id="cb36-114"><a href="#cb36-114"></a>  <span class="fu">filter</span>(season <span class="sc">==</span> <span class="st">"4"</span>)</span>
+<span id="cb36-115"><a href="#cb36-115"></a><span class="in">```</span></span>
+<span id="cb36-116"><a href="#cb36-116"></a></span>
+<span id="cb36-119"><a href="#cb36-119"></a><span class="in">```{r}</span></span>
+<span id="cb36-120"><a href="#cb36-120"></a><span class="fu">ggplot</span>(scoobydoo_tv, <span class="fu">aes</span>(<span class="at">x=</span>run_time))<span class="sc">+</span></span>
+<span id="cb36-121"><a href="#cb36-121"></a>  <span class="fu">geom_histogram</span>()</span>
+<span id="cb36-122"><a href="#cb36-122"></a></span>
+<span id="cb36-123"><a href="#cb36-123"></a>scoobydoo_tv <span class="sc">|&gt;</span></span>
+<span id="cb36-124"><a href="#cb36-124"></a>  <span class="fu">filter</span>(series_name <span class="sc">==</span> <span class="st">"A Pup Named Scooby-Doo"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb36-125"><a href="#cb36-125"></a>  <span class="fu">summarize</span>(<span class="at">sum =</span> <span class="fu">sum</span>(run_time))</span>
+<span id="cb36-126"><a href="#cb36-126"></a></span>
+<span id="cb36-127"><a href="#cb36-127"></a></span>
+<span id="cb36-128"><a href="#cb36-128"></a><span class="in">```</span></span>
+<span id="cb36-129"><a href="#cb36-129"></a></span>
+<span id="cb36-132"><a href="#cb36-132"></a><span class="in">```{r}</span></span>
+<span id="cb36-133"><a href="#cb36-133"></a>scoobydoo_tv <span class="sc">|&gt;</span></span>
+<span id="cb36-134"><a href="#cb36-134"></a>  <span class="fu">group_by</span>(series_name, season) <span class="sc">|&gt;</span>  </span>
+<span id="cb36-135"><a href="#cb36-135"></a>  <span class="fu">summarize</span>(<span class="at">length =</span> <span class="fu">sum</span>(run_time), <span class="at">.groups =</span> <span class="st">"drop"</span>) <span class="sc">|&gt;</span>  </span>
+<span id="cb36-136"><a href="#cb36-136"></a>  <span class="fu">group_by</span>(series_name) <span class="sc">|&gt;</span>  </span>
+<span id="cb36-137"><a href="#cb36-137"></a>  <span class="fu">mutate</span>(<span class="at">total_length =</span> <span class="fu">sum</span>(length)) <span class="sc">|&gt;</span>  </span>
+<span id="cb36-138"><a href="#cb36-138"></a>  <span class="fu">ungroup</span>() <span class="sc">|&gt;</span>  </span>
+<span id="cb36-139"><a href="#cb36-139"></a>  <span class="fu">mutate</span>(<span class="at">series_name =</span> <span class="fu">fct_reorder</span>(series_name, total_length)) <span class="sc">|&gt;</span> </span>
+<span id="cb36-140"><a href="#cb36-140"></a>  <span class="fu">mutate</span>(<span class="at">season =</span> <span class="fu">factor</span>(season, <span class="at">levels=</span><span class="fu">sort</span>(<span class="fu">unique</span>(season), <span class="at">decreasing =</span> <span class="cn">TRUE</span>))) <span class="sc">|&gt;</span></span>
+<span id="cb36-141"><a href="#cb36-141"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> series_name, <span class="at">y =</span> length, <span class="at">fill =</span> season)) <span class="sc">+</span></span>
+<span id="cb36-142"><a href="#cb36-142"></a>  <span class="fu">geom_col</span>(<span class="at">color =</span> <span class="st">"white"</span>, <span class="at">linewidth =</span> <span class="fl">0.25</span>) <span class="sc">+</span></span>
+<span id="cb36-143"><a href="#cb36-143"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
+<span id="cb36-144"><a href="#cb36-144"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> length), <span class="at">position =</span> <span class="fu">position_stack</span>(<span class="at">vjust =</span> <span class="fl">0.5</span>), </span>
+<span id="cb36-145"><a href="#cb36-145"></a>            <span class="at">size =</span> <span class="fl">2.75</span>, <span class="at">color =</span> <span class="st">"black"</span>) <span class="sc">+</span></span>
+<span id="cb36-146"><a href="#cb36-146"></a>  <span class="fu">geom_label</span>(<span class="fu">aes</span>(<span class="at">label =</span> total_length, <span class="at">y =</span><span class="dv">1250</span>), <span class="at">size =</span> <span class="dv">3</span>, <span class="at">fill =</span> <span class="st">"white"</span>)<span class="sc">+</span></span>
+<span id="cb36-147"><a href="#cb36-147"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Scooby-Doo Series Runtime by Season"</span>,</span>
+<span id="cb36-148"><a href="#cb36-148"></a>       <span class="at">subtitle =</span> <span class="st">"Total Series Runtime at the Right"</span>,</span>
+<span id="cb36-149"><a href="#cb36-149"></a>       <span class="at">x =</span> <span class="st">"Series Name"</span>,</span>
+<span id="cb36-150"><a href="#cb36-150"></a>       <span class="at">y =</span> <span class="st">"Total Runtime"</span>,</span>
+<span id="cb36-151"><a href="#cb36-151"></a>       <span class="at">fill =</span> <span class="st">"Season"</span>)</span>
+<span id="cb36-152"><a href="#cb36-152"></a><span class="in">```</span></span>
+<span id="cb36-153"><a href="#cb36-153"></a></span>
+<span id="cb36-154"><a href="#cb36-154"></a></span>
+<span id="cb36-157"><a href="#cb36-157"></a><span class="in">```{r}</span></span>
+<span id="cb36-158"><a href="#cb36-158"></a><span class="co"># snacks!</span></span>
+<span id="cb36-159"><a href="#cb36-159"></a></span>
+<span id="cb36-160"><a href="#cb36-160"></a>scooby_snacks <span class="ot">&lt;-</span> scoobydoo_tv <span class="sc">|&gt;</span></span>
+<span id="cb36-161"><a href="#cb36-161"></a>  <span class="fu">select</span>(index, series_name, title, season, <span class="fu">contains</span>(<span class="st">"snack"</span>))</span>
+<span id="cb36-162"><a href="#cb36-162"></a></span>
+<span id="cb36-163"><a href="#cb36-163"></a>scooby_snacks <span class="sc">|&gt;</span></span>
+<span id="cb36-164"><a href="#cb36-164"></a>  <span class="fu">select</span>(<span class="fu">contains</span>(<span class="st">"snack"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb36-165"><a href="#cb36-165"></a>  <span class="fu">mutate</span>(<span class="at">velma_snacks =</span> <span class="fu">str_count</span>(snack_velma, <span class="st">"TRUE"</span>),</span>
+<span id="cb36-166"><a href="#cb36-166"></a>         <span class="at">fred_snacks =</span> <span class="fu">str_count</span>(snack_fred, <span class="st">"TRUE"</span>),</span>
+<span id="cb36-167"><a href="#cb36-167"></a>         <span class="at">daphnie_snacks =</span> <span class="fu">str_count</span>(snack_daphnie, <span class="st">"TRUE"</span>),</span>
+<span id="cb36-168"><a href="#cb36-168"></a>         <span class="at">shaggy_snacks =</span> <span class="fu">str_count</span>(snack_shaggy, <span class="st">"TRUE"</span>),</span>
+<span id="cb36-169"><a href="#cb36-169"></a>         <span class="at">scooby_snacks =</span> <span class="fu">str_count</span>(snack_scooby, <span class="st">"TRUE"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb36-170"><a href="#cb36-170"></a>  <span class="fu">summarize</span>(<span class="at">total_velma =</span> <span class="fu">sum</span>(velma_snacks),</span>
+<span id="cb36-171"><a href="#cb36-171"></a>            <span class="at">total_fred =</span> <span class="fu">sum</span>(fred_snacks),</span>
+<span id="cb36-172"><a href="#cb36-172"></a>            <span class="at">total_daphnie =</span> <span class="fu">sum</span>(daphnie_snacks),</span>
+<span id="cb36-173"><a href="#cb36-173"></a>            <span class="at">total_shaggy =</span> <span class="fu">sum</span>(shaggy_snacks),</span>
+<span id="cb36-174"><a href="#cb36-174"></a>            <span class="at">total_scooby =</span> <span class="fu">sum</span>(scooby_snacks)) <span class="sc">|&gt;</span></span>
+<span id="cb36-175"><a href="#cb36-175"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, <span class="at">names_to =</span> <span class="st">"char"</span>, <span class="at">values_to =</span> <span class="st">"n_snacks"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb36-176"><a href="#cb36-176"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>char, <span class="at">y =</span> n_snacks))<span class="sc">+</span></span>
+<span id="cb36-177"><a href="#cb36-177"></a>  <span class="fu">geom_col</span>()</span>
+<span id="cb36-178"><a href="#cb36-178"></a></span>
+<span id="cb36-179"><a href="#cb36-179"></a>scooby_snacks <span class="sc">|&gt;</span></span>
+<span id="cb36-180"><a href="#cb36-180"></a>  <span class="fu">mutate</span>(<span class="at">number_of_snacks =</span> <span class="fu">str_sub</span>(number_of_snacks, <span class="at">start =</span> <span class="dv">0</span>, <span class="at">end =</span> <span class="dv">1</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb36-181"><a href="#cb36-181"></a>  <span class="fu">filter</span>(number_of_snacks <span class="sc">!=</span> <span class="st">"a"</span>,</span>
+<span id="cb36-182"><a href="#cb36-182"></a>         number_of_snacks <span class="sc">!=</span> <span class="st">"l"</span>,</span>
+<span id="cb36-183"><a href="#cb36-183"></a>         number_of_snacks <span class="sc">!=</span> <span class="st">"N"</span>, </span>
+<span id="cb36-184"><a href="#cb36-184"></a>         number_of_snacks <span class="sc">!=</span> <span class="st">"s"</span>,</span>
+<span id="cb36-185"><a href="#cb36-185"></a>         number_of_snacks <span class="sc">!=</span> <span class="st">"t"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb36-186"><a href="#cb36-186"></a>  <span class="fu">group_by</span>(series_name) <span class="sc">|&gt;</span></span>
+<span id="cb36-187"><a href="#cb36-187"></a>  <span class="fu">mutate</span>(<span class="at">total_snacks =</span> <span class="fu">sum</span>(<span class="fu">as.numeric</span>(number_of_snacks))) <span class="sc">|&gt;</span> <span class="co"># fix these numbers</span></span>
+<span id="cb36-188"><a href="#cb36-188"></a>  <span class="fu">mutate</span>(<span class="at">n_episodes =</span> <span class="fu">n</span>()) <span class="sc">|&gt;</span></span>
+<span id="cb36-189"><a href="#cb36-189"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>total_snacks, <span class="at">y =</span>series_name))<span class="sc">+</span></span>
+<span id="cb36-190"><a href="#cb36-190"></a>  <span class="fu">geom_col</span>()<span class="sc">+</span></span>
+<span id="cb36-191"><a href="#cb36-191"></a>  <span class="fu">geom_label</span>(<span class="fu">aes</span>(<span class="at">label =</span> n_episodes, <span class="at">x =</span> <span class="dv">10</span>))<span class="sc">+</span></span>
+<span id="cb36-192"><a href="#cb36-192"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Number of Snacks Eateneaten in each series"</span>,</span>
+<span id="cb36-193"><a href="#cb36-193"></a>       <span class="at">subtitle =</span> <span class="st">"number of episodes displayed at the right"</span>)</span>
+<span id="cb36-194"><a href="#cb36-194"></a></span>
+<span id="cb36-195"><a href="#cb36-195"></a></span>
+<span id="cb36-196"><a href="#cb36-196"></a><span class="in">```</span></span>
+<span id="cb36-197"><a href="#cb36-197"></a></span>
 </code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->

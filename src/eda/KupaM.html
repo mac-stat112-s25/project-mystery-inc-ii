@@ -286,17 +286,14 @@ cookieconsent.run({
 ✔ forcats   1.0.0     ✔ stringr   1.5.1
 ✔ ggplot2   3.5.1     ✔ tibble    3.2.1
 ✔ lubridate 1.9.4     ✔ tidyr     1.3.1
-✔ purrr     1.0.2     
+✔ purrr     1.0.4     
 ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
 ✖ dplyr::filter() masks stats::filter()
 ✖ dplyr::lag()    masks stats::lag()
 ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="fu">library</span>(tidytuesdayR)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: package 'tidytuesdayR' was built under R version 4.4.3</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="fu">library</span>(janitor)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="fu">library</span>(tidytuesdayR)</span>
+<span id="cb3-2"><a href="#cb3-2"></a><span class="fu">library</span>(janitor)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>
 Attaching package: 'janitor'
@@ -305,12 +302,10 @@ The following objects are masked from 'package:stats':
 
     chisq.test, fisher.test</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="fu">library</span>(ggthemes)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: package 'ggthemes' was built under R version 4.4.3</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="co"># Load the Scooby-Doo dataset</span></span>
-<span id="cb9-2"><a href="#cb9-2"></a>tuesdata <span class="ot">&lt;-</span> tidytuesdayR<span class="sc">::</span><span class="fu">tt_load</span>(<span class="dv">2021</span>, <span class="at">week =</span> <span class="dv">29</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="fu">library</span>(ggthemes)</span>
+<span id="cb5-2"><a href="#cb5-2"></a></span>
+<span id="cb5-3"><a href="#cb5-3"></a><span class="co"># Load the Scooby-Doo dataset</span></span>
+<span id="cb5-4"><a href="#cb5-4"></a>tuesdata <span class="ot">&lt;-</span> tidytuesdayR<span class="sc">::</span><span class="fu">tt_load</span>(<span class="dv">2021</span>, <span class="at">week =</span> <span class="dv">29</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>---- Compiling #TidyTuesday Information for 2021-07-13 ----
 --- There is 1 file available ---
@@ -320,44 +315,44 @@ The following objects are masked from 'package:stats':
 
   1 of 1: "scoobydoo.csv"</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a>scooby <span class="ot">&lt;-</span> tuesdata<span class="sc">$</span>scoobydoo <span class="sc">|&gt;</span> <span class="fu">clean_names</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>scooby <span class="ot">&lt;-</span> tuesdata<span class="sc">$</span>scoobydoo <span class="sc">|&gt;</span> <span class="fu">clean_names</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a>selected_series <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
-<span id="cb12-2"><a href="#cb12-2"></a>  <span class="st">"Scooby-Doo, Where Are You!"</span>,</span>
-<span id="cb12-3"><a href="#cb12-3"></a>  <span class="st">"What's New, Scooby-Doo?"</span>,</span>
-<span id="cb12-4"><a href="#cb12-4"></a>  <span class="st">"Scooby-Doo! Mystery Incorporated"</span>,</span>
-<span id="cb12-5"><a href="#cb12-5"></a>  <span class="st">"Be Cool, Scooby-Doo!"</span>,</span>
-<span id="cb12-6"><a href="#cb12-6"></a>  <span class="st">"The New Scooby-Doo Movies"</span>,</span>
-<span id="cb12-7"><a href="#cb12-7"></a>  <span class="st">"The 13 Ghosts of Scooby-Doo"</span></span>
-<span id="cb12-8"><a href="#cb12-8"></a>)</span>
-<span id="cb12-9"><a href="#cb12-9"></a></span>
-<span id="cb12-10"><a href="#cb12-10"></a>scooby <span class="sc">%&gt;%</span></span>
-<span id="cb12-11"><a href="#cb12-11"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(culprit_gender), culprit_gender <span class="sc">!=</span> <span class="st">"NULL"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb12-12"><a href="#cb12-12"></a>  <span class="fu">mutate</span>(<span class="at">culprit_gender =</span> <span class="fu">str_to_title</span>(culprit_gender)) <span class="sc">%&gt;%</span></span>
-<span id="cb12-13"><a href="#cb12-13"></a>  <span class="fu">mutate</span>(<span class="at">culprit_gender =</span> <span class="fu">case_when</span>(</span>
-<span id="cb12-14"><a href="#cb12-14"></a>    culprit_gender <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Male"</span>, <span class="st">"Female"</span>) <span class="sc">~</span> culprit_gender,</span>
-<span id="cb12-15"><a href="#cb12-15"></a>    <span class="cn">TRUE</span> <span class="sc">~</span> <span class="st">"Other"</span></span>
-<span id="cb12-16"><a href="#cb12-16"></a>  )) <span class="sc">%&gt;%</span></span>
-<span id="cb12-17"><a href="#cb12-17"></a>  <span class="fu">filter</span>(series_name <span class="sc">%in%</span> selected_series) <span class="sc">%&gt;%</span></span>
-<span id="cb12-18"><a href="#cb12-18"></a>  <span class="fu">group_by</span>(series_name, culprit_gender) <span class="sc">%&gt;%</span></span>
-<span id="cb12-19"><a href="#cb12-19"></a>  <span class="fu">summarize</span>(<span class="at">episodes =</span> <span class="fu">n</span>(), <span class="at">.groups =</span> <span class="st">"drop"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb12-20"><a href="#cb12-20"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> culprit_gender, <span class="at">y =</span> episodes, <span class="at">fill =</span> culprit_gender)) <span class="sc">+</span></span>
-<span id="cb12-21"><a href="#cb12-21"></a>  <span class="fu">geom_col</span>(<span class="at">show.legend =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
-<span id="cb12-22"><a href="#cb12-22"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> series_name, <span class="at">scales =</span> <span class="st">"free_y"</span>, <span class="at">ncol =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb12-23"><a href="#cb12-23"></a>  <span class="fu">labs</span>(</span>
-<span id="cb12-24"><a href="#cb12-24"></a>    <span class="at">title =</span> <span class="st">"Culprit Gender Across Six Scooby-Doo Series"</span>,</span>
-<span id="cb12-25"><a href="#cb12-25"></a>    <span class="at">x =</span> <span class="st">"Gender"</span>,</span>
-<span id="cb12-26"><a href="#cb12-26"></a>    <span class="at">y =</span> <span class="st">"Number of Episodes"</span></span>
-<span id="cb12-27"><a href="#cb12-27"></a>  ) <span class="sc">+</span></span>
-<span id="cb12-28"><a href="#cb12-28"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">14</span>) <span class="sc">+</span></span>
-<span id="cb12-29"><a href="#cb12-29"></a>  <span class="fu">theme</span>(</span>
-<span id="cb12-30"><a href="#cb12-30"></a>    <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">"bold"</span>, <span class="at">size =</span> <span class="dv">18</span>, <span class="at">hjust =</span> <span class="fl">0.5</span>),</span>
-<span id="cb12-31"><a href="#cb12-31"></a>    <span class="at">strip.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">14</span>, <span class="at">face =</span> <span class="st">"bold"</span>),</span>
-<span id="cb12-32"><a href="#cb12-32"></a>    <span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">1</span>),</span>
-<span id="cb12-33"><a href="#cb12-33"></a>    <span class="at">axis.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">12</span>),</span>
-<span id="cb12-34"><a href="#cb12-34"></a>    <span class="at">axis.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">13</span>)</span>
-<span id="cb12-35"><a href="#cb12-35"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a>selected_series <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb8-2"><a href="#cb8-2"></a>  <span class="st">"Scooby-Doo, Where Are You!"</span>,</span>
+<span id="cb8-3"><a href="#cb8-3"></a>  <span class="st">"What's New, Scooby-Doo?"</span>,</span>
+<span id="cb8-4"><a href="#cb8-4"></a>  <span class="st">"Scooby-Doo! Mystery Incorporated"</span>,</span>
+<span id="cb8-5"><a href="#cb8-5"></a>  <span class="st">"Be Cool, Scooby-Doo!"</span>,</span>
+<span id="cb8-6"><a href="#cb8-6"></a>  <span class="st">"The New Scooby-Doo Movies"</span>,</span>
+<span id="cb8-7"><a href="#cb8-7"></a>  <span class="st">"The 13 Ghosts of Scooby-Doo"</span></span>
+<span id="cb8-8"><a href="#cb8-8"></a>)</span>
+<span id="cb8-9"><a href="#cb8-9"></a></span>
+<span id="cb8-10"><a href="#cb8-10"></a>scooby <span class="sc">%&gt;%</span></span>
+<span id="cb8-11"><a href="#cb8-11"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(culprit_gender), culprit_gender <span class="sc">!=</span> <span class="st">"NULL"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb8-12"><a href="#cb8-12"></a>  <span class="fu">mutate</span>(<span class="at">culprit_gender =</span> <span class="fu">str_to_title</span>(culprit_gender)) <span class="sc">%&gt;%</span></span>
+<span id="cb8-13"><a href="#cb8-13"></a>  <span class="fu">mutate</span>(<span class="at">culprit_gender =</span> <span class="fu">case_when</span>(</span>
+<span id="cb8-14"><a href="#cb8-14"></a>    culprit_gender <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Male"</span>, <span class="st">"Female"</span>) <span class="sc">~</span> culprit_gender,</span>
+<span id="cb8-15"><a href="#cb8-15"></a>    <span class="cn">TRUE</span> <span class="sc">~</span> <span class="st">"Other"</span></span>
+<span id="cb8-16"><a href="#cb8-16"></a>  )) <span class="sc">%&gt;%</span></span>
+<span id="cb8-17"><a href="#cb8-17"></a>  <span class="fu">filter</span>(series_name <span class="sc">%in%</span> selected_series) <span class="sc">%&gt;%</span></span>
+<span id="cb8-18"><a href="#cb8-18"></a>  <span class="fu">group_by</span>(series_name, culprit_gender) <span class="sc">%&gt;%</span></span>
+<span id="cb8-19"><a href="#cb8-19"></a>  <span class="fu">summarize</span>(<span class="at">episodes =</span> <span class="fu">n</span>(), <span class="at">.groups =</span> <span class="st">"drop"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb8-20"><a href="#cb8-20"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> culprit_gender, <span class="at">y =</span> episodes, <span class="at">fill =</span> culprit_gender)) <span class="sc">+</span></span>
+<span id="cb8-21"><a href="#cb8-21"></a>  <span class="fu">geom_col</span>(<span class="at">show.legend =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb8-22"><a href="#cb8-22"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> series_name, <span class="at">scales =</span> <span class="st">"free_y"</span>, <span class="at">ncol =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb8-23"><a href="#cb8-23"></a>  <span class="fu">labs</span>(</span>
+<span id="cb8-24"><a href="#cb8-24"></a>    <span class="at">title =</span> <span class="st">"Culprit Gender Across Six Scooby-Doo Series"</span>,</span>
+<span id="cb8-25"><a href="#cb8-25"></a>    <span class="at">x =</span> <span class="st">"Gender"</span>,</span>
+<span id="cb8-26"><a href="#cb8-26"></a>    <span class="at">y =</span> <span class="st">"Number of Episodes"</span></span>
+<span id="cb8-27"><a href="#cb8-27"></a>  ) <span class="sc">+</span></span>
+<span id="cb8-28"><a href="#cb8-28"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">14</span>) <span class="sc">+</span></span>
+<span id="cb8-29"><a href="#cb8-29"></a>  <span class="fu">theme</span>(</span>
+<span id="cb8-30"><a href="#cb8-30"></a>    <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">"bold"</span>, <span class="at">size =</span> <span class="dv">18</span>, <span class="at">hjust =</span> <span class="fl">0.5</span>),</span>
+<span id="cb8-31"><a href="#cb8-31"></a>    <span class="at">strip.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">14</span>, <span class="at">face =</span> <span class="st">"bold"</span>),</span>
+<span id="cb8-32"><a href="#cb8-32"></a>    <span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">1</span>),</span>
+<span id="cb8-33"><a href="#cb8-33"></a>    <span class="at">axis.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">12</span>),</span>
+<span id="cb8-34"><a href="#cb8-34"></a>    <span class="at">axis.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">13</span>)</span>
+<span id="cb8-35"><a href="#cb8-35"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure"><p><img src="KupaM_files/figure-html/exploring culprit gender distribution by series-1.png" class="img-fluid figure-img" width="672"></p>
@@ -367,28 +362,25 @@ The following objects are masked from 'package:stats':
 </div>
 <p>Across most series, male culprits dominate the episodes</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a>female_monsters <span class="ot">&lt;-</span> scooby <span class="sc">%&gt;%</span></span>
-<span id="cb13-2"><a href="#cb13-2"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(monster_gender), monster_gender <span class="sc">==</span> <span class="st">"Female"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb13-3"><a href="#cb13-3"></a>  <span class="fu">group_by</span>(season) <span class="sc">%&gt;%</span></span>
-<span id="cb13-4"><a href="#cb13-4"></a>  <span class="fu">summarize</span>(<span class="at">female_monsters_count =</span> <span class="fu">n</span>(), <span class="at">.groups =</span> <span class="st">"drop"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb13-5"><a href="#cb13-5"></a>  <span class="fu">arrange</span>(season)</span>
-<span id="cb13-6"><a href="#cb13-6"></a></span>
-<span id="cb13-7"><a href="#cb13-7"></a><span class="fu">ggplot</span>(female_monsters, <span class="fu">aes</span>(<span class="at">x =</span> season, <span class="at">y =</span> female_monsters_count)) <span class="sc">+</span></span>
-<span id="cb13-8"><a href="#cb13-8"></a>  <span class="fu">geom_line</span>(<span class="at">color =</span> <span class="st">"blue"</span>, <span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb13-9"><a href="#cb13-9"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">"red"</span>) <span class="sc">+</span></span>
-<span id="cb13-10"><a href="#cb13-10"></a>  <span class="fu">labs</span>(</span>
-<span id="cb13-11"><a href="#cb13-11"></a>    <span class="at">title =</span> <span class="st">"Female Monsters Across Scooby-Doo Seasons"</span>,</span>
-<span id="cb13-12"><a href="#cb13-12"></a>    <span class="at">x =</span> <span class="st">"Season"</span>,</span>
-<span id="cb13-13"><a href="#cb13-13"></a>    <span class="at">y =</span> <span class="st">"Number of Female Monsters"</span></span>
-<span id="cb13-14"><a href="#cb13-14"></a>  ) <span class="sc">+</span></span>
-<span id="cb13-15"><a href="#cb13-15"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">14</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a>female_monsters <span class="ot">&lt;-</span> scooby <span class="sc">%&gt;%</span></span>
+<span id="cb9-2"><a href="#cb9-2"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(monster_gender), monster_gender <span class="sc">==</span> <span class="st">"Female"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb9-3"><a href="#cb9-3"></a>  <span class="fu">group_by</span>(season) <span class="sc">%&gt;%</span></span>
+<span id="cb9-4"><a href="#cb9-4"></a>  <span class="fu">summarize</span>(<span class="at">female_monsters_count =</span> <span class="fu">n</span>(), <span class="at">.groups =</span> <span class="st">"drop"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb9-5"><a href="#cb9-5"></a>  <span class="fu">mutate</span>(<span class="at">season =</span> <span class="fu">factor</span>(season, <span class="at">levels =</span> <span class="fu">unique</span>(season), <span class="at">ordered =</span> <span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span> <span class="co"># Convert to ordered factor</span></span>
+<span id="cb9-6"><a href="#cb9-6"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(season))</span>
+<span id="cb9-7"><a href="#cb9-7"></a></span>
+<span id="cb9-8"><a href="#cb9-8"></a><span class="fu">ggplot</span>(female_monsters, <span class="fu">aes</span>(<span class="at">x =</span> season, <span class="at">y =</span> female_monsters_count)) <span class="sc">+</span></span>
+<span id="cb9-9"><a href="#cb9-9"></a>  <span class="fu">geom_line</span>(<span class="at">color =</span> <span class="st">"blue"</span>, <span class="at">size =</span> <span class="dv">1</span>, <span class="at">group =</span> <span class="dv">1</span>) <span class="sc">+</span> <span class="co"># Added group = 1 for line plot</span></span>
+<span id="cb9-10"><a href="#cb9-10"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">"red"</span>) <span class="sc">+</span></span>
+<span id="cb9-11"><a href="#cb9-11"></a>  <span class="fu">labs</span>(</span>
+<span id="cb9-12"><a href="#cb9-12"></a>    <span class="at">title =</span> <span class="st">"Female Monsters Across Scooby-Doo Seasons"</span>,</span>
+<span id="cb9-13"><a href="#cb9-13"></a>    <span class="at">x =</span> <span class="st">"Season"</span>,</span>
+<span id="cb9-14"><a href="#cb9-14"></a>    <span class="at">y =</span> <span class="st">"Number of Female Monsters"</span></span>
+<span id="cb9-15"><a href="#cb9-15"></a>  ) <span class="sc">+</span></span>
+<span id="cb9-16"><a href="#cb9-16"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">14</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
 ℹ Please use `linewidth` instead.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>`geom_line()`: Each group consists of only one observation.
-ℹ Do you need to adjust the group aesthetic?</code></pre>
 </div>
 <div class="cell-output-display">
 <div>
@@ -398,25 +390,25 @@ The following objects are masked from 'package:stats':
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a>catchphrases <span class="ot">&lt;-</span> scooby <span class="sc">%&gt;%</span></span>
-<span id="cb16-2"><a href="#cb16-2"></a>  <span class="fu">select</span>(series_name, zoinks, jeepers, jinkies) <span class="sc">%&gt;%</span></span>
-<span id="cb16-3"><a href="#cb16-3"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="sc">-</span>series_name, <span class="at">names_to =</span> <span class="st">"phrase"</span>, <span class="at">values_to =</span> <span class="st">"count"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb16-4"><a href="#cb16-4"></a>  <span class="fu">mutate</span>(<span class="at">count =</span> <span class="fu">as.numeric</span>(count)) <span class="sc">%&gt;%</span></span>
-<span id="cb16-5"><a href="#cb16-5"></a><span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(count), count <span class="sc">&gt;</span> <span class="dv">0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a>catchphrases <span class="ot">&lt;-</span> scooby <span class="sc">%&gt;%</span></span>
+<span id="cb11-2"><a href="#cb11-2"></a>  <span class="fu">select</span>(series_name, zoinks, jeepers, jinkies) <span class="sc">%&gt;%</span></span>
+<span id="cb11-3"><a href="#cb11-3"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="sc">-</span>series_name, <span class="at">names_to =</span> <span class="st">"phrase"</span>, <span class="at">values_to =</span> <span class="st">"count"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb11-4"><a href="#cb11-4"></a>  <span class="fu">mutate</span>(<span class="at">count =</span> <span class="fu">as.numeric</span>(count)) <span class="sc">%&gt;%</span></span>
+<span id="cb11-5"><a href="#cb11-5"></a><span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(count), count <span class="sc">&gt;</span> <span class="dv">0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning: There was 1 warning in `mutate()`.
 ℹ In argument: `count = as.numeric(count)`.
 Caused by warning:
 ! NAs introduced by coercion</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a>catchphrases <span class="sc">%&gt;%</span></span>
-<span id="cb18-2"><a href="#cb18-2"></a>  <span class="fu">group_by</span>(series_name, phrase) <span class="sc">%&gt;%</span></span>
-<span id="cb18-3"><a href="#cb18-3"></a>  <span class="fu">summarize</span>(<span class="at">total =</span> <span class="fu">sum</span>(count), <span class="at">.groups =</span> <span class="st">"drop"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb18-4"><a href="#cb18-4"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> phrase, <span class="at">y =</span> total, <span class="at">fill =</span> phrase)) <span class="sc">+</span></span>
-<span id="cb18-5"><a href="#cb18-5"></a>  <span class="fu">geom_col</span>(<span class="at">show.legend =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
-<span id="cb18-6"><a href="#cb18-6"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> series_name, <span class="at">scales =</span> <span class="st">"free_y"</span>) <span class="sc">+</span></span>
-<span id="cb18-7"><a href="#cb18-7"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Catchphrase Frequency by Series"</span>, <span class="at">x =</span> <span class="st">"Catchphrase"</span>, <span class="at">y =</span> <span class="st">"Total Uses"</span>) <span class="sc">+</span></span>
-<span id="cb18-8"><a href="#cb18-8"></a>  <span class="fu">theme_bw</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a>catchphrases <span class="sc">%&gt;%</span></span>
+<span id="cb13-2"><a href="#cb13-2"></a>  <span class="fu">group_by</span>(series_name, phrase) <span class="sc">%&gt;%</span></span>
+<span id="cb13-3"><a href="#cb13-3"></a>  <span class="fu">summarize</span>(<span class="at">total =</span> <span class="fu">sum</span>(count), <span class="at">.groups =</span> <span class="st">"drop"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb13-4"><a href="#cb13-4"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> phrase, <span class="at">y =</span> total, <span class="at">fill =</span> phrase)) <span class="sc">+</span></span>
+<span id="cb13-5"><a href="#cb13-5"></a>  <span class="fu">geom_col</span>(<span class="at">show.legend =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb13-6"><a href="#cb13-6"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> series_name, <span class="at">scales =</span> <span class="st">"free_y"</span>) <span class="sc">+</span></span>
+<span id="cb13-7"><a href="#cb13-7"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Catchphrase Frequency by Series"</span>, <span class="at">x =</span> <span class="st">"Catchphrase"</span>, <span class="at">y =</span> <span class="st">"Total Uses"</span>) <span class="sc">+</span></span>
+<span id="cb13-8"><a href="#cb13-8"></a>  <span class="fu">theme_bw</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure"><p><img src="KupaM_files/figure-html/Exploring Catchphrases used by series-1.png" class="img-fluid figure-img" width="672"></p>
@@ -426,11 +418,11 @@ Caused by warning:
 </div>
 <p>Catchphrase usage varies significantly by series, reflecting changes in writing styles or featured characters.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a>scooby <span class="sc">%&gt;%</span></span>
-<span id="cb19-2"><a href="#cb19-2"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(monster_amount)) <span class="sc">%&gt;%</span></span>
-<span id="cb19-3"><a href="#cb19-3"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(monster_amount)) <span class="sc">%&gt;%</span></span>
-<span id="cb19-4"><a href="#cb19-4"></a>  <span class="fu">slice_max</span>(monster_amount, <span class="at">n =</span> <span class="dv">10</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb19-5"><a href="#cb19-5"></a>  <span class="fu">select</span>(title, series_name, season, monster_amount)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a>scooby <span class="sc">%&gt;%</span></span>
+<span id="cb14-2"><a href="#cb14-2"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(monster_amount)) <span class="sc">%&gt;%</span></span>
+<span id="cb14-3"><a href="#cb14-3"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(monster_amount)) <span class="sc">%&gt;%</span></span>
+<span id="cb14-4"><a href="#cb14-4"></a>  <span class="fu">slice_max</span>(monster_amount, <span class="at">n =</span> <span class="dv">10</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb14-5"><a href="#cb14-5"></a>  <span class="fu">select</span>(title, series_name, season, monster_amount)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 12 × 4
    title                                  series_name      season monster_amount
@@ -1085,119 +1077,123 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>
   </div>
 </nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="sourceCode" id="cb21" data-shortcodes="false"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb21-1"><a href="#cb21-1"></a><span class="co">---</span></span>
-<span id="cb21-2"><a href="#cb21-2"></a><span class="an">title:</span><span class="co"> "KupaM"</span></span>
-<span id="cb21-3"><a href="#cb21-3"></a><span class="an">format:</span><span class="co"> html</span></span>
-<span id="cb21-4"><a href="#cb21-4"></a><span class="co">---</span></span>
-<span id="cb21-5"><a href="#cb21-5"></a></span>
-<span id="cb21-6"><a href="#cb21-6"></a><span class="in">```{r setup}</span></span>
-<span id="cb21-7"><a href="#cb21-7"></a><span class="in"># Load required libraries</span></span>
-<span id="cb21-8"><a href="#cb21-8"></a><span class="in">library(tidyverse)</span></span>
-<span id="cb21-9"><a href="#cb21-9"></a><span class="in">library(tidytuesdayR)</span></span>
-<span id="cb21-10"><a href="#cb21-10"></a><span class="in">library(janitor)</span></span>
-<span id="cb21-11"><a href="#cb21-11"></a><span class="in">library(ggthemes)</span></span>
-<span id="cb21-12"><a href="#cb21-12"></a></span>
-<span id="cb21-13"><a href="#cb21-13"></a><span class="in"># Load the Scooby-Doo dataset</span></span>
-<span id="cb21-14"><a href="#cb21-14"></a><span class="in">tuesdata &lt;- tidytuesdayR::tt_load(2021, week = 29)</span></span>
-<span id="cb21-15"><a href="#cb21-15"></a><span class="in">scooby &lt;- tuesdata$scoobydoo |&gt; clean_names()</span></span>
-<span id="cb21-16"><a href="#cb21-16"></a><span class="in">```</span></span>
-<span id="cb21-17"><a href="#cb21-17"></a></span>
-<span id="cb21-18"><a href="#cb21-18"></a><span class="in">```{r exploring culprit gender distribution by series}</span></span>
-<span id="cb21-19"><a href="#cb21-19"></a><span class="in">selected_series &lt;- c(</span></span>
-<span id="cb21-20"><a href="#cb21-20"></a><span class="in">  "Scooby-Doo, Where Are You!",</span></span>
-<span id="cb21-21"><a href="#cb21-21"></a><span class="in">  "What's New, Scooby-Doo?",</span></span>
-<span id="cb21-22"><a href="#cb21-22"></a><span class="in">  "Scooby-Doo! Mystery Incorporated",</span></span>
-<span id="cb21-23"><a href="#cb21-23"></a><span class="in">  "Be Cool, Scooby-Doo!",</span></span>
-<span id="cb21-24"><a href="#cb21-24"></a><span class="in">  "The New Scooby-Doo Movies",</span></span>
-<span id="cb21-25"><a href="#cb21-25"></a><span class="in">  "The 13 Ghosts of Scooby-Doo"</span></span>
-<span id="cb21-26"><a href="#cb21-26"></a><span class="in">)</span></span>
-<span id="cb21-27"><a href="#cb21-27"></a></span>
-<span id="cb21-28"><a href="#cb21-28"></a><span class="in">scooby %&gt;%</span></span>
-<span id="cb21-29"><a href="#cb21-29"></a><span class="in">  filter(!is.na(culprit_gender), culprit_gender != "NULL") %&gt;%</span></span>
-<span id="cb21-30"><a href="#cb21-30"></a><span class="in">  mutate(culprit_gender = str_to_title(culprit_gender)) %&gt;%</span></span>
-<span id="cb21-31"><a href="#cb21-31"></a><span class="in">  mutate(culprit_gender = case_when(</span></span>
-<span id="cb21-32"><a href="#cb21-32"></a><span class="in">    culprit_gender %in% c("Male", "Female") ~ culprit_gender,</span></span>
-<span id="cb21-33"><a href="#cb21-33"></a><span class="in">    TRUE ~ "Other"</span></span>
-<span id="cb21-34"><a href="#cb21-34"></a><span class="in">  )) %&gt;%</span></span>
-<span id="cb21-35"><a href="#cb21-35"></a><span class="in">  filter(series_name %in% selected_series) %&gt;%</span></span>
-<span id="cb21-36"><a href="#cb21-36"></a><span class="in">  group_by(series_name, culprit_gender) %&gt;%</span></span>
-<span id="cb21-37"><a href="#cb21-37"></a><span class="in">  summarize(episodes = n(), .groups = "drop") %&gt;%</span></span>
-<span id="cb21-38"><a href="#cb21-38"></a><span class="in">  ggplot(aes(x = culprit_gender, y = episodes, fill = culprit_gender)) +</span></span>
-<span id="cb21-39"><a href="#cb21-39"></a><span class="in">  geom_col(show.legend = FALSE) +</span></span>
-<span id="cb21-40"><a href="#cb21-40"></a><span class="in">  facet_wrap(~ series_name, scales = "free_y", ncol = 1) +</span></span>
-<span id="cb21-41"><a href="#cb21-41"></a><span class="in">  labs(</span></span>
-<span id="cb21-42"><a href="#cb21-42"></a><span class="in">    title = "Culprit Gender Across Six Scooby-Doo Series",</span></span>
-<span id="cb21-43"><a href="#cb21-43"></a><span class="in">    x = "Gender",</span></span>
-<span id="cb21-44"><a href="#cb21-44"></a><span class="in">    y = "Number of Episodes"</span></span>
-<span id="cb21-45"><a href="#cb21-45"></a><span class="in">  ) +</span></span>
-<span id="cb21-46"><a href="#cb21-46"></a><span class="in">  theme_minimal(base_size = 14) +</span></span>
-<span id="cb21-47"><a href="#cb21-47"></a><span class="in">  theme(</span></span>
-<span id="cb21-48"><a href="#cb21-48"></a><span class="in">    plot.title = element_text(face = "bold", size = 18, hjust = 0.5),</span></span>
-<span id="cb21-49"><a href="#cb21-49"></a><span class="in">    strip.text = element_text(size = 14, face = "bold"),</span></span>
-<span id="cb21-50"><a href="#cb21-50"></a><span class="in">    axis.text.x = element_text(angle = 45, hjust = 1),</span></span>
-<span id="cb21-51"><a href="#cb21-51"></a><span class="in">    axis.text = element_text(size = 12),</span></span>
-<span id="cb21-52"><a href="#cb21-52"></a><span class="in">    axis.title = element_text(size = 13)</span></span>
-<span id="cb21-53"><a href="#cb21-53"></a><span class="in">  )</span></span>
-<span id="cb21-54"><a href="#cb21-54"></a></span>
-<span id="cb21-55"><a href="#cb21-55"></a></span>
-<span id="cb21-56"><a href="#cb21-56"></a><span class="in">```</span></span>
-<span id="cb21-57"><a href="#cb21-57"></a></span>
-<span id="cb21-58"><a href="#cb21-58"></a>Across most series, male culprits dominate the episodes</span>
-<span id="cb21-59"><a href="#cb21-59"></a></span>
-<span id="cb21-60"><a href="#cb21-60"></a><span class="in">```{r analysis of how female characters change over time}</span></span>
-<span id="cb21-61"><a href="#cb21-61"></a></span>
-<span id="cb21-62"><a href="#cb21-62"></a><span class="in">female_monsters &lt;- scooby %&gt;%</span></span>
-<span id="cb21-63"><a href="#cb21-63"></a><span class="in">  filter(!is.na(monster_gender), monster_gender == "Female") %&gt;%</span></span>
-<span id="cb21-64"><a href="#cb21-64"></a><span class="in">  group_by(season) %&gt;%</span></span>
-<span id="cb21-65"><a href="#cb21-65"></a><span class="in">  summarize(female_monsters_count = n(), .groups = "drop") %&gt;%</span></span>
-<span id="cb21-66"><a href="#cb21-66"></a><span class="in">  arrange(season)</span></span>
-<span id="cb21-67"><a href="#cb21-67"></a></span>
-<span id="cb21-68"><a href="#cb21-68"></a><span class="in">ggplot(female_monsters, aes(x = season, y = female_monsters_count)) +</span></span>
-<span id="cb21-69"><a href="#cb21-69"></a><span class="in">  geom_line(color = "blue", size = 1) +</span></span>
-<span id="cb21-70"><a href="#cb21-70"></a><span class="in">  geom_point(color = "red") +</span></span>
-<span id="cb21-71"><a href="#cb21-71"></a><span class="in">  labs(</span></span>
-<span id="cb21-72"><a href="#cb21-72"></a><span class="in">    title = "Female Monsters Across Scooby-Doo Seasons",</span></span>
-<span id="cb21-73"><a href="#cb21-73"></a><span class="in">    x = "Season",</span></span>
-<span id="cb21-74"><a href="#cb21-74"></a><span class="in">    y = "Number of Female Monsters"</span></span>
-<span id="cb21-75"><a href="#cb21-75"></a><span class="in">  ) +</span></span>
-<span id="cb21-76"><a href="#cb21-76"></a><span class="in">  theme_minimal(base_size = 14)</span></span>
-<span id="cb21-77"><a href="#cb21-77"></a></span>
-<span id="cb21-78"><a href="#cb21-78"></a><span class="in">```</span></span>
-<span id="cb21-79"><a href="#cb21-79"></a></span>
-<span id="cb21-80"><a href="#cb21-80"></a></span>
-<span id="cb21-81"><a href="#cb21-81"></a><span class="in">```{r Exploring Catchphrases used by series}</span></span>
-<span id="cb21-82"><a href="#cb21-82"></a></span>
-<span id="cb21-83"><a href="#cb21-83"></a><span class="in">catchphrases &lt;- scooby %&gt;%</span></span>
-<span id="cb21-84"><a href="#cb21-84"></a><span class="in">  select(series_name, zoinks, jeepers, jinkies) %&gt;%</span></span>
-<span id="cb21-85"><a href="#cb21-85"></a><span class="in">  pivot_longer(cols = -series_name, names_to = "phrase", values_to = "count") %&gt;%</span></span>
-<span id="cb21-86"><a href="#cb21-86"></a><span class="in">  mutate(count = as.numeric(count)) %&gt;%</span></span>
-<span id="cb21-87"><a href="#cb21-87"></a><span class="in">filter(!is.na(count), count &gt; 0)</span></span>
-<span id="cb21-88"><a href="#cb21-88"></a></span>
-<span id="cb21-89"><a href="#cb21-89"></a><span class="in">catchphrases %&gt;%</span></span>
-<span id="cb21-90"><a href="#cb21-90"></a><span class="in">  group_by(series_name, phrase) %&gt;%</span></span>
-<span id="cb21-91"><a href="#cb21-91"></a><span class="in">  summarize(total = sum(count), .groups = "drop") %&gt;%</span></span>
-<span id="cb21-92"><a href="#cb21-92"></a><span class="in">  ggplot(aes(x = phrase, y = total, fill = phrase)) +</span></span>
-<span id="cb21-93"><a href="#cb21-93"></a><span class="in">  geom_col(show.legend = FALSE) +</span></span>
-<span id="cb21-94"><a href="#cb21-94"></a><span class="in">  facet_wrap(~ series_name, scales = "free_y") +</span></span>
-<span id="cb21-95"><a href="#cb21-95"></a><span class="in">  labs(title = "Catchphrase Frequency by Series", x = "Catchphrase", y = "Total Uses") +</span></span>
-<span id="cb21-96"><a href="#cb21-96"></a><span class="in">  theme_bw()</span></span>
-<span id="cb21-97"><a href="#cb21-97"></a></span>
-<span id="cb21-98"><a href="#cb21-98"></a><span class="in">```</span></span>
-<span id="cb21-99"><a href="#cb21-99"></a>Catchphrase usage varies significantly by series, reflecting changes in writing styles or featured characters.</span>
-<span id="cb21-100"><a href="#cb21-100"></a></span>
-<span id="cb21-101"><a href="#cb21-101"></a><span class="in">```{r Exploring top episodes with monsters}</span></span>
-<span id="cb21-102"><a href="#cb21-102"></a></span>
-<span id="cb21-103"><a href="#cb21-103"></a><span class="in">scooby %&gt;%</span></span>
-<span id="cb21-104"><a href="#cb21-104"></a><span class="in">  filter(!is.na(monster_amount)) %&gt;%</span></span>
-<span id="cb21-105"><a href="#cb21-105"></a><span class="in">  arrange(desc(monster_amount)) %&gt;%</span></span>
-<span id="cb21-106"><a href="#cb21-106"></a><span class="in">  slice_max(monster_amount, n = 10) %&gt;%</span></span>
-<span id="cb21-107"><a href="#cb21-107"></a><span class="in">  select(title, series_name, season, monster_amount)</span></span>
-<span id="cb21-108"><a href="#cb21-108"></a></span>
-<span id="cb21-109"><a href="#cb21-109"></a><span class="in">```</span></span>
-<span id="cb21-110"><a href="#cb21-110"></a>Certain episodes feature significantly more monsters, possibly due to special episodes or finales.</span>
-<span id="cb21-111"><a href="#cb21-111"></a></span>
-<span id="cb21-112"><a href="#cb21-112"></a></span>
-<span id="cb21-113"><a href="#cb21-113"></a></span></code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb16" data-shortcodes="false"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb16-1"><a href="#cb16-1"></a><span class="co">---</span></span>
+<span id="cb16-2"><a href="#cb16-2"></a><span class="an">title:</span><span class="co"> "KupaM"</span></span>
+<span id="cb16-3"><a href="#cb16-3"></a><span class="an">format:</span><span class="co"> html</span></span>
+<span id="cb16-4"><a href="#cb16-4"></a><span class="co">---</span></span>
+<span id="cb16-5"><a href="#cb16-5"></a></span>
+<span id="cb16-6"><a href="#cb16-6"></a><span class="in">```{r setup}</span></span>
+<span id="cb16-7"><a href="#cb16-7"></a><span class="in"># Load required libraries</span></span>
+<span id="cb16-8"><a href="#cb16-8"></a><span class="in">library(tidyverse)</span></span>
+<span id="cb16-9"><a href="#cb16-9"></a><span class="in">library(tidytuesdayR)</span></span>
+<span id="cb16-10"><a href="#cb16-10"></a><span class="in">library(janitor)</span></span>
+<span id="cb16-11"><a href="#cb16-11"></a><span class="in">library(ggthemes)</span></span>
+<span id="cb16-12"><a href="#cb16-12"></a></span>
+<span id="cb16-13"><a href="#cb16-13"></a><span class="in"># Load the Scooby-Doo dataset</span></span>
+<span id="cb16-14"><a href="#cb16-14"></a><span class="in">tuesdata &lt;- tidytuesdayR::tt_load(2021, week = 29)</span></span>
+<span id="cb16-15"><a href="#cb16-15"></a><span class="in">scooby &lt;- tuesdata$scoobydoo |&gt; clean_names()</span></span>
+<span id="cb16-16"><a href="#cb16-16"></a><span class="in">```</span></span>
+<span id="cb16-17"><a href="#cb16-17"></a></span>
+<span id="cb16-18"><a href="#cb16-18"></a><span class="in">```{r exploring culprit gender distribution by series}</span></span>
+<span id="cb16-19"><a href="#cb16-19"></a><span class="in">selected_series &lt;- c(</span></span>
+<span id="cb16-20"><a href="#cb16-20"></a><span class="in">  "Scooby-Doo, Where Are You!",</span></span>
+<span id="cb16-21"><a href="#cb16-21"></a><span class="in">  "What's New, Scooby-Doo?",</span></span>
+<span id="cb16-22"><a href="#cb16-22"></a><span class="in">  "Scooby-Doo! Mystery Incorporated",</span></span>
+<span id="cb16-23"><a href="#cb16-23"></a><span class="in">  "Be Cool, Scooby-Doo!",</span></span>
+<span id="cb16-24"><a href="#cb16-24"></a><span class="in">  "The New Scooby-Doo Movies",</span></span>
+<span id="cb16-25"><a href="#cb16-25"></a><span class="in">  "The 13 Ghosts of Scooby-Doo"</span></span>
+<span id="cb16-26"><a href="#cb16-26"></a><span class="in">)</span></span>
+<span id="cb16-27"><a href="#cb16-27"></a></span>
+<span id="cb16-28"><a href="#cb16-28"></a><span class="in">scooby %&gt;%</span></span>
+<span id="cb16-29"><a href="#cb16-29"></a><span class="in">  filter(!is.na(culprit_gender), culprit_gender != "NULL") %&gt;%</span></span>
+<span id="cb16-30"><a href="#cb16-30"></a><span class="in">  mutate(culprit_gender = str_to_title(culprit_gender)) %&gt;%</span></span>
+<span id="cb16-31"><a href="#cb16-31"></a><span class="in">  mutate(culprit_gender = case_when(</span></span>
+<span id="cb16-32"><a href="#cb16-32"></a><span class="in">    culprit_gender %in% c("Male", "Female") ~ culprit_gender,</span></span>
+<span id="cb16-33"><a href="#cb16-33"></a><span class="in">    TRUE ~ "Other"</span></span>
+<span id="cb16-34"><a href="#cb16-34"></a><span class="in">  )) %&gt;%</span></span>
+<span id="cb16-35"><a href="#cb16-35"></a><span class="in">  filter(series_name %in% selected_series) %&gt;%</span></span>
+<span id="cb16-36"><a href="#cb16-36"></a><span class="in">  group_by(series_name, culprit_gender) %&gt;%</span></span>
+<span id="cb16-37"><a href="#cb16-37"></a><span class="in">  summarize(episodes = n(), .groups = "drop") %&gt;%</span></span>
+<span id="cb16-38"><a href="#cb16-38"></a><span class="in">  ggplot(aes(x = culprit_gender, y = episodes, fill = culprit_gender)) +</span></span>
+<span id="cb16-39"><a href="#cb16-39"></a><span class="in">  geom_col(show.legend = FALSE) +</span></span>
+<span id="cb16-40"><a href="#cb16-40"></a><span class="in">  facet_wrap(~ series_name, scales = "free_y", ncol = 1) +</span></span>
+<span id="cb16-41"><a href="#cb16-41"></a><span class="in">  labs(</span></span>
+<span id="cb16-42"><a href="#cb16-42"></a><span class="in">    title = "Culprit Gender Across Six Scooby-Doo Series",</span></span>
+<span id="cb16-43"><a href="#cb16-43"></a><span class="in">    x = "Gender",</span></span>
+<span id="cb16-44"><a href="#cb16-44"></a><span class="in">    y = "Number of Episodes"</span></span>
+<span id="cb16-45"><a href="#cb16-45"></a><span class="in">  ) +</span></span>
+<span id="cb16-46"><a href="#cb16-46"></a><span class="in">  theme_minimal(base_size = 14) +</span></span>
+<span id="cb16-47"><a href="#cb16-47"></a><span class="in">  theme(</span></span>
+<span id="cb16-48"><a href="#cb16-48"></a><span class="in">    plot.title = element_text(face = "bold", size = 18, hjust = 0.5),</span></span>
+<span id="cb16-49"><a href="#cb16-49"></a><span class="in">    strip.text = element_text(size = 14, face = "bold"),</span></span>
+<span id="cb16-50"><a href="#cb16-50"></a><span class="in">    axis.text.x = element_text(angle = 45, hjust = 1),</span></span>
+<span id="cb16-51"><a href="#cb16-51"></a><span class="in">    axis.text = element_text(size = 12),</span></span>
+<span id="cb16-52"><a href="#cb16-52"></a><span class="in">    axis.title = element_text(size = 13)</span></span>
+<span id="cb16-53"><a href="#cb16-53"></a><span class="in">  )</span></span>
+<span id="cb16-54"><a href="#cb16-54"></a></span>
+<span id="cb16-55"><a href="#cb16-55"></a></span>
+<span id="cb16-56"><a href="#cb16-56"></a><span class="in">```</span></span>
+<span id="cb16-57"><a href="#cb16-57"></a></span>
+<span id="cb16-58"><a href="#cb16-58"></a>Across most series, male culprits dominate the episodes</span>
+<span id="cb16-59"><a href="#cb16-59"></a></span>
+<span id="cb16-60"><a href="#cb16-60"></a><span class="in">```{r analysis of how female characters change over time}</span></span>
+<span id="cb16-61"><a href="#cb16-61"></a></span>
+<span id="cb16-62"><a href="#cb16-62"></a><span class="in">female_monsters &lt;- scooby %&gt;%</span></span>
+<span id="cb16-63"><a href="#cb16-63"></a><span class="in">  filter(!is.na(monster_gender), monster_gender == "Female") %&gt;%</span></span>
+<span id="cb16-64"><a href="#cb16-64"></a><span class="in">  group_by(season) %&gt;%</span></span>
+<span id="cb16-65"><a href="#cb16-65"></a><span class="in">  summarize(female_monsters_count = n(), .groups = "drop") %&gt;%</span></span>
+<span id="cb16-66"><a href="#cb16-66"></a><span class="in">  mutate(season = factor(season, levels = unique(season), ordered = TRUE)) %&gt;% # Convert to ordered factor</span></span>
+<span id="cb16-67"><a href="#cb16-67"></a><span class="in">  arrange(desc(season))</span></span>
+<span id="cb16-68"><a href="#cb16-68"></a></span>
+<span id="cb16-69"><a href="#cb16-69"></a><span class="in">ggplot(female_monsters, aes(x = season, y = female_monsters_count)) +</span></span>
+<span id="cb16-70"><a href="#cb16-70"></a><span class="in">  geom_line(color = "blue", size = 1, group = 1) + # Added group = 1 for line plot</span></span>
+<span id="cb16-71"><a href="#cb16-71"></a><span class="in">  geom_point(color = "red") +</span></span>
+<span id="cb16-72"><a href="#cb16-72"></a><span class="in">  labs(</span></span>
+<span id="cb16-73"><a href="#cb16-73"></a><span class="in">    title = "Female Monsters Across Scooby-Doo Seasons",</span></span>
+<span id="cb16-74"><a href="#cb16-74"></a><span class="in">    x = "Season",</span></span>
+<span id="cb16-75"><a href="#cb16-75"></a><span class="in">    y = "Number of Female Monsters"</span></span>
+<span id="cb16-76"><a href="#cb16-76"></a><span class="in">  ) +</span></span>
+<span id="cb16-77"><a href="#cb16-77"></a><span class="in">  theme_minimal(base_size = 14)</span></span>
+<span id="cb16-78"><a href="#cb16-78"></a></span>
+<span id="cb16-79"><a href="#cb16-79"></a><span class="in">```</span></span>
+<span id="cb16-80"><a href="#cb16-80"></a></span>
+<span id="cb16-81"><a href="#cb16-81"></a></span>
+<span id="cb16-82"><a href="#cb16-82"></a><span class="in">```{r Exploring Catchphrases used by series}</span></span>
+<span id="cb16-83"><a href="#cb16-83"></a></span>
+<span id="cb16-84"><a href="#cb16-84"></a><span class="in">catchphrases &lt;- scooby %&gt;%</span></span>
+<span id="cb16-85"><a href="#cb16-85"></a><span class="in">  select(series_name, zoinks, jeepers, jinkies) %&gt;%</span></span>
+<span id="cb16-86"><a href="#cb16-86"></a><span class="in">  pivot_longer(cols = -series_name, names_to = "phrase", values_to = "count") %&gt;%</span></span>
+<span id="cb16-87"><a href="#cb16-87"></a><span class="in">  mutate(count = as.numeric(count)) %&gt;%</span></span>
+<span id="cb16-88"><a href="#cb16-88"></a><span class="in">filter(!is.na(count), count &gt; 0)</span></span>
+<span id="cb16-89"><a href="#cb16-89"></a></span>
+<span id="cb16-90"><a href="#cb16-90"></a><span class="in">catchphrases %&gt;%</span></span>
+<span id="cb16-91"><a href="#cb16-91"></a><span class="in">  group_by(series_name, phrase) %&gt;%</span></span>
+<span id="cb16-92"><a href="#cb16-92"></a><span class="in">  summarize(total = sum(count), .groups = "drop") %&gt;%</span></span>
+<span id="cb16-93"><a href="#cb16-93"></a><span class="in">  ggplot(aes(x = phrase, y = total, fill = phrase)) +</span></span>
+<span id="cb16-94"><a href="#cb16-94"></a><span class="in">  geom_col(show.legend = FALSE) +</span></span>
+<span id="cb16-95"><a href="#cb16-95"></a><span class="in">  facet_wrap(~ series_name, scales = "free_y") +</span></span>
+<span id="cb16-96"><a href="#cb16-96"></a><span class="in">  labs(title = "Catchphrase Frequency by Series", x = "Catchphrase", y = "Total Uses") +</span></span>
+<span id="cb16-97"><a href="#cb16-97"></a><span class="in">  theme_bw()</span></span>
+<span id="cb16-98"><a href="#cb16-98"></a></span>
+<span id="cb16-99"><a href="#cb16-99"></a><span class="in">```</span></span>
+<span id="cb16-100"><a href="#cb16-100"></a>Catchphrase usage varies significantly by series, reflecting changes in writing styles or featured characters.</span>
+<span id="cb16-101"><a href="#cb16-101"></a></span>
+<span id="cb16-102"><a href="#cb16-102"></a><span class="in">```{r Exploring top episodes with monsters}</span></span>
+<span id="cb16-103"><a href="#cb16-103"></a></span>
+<span id="cb16-104"><a href="#cb16-104"></a><span class="in">scooby %&gt;%</span></span>
+<span id="cb16-105"><a href="#cb16-105"></a><span class="in">  filter(!is.na(monster_amount)) %&gt;%</span></span>
+<span id="cb16-106"><a href="#cb16-106"></a><span class="in">  arrange(desc(monster_amount)) %&gt;%</span></span>
+<span id="cb16-107"><a href="#cb16-107"></a><span class="in">  slice_max(monster_amount, n = 10) %&gt;%</span></span>
+<span id="cb16-108"><a href="#cb16-108"></a><span class="in">  select(title, series_name, season, monster_amount)</span></span>
+<span id="cb16-109"><a href="#cb16-109"></a></span>
+<span id="cb16-110"><a href="#cb16-110"></a><span class="in">```</span></span>
+<span id="cb16-111"><a href="#cb16-111"></a>Certain episodes feature significantly more monsters, possibly due to special episodes or finales.</span>
+<span id="cb16-112"><a href="#cb16-112"></a></span>
+<span id="cb16-113"><a href="#cb16-113"></a></span>
+<span id="cb16-114"><a href="#cb16-114"></a></span>
+<span id="cb16-115"><a href="#cb16-115"></a></span>
+<span id="cb16-116"><a href="#cb16-116"></a></span>
+<span id="cb16-117"><a href="#cb16-117"></a></span></code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 <footer class="footer"><div class="nav-footer">
