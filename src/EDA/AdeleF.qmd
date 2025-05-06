@@ -181,20 +181,27 @@ scoobydoo_culprits |>
        fill = "Culprit Gender",
        x = "Motive",
        y = "Proportion",
-       )
+       caption = "Data collected by @plummye on Kaggle, week 07/13/2021 on TidyTuesday"
+       ) +
+   scale_fill_viridis_d()
 
 scoobydoo_monsters |>
+  mutate(season <- factor(season)) |>
+  mutate(season <- fct_relevel(season, c("1", "2", "3", "4"))) |>
   group_by(season, monster_gender) |>
   filter(monster_gender != "None") |>
   mutate(monster_gender = str_trim(monster_gender, side = "left")) |>
   ggplot(aes(x = season, fill = monster_gender)) +
   geom_bar(color = "white", linewidth = 0.25) +
-  coord_flip() +
   labs(title = "Monster Gender Counts by Season",
        fill = "Monster Gender",
        x = "Season",
-       y = "Number of Monsters"
-       )
+       y = "Number of Monsters",
+       caption = "Data collected by @plummye on Kaggle, week 07/13/2021 on TidyTuesday"
+       ) +
+  theme_minimal() +
+  scale_fill_viridis_d()
+  
 ```
 
 
