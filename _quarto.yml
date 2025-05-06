@@ -29,7 +29,7 @@ book:
 
 
   sidebar:
-    title: "sidebar title"
+    title: "Scooby Doo Data Analysis"
     collapse-level: 2
     style: "docked"
     pinned: true
