@@ -6,6 +6,12 @@ execute:
 code-fold: false  # change to true to fold the code chunks
   
 ---
+# Presentation
+## Slides
+<iframe src="https://docs.google.com/presentation/d/e/2PACX-1vS7W28AWzP4sWLpfLhq4cvPXyXpkPH8AdBuOX7tUiDTW34PLe7fsmiV0NmNV_GUaSnGkLUBjj-f2v3G/pubembed?start=false&loop=false&delayms=3000" frameborder="0" width="480" height="299" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
+
+## Video
+<iframe width="480" height="299" src="https://www.youtube.com/embed/LvVIb1uLx6k?si=2qYfI6cDaq7Qn0QM" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
 
 ```{r}
@@ -222,7 +228,7 @@ p1 <- scoobydoo_monsters |>
        y = "Count", x = "Monster Subtype",
        fill = "Monster Gender") +  
        scale_fill_viridis_d()+
-  scale_y_continuous(breaks = seq(0, 10,by=2))+
+  scale_y_continuous(breaks = seq(0, 10,by=2))+ 
   theme(plot.title = element_text(face = "bold", size = 14),
         axis.text.x = element_text(angle = 45, hjust = 1))
 
