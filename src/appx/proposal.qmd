@@ -2,4 +2,44 @@
 title: "Proposal"
 ---
 
-Your proposal will go here.
+
+### Title
+
+"Frequency of Common Phrases and Events across Scooby-Doo Episodes"
+
+### Team Members
+
+Adele Fraser, Maria Benito Correa, Sarah Radzilowski
+
+### Description
+
+We will be exploring the Scooby-Doo dataset collected by Kaggle user plummye. We will focus our investigation on the common phrases used in Scooby-Doo episodes across time, as well as how these phrases relate to other events.
+
+### Inspirations 
+
+We found a dataset on Scooby Doo episodes from the TidyTuesday datasets. Since there are so many variables tracked for each episode, including the number of times a phrase was said in an episode. We thought it would be interesting to analyze if there was a relationship between the number of times a phrase was said (ie "Zoinks" or "Jeepers") and events of an episode (ie the type of monster or which character said phrases more often).
+
+### Plan
+- Think about the list of deliverables when building the plan.
+- The plan should be presented in a table format.
+
+    | What? | Who? | When? |
+    |----|----|----|
+    | Create Github Repository | Everyone | 4/9 |
+    | Group Project proposal | Everyone | 4/9 |
+    | Case study | Everyone | 4/9 |
+    | Effective Teamwork Reading | Everyone (Independent) | 4/11 |
+    | Motivation | Sarah | 4/11 |
+    | Create research questions | Everyone | 4/11 |
+    | Background | Maria | 4/14 |
+    | Understand/explore the data (following the data questions on [project description page](https://hash-mac.github.io/stat112site-s25/activities/99-project-overview.html#data)) | Everyone | 4/14 |
+    | Wrangle Data for each Question | Adele | 4/16 |
+    | Make visualizations to answer research questions and apply effective viz principles | Everyone | 4/18 |
+    | Connect findings back to research questions | Adele | 4/21 |
+    | Limitations and Future Work | Maria | 4/21 |
+    | Create README.md file (requirements on [course site](https://hash-mac.github.io/stat112site-s25/activities/99-project-overview.html#code-report-video-presentation)) | Everyone | 4/24 |
+    | Write report  (requirements on [course site](https://hash-mac.github.io/stat112site-s25/activities/99-project-overview.html#code-report-video-presentation)) | Everyone | 4/24 |
+    | Make presentation slideshow | Everyone | 4/28 |
+    | Script Outline for Presentation | Everyone | 4/28 |
+    | Use Feedback from Presentation 1 | Everyone (Divided when received) | 5/9 |
+    | Final Presentation Video | Everyone | 5/9 (10:30 AM - 12:30 PM) |

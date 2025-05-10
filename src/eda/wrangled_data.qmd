@@ -1,0 +1,71 @@
+---
+title: "wrangled_data"
+format: html
+---
+
+```{r}
+
+library(tidyverse)
+library(tidytuesdayR)
+
+tuesdata <- tidytuesdayR::tt_load(2021, week = 29)
+
+scoobydoo <- tuesdata$scoobydoo
+```
+
+
+```{r}
+# individual monsters for TV series episodes
+
+scoobydoo_monsters <- scoobydoo |>
+  filter(season %in% c("1", "2","3", "4"),
+         format == "TV Series") |>
+  filter(monster_name != "NULL") |>
+  mutate(monster_name = str_replace(monster_name, "Dr. Phineus Phibes,Agent 1,Agent 2,Agent 3,Agent 4,Agent 5,Agent 6,Agent 7,Agent,8,Agent,9,Agent 10,Agent 11,Agent 12,Agent 13,Dr. Trebal", "Dr. Phineus Phibes,Agent 1,Agent 2,Agent 3,Agent 4,Agent 5,Agent 6,Agent 7,Agent 8,Agent 9,Agent 10,Agent 11,Agent 12,Agent 13,Dr. Trebal")) |>
+  select(title, season, series_name, contains("monster")) |>
+  pivot_longer(cols = c(monster_name, monster_gender, monster_type, monster_subtype, monster_species), names_to = "monster_var", values_to = "monster") |>
+  separate(monster, c("1monster", "2monster", "3monster", "4monster", "5monster", "6monster", "7monster", "8monster", "9monster", "10monster", "11monster", "12monster", "13monster", "14monster", "15monster"), sep = ",") |>
+  pivot_longer(cols = ends_with("monster"), names_to = "monster_num", values_to = "monster_value") |>
+  pivot_wider(names_from = monster_var, values_from = monster_value) |>
+  separate(monster_num, c("monster_num", "x"), sep = "m") |>
+  mutate(monster_num = as.numeric(monster_num)) |>
+  select(-x) |>
+  na.omit() |>
+  mutate(monster_type = ifelse(monster_type == "Disugised", "Disguised", monster_type),
+          monster_type = ifelse(monster_type == "Disguise", "Disguised", monster_type)) |>
+  mutate(monster_type = str_trim(monster_type, side = "left"))
+
+
+
+```
+
+```{r}
+# individual culprits for TV series episodes
+
+scoobydoo_culprits <- scoobydoo |>
+  filter(season %in% c("1", "2","3", "4"),
+         format == "TV Series") |>
+  filter(culprit_name != "NULL") |>
+  select(title, season, series_name, motive, contains("culprit")) |>
+  pivot_longer(cols = c(culprit_name, culprit_gender), names_to = "culprit_var",
+               values_to = "culprit") |>
+  separate(culprit, c("1culprit", "2culprit", "3culprit", "4culprit", "5culprit",
+                      "6culprit", "7culprit", "8culprit", "9culprit", "10culprit",
+                      "11culprit"), sep = ",") |>
+  pivot_longer(cols = ends_with("culprit"), names_to = "culprit_num", values_to = "culprit_value") |>
+  pivot_wider(names_from = culprit_var, values_from = culprit_value) |>
+  separate(culprit_num, c("culprit_num", "x"), sep = "c") |>
+  select(-x) |>
+  mutate(culprit_num = as.numeric(culprit_num)) |>
+  na.omit() |>
+  mutate(culprit_gender = str_trim(culprit_gender, side = "left"))
+
+```
+```{r}
+# joining culprit and monsters datasets
+
+scoobydoo_full <- scoobydoo_monsters |>
+  full_join(scoobydoo_culprits)
+```
+
+
