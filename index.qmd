@@ -401,17 +401,18 @@ This graph shows the proportions of motives by which sex had which motive. We ca
 
 
 # Conclusions
-* Scooby Doo episodes favor representation of male villains and culprits
-* Females are restricted to certain roles and titles (often based on gender stereotypes)
-* Little change in representation over time (but lesser appearances over time)
+From our data, we found that Scooby-Doo episodes favor representation of male villains and culprits. Females are restricted to certain roles and titles, which are often based on gender stereotypes. The majority of female monsters were magicians, specifically witches. When we think of witches, we often associate them as being female, due to how they are portrayed in other movies/TV shows, like the Wicked Witch from *The Wizard of Oz* or Maleficent from *Sleeping Beauty.* Female villains are commonly associated with supernatural or magical creatures, so our findings are common with other media depictions of female villains. 
+
+Meanwhile, male monsters are more abundant in Scooby-Doo TV episodes, and have a variety of roles. We chose to explore super-villain monsters and found that this monster type appeared multiple times across a particular series: *Shaggy & Scooby-Doo Get a Clue!* Specifically, the super-villain Dr. Phineus Phibes appeared in all 26 episodes and was only unmasked once. In this particular show, Dr. Phibes has an overarching plan, and he is portrayed similar to comic-book super-villains, a role historically dominated by males. Ultimately, the portrayal of monsters in Scooby-Doo TV episodes tends to be consistent with stereotypical gender roles for male monsters. Male antagonists are driving conflict, while generic monsters (sometimes male, but often female) just add a scare factor and get unmasked at the end.
+
+
+We also found there was little change in representation over time, but lesser appearances of female monsters over time.
 
 
 # Limitations and Future Work
-* Data was collected by one person – subject to error
-* Subjective variable definitions
+The data was collected by one person while watching all the Scooby-Doo episodes, so it is subject to error. While exploring the data, we found some typos that had to be corrected. However, there may be more typos we did not catch. 
+There are also subjective variable definitions. For example, monster and culprit genders were determined based on the pronouns that the Gang used to refer to them. 
 
 
-* Are there specific phrases that consistently appear in episodes featuring female vs. male villains?
-* Are there similar patterns of gender stereotypes with other monster types or in different series?
-* How do these findings translate to Scooby-Doo movies? Are male and female monsters portrayed similarly in movies? 
-* Does the portrayal of female monsters change over time? Do they have less stereotypical roles in more recent episodes?
+Some questions or topics to look into for future analysis would involve other variables or sections of data we did not look at. The dataset tracked when phrases were said, so we could explore ifthere are specific phrases that consistently appear in episodes featuring female vs. male villains. 
+We also only looked at TV series and two types of monsters (magicians and super-villains). Future work could involve exploring if there are similar patterns of gender stereotypes with other monster types or in different series and how these findings translate to Scooby-Doo movies. Are male and female monsters portrayed similarly in movies? We'd also be curious if the portrayal of female monsters change over time. We wonder if they have more or less stereotypical roles in more recent episodes/series. 
